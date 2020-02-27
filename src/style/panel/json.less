@@ -1,0 +1,17 @@
+.@{eppre}-json{
+  height: 100%;
+  padding: 0 6px 0 16px;
+  .line{
+    counter-increment: no;
+    &:nth-child(odd) {
+      background-color:#f5f5f5;
+    }
+    &:hover,
+    &:nth-child(odd):hover{
+      background-color:rgba(252, 145, 83, 0.2);
+    }
+    &:before{
+      content: counter(no)' ';
+    }
+  }
+}

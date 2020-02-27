@@ -1,0 +1,43 @@
+
+.@{eppre}-widget{
+  &-item{
+    &-name{
+      position: absolute;
+      top:0;
+      right: 0;
+      z-index: 1;
+      display: none;
+    }
+
+    &:after{
+      content: '';
+      display: block;
+      height: 0;
+      clear: both;
+    }
+    .ivu-form-item-content{
+      transition: .3s ease margin-left;
+    }
+    &-fullcol{
+      &>.ivu-form-item-label{
+        display: none;
+      }
+      &>.ivu-form-item-content{
+        margin-left: 0 !important;
+      }
+    }
+    &-handle{
+      &,label{
+        cursor: grab;
+      }
+    }
+  }
+  &-form{
+    &:after{
+      content: '';
+      display: block;
+      height: 0;
+      clear: both;
+    }
+  }
+}

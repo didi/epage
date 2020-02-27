@@ -1,0 +1,49 @@
+.@{eppre}-tool{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: @ep-tool-width;
+  height: 100%;
+  background-color: @ep-panel-bg;
+  box-shadow: 2px 0 8px rgba(0,0,0,.15);
+  &-item{
+    width: 50%;
+    float: left;
+    height: 50px;
+    text-align: center;
+    padding: 5px;
+    transition: .3s ease background-color;
+    cursor: pointer;
+    font-size: 12px;
+    &:hover{
+      background-color: fade(@primary-color, 10%);
+    }
+    .ivu-icon{
+      font-size: 18px;
+      display: block;
+      padding: 2px;
+    }
+    &-inner{
+      transform: scale(0.9);
+    }
+  }
+  .ivu-tabs-bar{
+    margin-bottom: 0;
+  }
+  &>.ivu-tabs{
+    height: 100%;
+    &>.ivu-tabs-content {
+      position: absolute;
+      bottom: 0px;
+      top: 40px;
+      width: 100%;
+    }
+  }
+  .@{eppre}-panel{
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    top: 0px;
+  }
+}

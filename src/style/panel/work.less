@@ -1,0 +1,137 @@
+.@{eppre}-work{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: @ep-tool-width + @ep-panel-margin;
+  right: @ep-setting-width + @ep-panel-margin;
+  background-color: #fff;
+  &-tabs{
+    height: 100%;
+    &>.ivu-tabs-bar{
+      margin-bottom: 0;
+    }
+    &>.ivu-tabs-content{
+      position: absolute;
+      left: 0px;
+      right: 0px;
+      top: 36px;
+      bottom: 0;
+      &>.ivu-tabs-tabpane{
+        overflow-y: auto;
+      }
+    }
+    &>.ivu-tabs-bar>.ivu-tabs-nav-container>.ivu-tabs-nav-wrap>.ivu-tabs-nav-scroll>.ivu-tabs-nav{
+      transform: translateX(-50%);
+      margin-left: 50%;
+    }
+  }
+  &-btns{
+    position: absolute;
+    right: 16px;
+    top: 5px;
+    z-index: 1;
+  }
+  &-design,
+  &-preview,
+  &-logic{
+    padding: 16px;
+  }
+  &-schema{
+    height: 100%;
+  }
+  /* 设计模式 */
+  &-design{
+    .@{eppre}-widget-item{
+      transition: .3s ease background-color, .3s ease border-color;
+      position: relative;
+      &:hover{
+        background-color:fade(@primary-color, 8%);
+        // background-color:rgba(0,0,0,.06);
+        &>.@{eppre}-widget-item-name{
+          display: inline-block;
+        }
+      }
+    }
+    .@{eppre}-widget-container{
+      padding: 10px;
+      border: 1px dashed #ccc;
+      &:hover{
+        border-color: @primary-color;
+      }
+    }
+    /* 设计模式下控制widget不可操作 */
+    .@{eppre}-widget-control{
+      pointer-events: none;
+    }
+    .@{eppre}-widget-ghost{
+      height: 0;
+      &:before{
+        content: '';
+        display: block;
+        clear: both;
+        height: 3px;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background-color:@primary-color;
+      }
+      &.@{eppre}-widget-item{
+        padding: 0;
+      }
+      *{
+        display: none;
+      }
+    }
+
+    .@{eppre}-widget-btn{
+      position: absolute;
+      bottom: -5px;
+      z-index: 1;
+      display:none;
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      text-align: center;
+      font-size: 16px;
+      
+      background-color:rgba(255, 255, 255, 0.9);
+      color: #666;
+      box-shadow: 1px 2px 5px rgba(0,0,0,.15);
+      border-radius: 3px;
+      &.@{eppre}-widget-btn-delete{
+        cursor: pointer;
+        right: 0;
+        color:#ea4b23;
+      }
+      &.@{eppre}-widget-btn-clone{
+        cursor: pointer;
+        right: 24px;
+        font-weight: bold;
+        color: @primary-color;
+      }
+      // &.@{eppre}-widget-btn-move{
+      //   cursor: move;
+      //   left: 0;
+      //   top: auto;
+      //   bottom: 0;
+      // }
+    }
+    .@{eppre}-widget-selected{
+      &,&:hover{
+        background-color: fade(@primary-color, 15%);
+      }
+      &>div>.@{eppre}-widget-btn{
+        display: block;
+      }
+    }
+
+    .@{eppre}-widget-grid-placeholder{
+      cursor: default;
+      text-align: center;
+      color:#ccc;
+      padding: 5px 0;
+      outline: 1px dashed #ccc;
+      background-color:#fff;
+    }
+  }
+}

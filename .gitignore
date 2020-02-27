@@ -1,0 +1,16 @@
+.DS_Store
+*node_modules/
+*/**/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+test/unit/coverage
+test/e2e/reports
+selenium-debug.log
+output/
+web-ui.tar.gz
+.vscode
+*.iml
+.idea/
+package-lock.json
+yarn.lock

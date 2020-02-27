@@ -1,0 +1,13 @@
+{
+  "presets": [
+    ["@babel/preset-env", { "modules": "umd" }],
+    ["@vue/babel-preset-jsx", { "injectH": false }]
+  ],
+  "plugins": [
+    "transform-vue-jsx"
+  ],
+  "ignore": [
+    // "src/modules/worker/index.js"
+  ],
+  "comments": false
+}

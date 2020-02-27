@@ -1,0 +1,21 @@
+export default {
+  autoComplete: require('./base/autoComplete'),
+  button: require('./base/button'),
+  cascader: require('./base/cascader'),
+  checkbox: require('./base/checkbox'),
+  datePicker: require('./base/datePicker'),
+  // formButton: require('./base/formButton'),
+  grid: require('./base/grid'),
+  input: require('./base/input'),
+  inputNumber: require('./base/inputNumber'),
+  radio: require('./base/radio'),
+  rate: require('./base/rate'),
+  select: require('./base/select'),
+  slider: require('./base/slider'),
+  subTable: require('./base/subTable'),
+  switch: require('./base/switch'),
+  textarea: require('./base/textarea'),
+  timePicker: require('./base/timePicker'),
+  upload: require('./base/upload'),
+  line: require('./base/line')
+}

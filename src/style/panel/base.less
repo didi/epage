@@ -1,0 +1,21 @@
+.@{eppre}-editor{
+  background-color: @ep-editor-bg;
+  position: relative;
+  height: 100%;
+}
+.@{eppre}-panel{
+  &-title{
+    font-size: 12px;
+    font-weight: bold;
+    padding: 4px 6px;
+    background: #dbdbdb;
+  }
+  &-content{
+    &:after{
+      content: '';
+      height: 0;
+      display: block;
+      clear: both;
+    }
+  }
+}
