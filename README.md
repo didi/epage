@@ -1,6 +1,7 @@
 # Epage
 
-> 可视化页面配置工具。可基于流行的前端组件库配置表单、页面等
+一款基于schema的可视化页面配置工具。可基于流行的前端组件库配置表单、页面等。
+
 
 ## 演示地址
 
@@ -9,58 +10,24 @@
 ## 安装
 
 ```sh
-npm install vue@2.x vuex@3.x iview@2.x epage -S
+npm install epage -S
 ```
+
+## 仓库更新说明
+
+本仓库为`渲染器`核心依赖及`设计器`，更多`渲染器`及其他开源代码参见：[https://github.com/epage-team](https://github.com/epage-team)
 
 ## 设计器及渲染器示例
 
--  `npm` 方式引入
+`npm` 方式引入
 
 ```js
-import Vue from 'vue'
-import Vuex from 'vuex'
-import iview from 'iview'
-import widgets, { Render, Epage } from 'epage-iview'
-import schema from './schema.json'
-import 'epage-iview/src/style/main.less'
-
-// 项目中已经use后不需要再次use
-Vue.use(Vuex)
-Vue.use(iview)
+import Epage from 'epage'
+import 'epage/src/style/main.less'
 
 const el = document.getElementById('root')
-// 设计器
-new Epage({ el, widgets, schema, Render })
-// 渲染器
-new Render({ el, widgets, schema })
-```
-
--  `script` 方式引入
-
-```html
-<link href='https://cdn.bootcss.com/iview/3.5.1/styles/iview.css' rel='stylesheet'></link>
-<link href='./epage.css' rel='stylesheet'></link>
-<link href='./epage-iview.css' rel='stylesheet'></link>
-<script src='https://cdn.bootcss.com/vue/2.6.10/vue.min.js' ></script>
-<script src='https://cdn.bootcss.com/vuex/3.1.1/vuex.min.js' ></script>
-<script src='https://cdn.bootcss.com/iview/3.5.1/iview.min.js' ></script>
-<script src='//cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js' ></script>
-<script src='//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js' ></script>
-<script src="./epage.min.js"></script>
-<script src="./epage-iview.min.js"></script>
-
-<script>
-Vue.use(Vuex)
-Vue.use(iview)
-const el = document.getElementById('root')
-const { default: widgets, Render } = EpageIview
-
-// 设计器
-new Epage({ el, widgets, Render })
-// 渲染器
-new Render({ el, widgets, schema })
-</script>
-
+// 实例化设计器，Render为渲染器，widgets为待注册的页面部件
+new Epage({ el, Render, widgets })
 ```
 
 ## 文档
