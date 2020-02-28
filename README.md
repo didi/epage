@@ -17,8 +17,16 @@ npm install vue@2.x vuex@3.x iview@2.x epage -S
 -  `npm` 方式引入
 
 ```js
+import Vue from 'vue'
+import Vuex from 'vuex'
+import iview from 'iview'
 import widgets, { Render, Epage } from 'epage-iview'
 import schema from './schema.json'
+import 'epage-iview/src/style/main.less'
+
+// 项目中已经use后不需要再次use
+Vue.use(Vuex)
+Vue.use(iview)
 
 const el = document.getElementById('root')
 // 设计器
@@ -28,7 +36,6 @@ new Render({ el, widgets, schema })
 ```
 
 -  `script` 方式引入
-
 
 ```html
 <link href='https://cdn.bootcss.com/iview/3.5.1/styles/iview.css' rel='stylesheet'></link>
