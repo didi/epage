@@ -2,6 +2,8 @@
 
 一款基于schema的可视化页面配置工具。可基于流行的前端组件库配置表单、页面等。
 
+[English Introduction](./README_EN.md) | 中文介绍
+
 ## 文档
 
 官网：[http://epage.didichuxing.com](http://epage.didichuxing.com)

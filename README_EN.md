@@ -2,6 +2,8 @@
 
 A schema-based visual page configuration tool. Forms, pages, etc. can be configured based on popular front-end component libraries.
 
+English Introduction | [中文介绍](./README.md)
+
 ## Documents
 
 Official website:  [http://epage.didichuxing.com](http://epage.didichuxing.com)
