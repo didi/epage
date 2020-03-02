@@ -16,14 +16,19 @@
   },
   "files": [
     "dist",
-    "src",
-    "build"
+    "src"
   ],
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git+https://github.com/didi/epage.git"
   },
-  "private": false,
+  "keywords": [
+    "epage"
+  ],
+  "bugs": {
+    "url": "https://github.com/didi/epage/issues"
+  },
+  "homepage": "https://github.com/didi/epage#readme",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
