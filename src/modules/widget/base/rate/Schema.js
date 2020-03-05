@@ -7,7 +7,9 @@ export default class RateSchema extends Schema {
     this.title = '评分'
     this.rules = [{ required: false, message: '必填', min: 0, type: 'number' }]
     this.option = {
-      count: 5
+      count: 5,
+      allowHalf: false,
+      showText: false
     }
     this.$init(props)
   }

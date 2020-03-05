@@ -2,14 +2,13 @@
 setting-form(:store='store' :setting='setting')
 
   FormItem(v-if='!$slots.type' label='展示类型')
-    Select(
-      v-model='selectedSchema.option.type'
-      :transfer='true'
-      size='small'
-      @on-change="onTypeChange"
+    i-switch(
+      v-model='selectedSchema.option.range'
+      @on-change="onRangeChange"
+      size='large'
     )
-      Option(value='time') 时间
-      Option(value='timerange') 时间区间
+      span(slot="open") 区间
+      span(slot="close") 时间
   template(v-else)
     slot(name='type')
 
@@ -18,7 +17,6 @@ setting-form(:store='store' :setting='setting')
       v-model='selectedSchema.option.format'
       :transfer='true'
       size='small'
-      @on-change="onFormatChange"
     )
       Option(v-for='item in formatOptions' :value='item' :key='item') {{item}}
   template(v-else)
@@ -41,20 +39,10 @@ export default {
     }
   },
   methods: {
-    onTypeChange (type) {
-      const key = this.selectedSchema.key
-      const isRange = ['timerange'].indexOf(type) > -1
-      const widgetType = isRange ? 'array<string>' : 'string'
-
-      this.store.updateWidgetOption(key, { type: type, format: 'HH:mm:ss' })
-      this.$nextTick(() => {
-        this.store.updateWidgetType(key, widgetType)
-      })
-    },
-    onFormatChange (value) {
-      const key = this.selectedSchema.key
-
-      this.store.updateWidgetOption(key, { format: value })
+    onRangeChange (range) {
+      const { key } = this.selectedSchema
+      const widgetType = range ? 'array<string>' : 'string'
+      this.store.updateWidgetType(key, widgetType)
     }
   }
 }

@@ -6,6 +6,10 @@ export default class SwitchSchema extends Schema {
     this.type = 'boolean'
     this.title = '开关'
     this.placeholder = '请输入'
+    this.option = {
+      open: '是',
+      close: '否'
+    }
     this.$init(props)
   }
 }

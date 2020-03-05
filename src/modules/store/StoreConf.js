@@ -26,7 +26,6 @@ const typeBuilder = new TypeBuilder()
 const rootSchema = Object.assign({}, new Schema(), {
   widget: 'grid',
   type: 'object',
-  mode: 'edit',
   size: 'default',
   logics: [],
   container: true,
@@ -49,6 +48,7 @@ export default class StoreConf {
       state: {
         // 设计模式下当前tab，可选 design | preview
         tab: '',
+        mode: 'edit',
         selectedSchema,
         rootSchema,
         model: {},
@@ -149,7 +149,7 @@ export default class StoreConf {
 
         // 添加表单展示模式
         [types.$MODE_CHANGE] (state, { mode }) {
-          state.rootSchema.mode = mode
+          state.mode = mode
         },
 
         // 设置表单model，即用户填写的表单数据
@@ -204,14 +204,14 @@ export default class StoreConf {
         [types.$WIDGET_ADD] (state, { widget }) {
           const { selectedSchema, rootSchema } = state
           const { flatWidgets, isSelected } = this.getters
-          const Schema = flatWidgets[widget].Schema
+          const WidgetSchema = flatWidgets[widget].Schema
 
-          if (!isFunction(Schema)) {
+          if (!isFunction(WidgetSchema)) {
             return console.error('Schema should be a constructor')
           }
 
           let childrenSchema = []
-          const newSchema = new Schema({ widgets: flatWidgets })
+          const newSchema = new WidgetSchema({ widgets: flatWidgets })
           if (isSelected) {
             childrenSchema = getParentListByKey(selectedSchema.key, rootSchema)
             const index = getIndexByKey(selectedSchema.key, childrenSchema)
@@ -233,9 +233,9 @@ export default class StoreConf {
           const widgets = this.getters.flatWidgets
           const { flatSchemas } = state
           const currentSchema = flatSchemas[key]
-          const { Schema } = widgets[currentSchema.widget]
+          const WidgetSchema = widgets[currentSchema.widget].Schema
           const schema = Object.assign({}, currentSchema, { list: [], dynamic: false })
-          const newSchema = new Schema({ schema, widgets, clone: true, dynamic: true })
+          const newSchema = new WidgetSchema({ schema, widgets, clone: true, dynamic: true })
           // 动态添加的子schema不能为dynamic
           newSchema.dynamic = false
           const flatedSchema = flattenSchema(newSchema)
@@ -284,9 +284,10 @@ export default class StoreConf {
           const { flatSchemas, rootSchema } = state
           const schema = flatSchemas[key]
           const { flatWidgets } = this.getters
+          const WidgetSchema = flatWidgets[schema.widget].Schema
           const parentList = getParentListByKey(key, rootSchema)
           const index = getIndexByKey(key, parentList)
-          const newSchema = new Schema({ schema, widgets: flatWidgets, clone: true })
+          const newSchema = new WidgetSchema({ schema, widgets: flatWidgets, clone: true })
 
           parentList.splice(index + 1, 0, newSchema)
           this.commit(types.$ROOT_SCHEMA_FLAT, { rootSchema: Object.assign({}, rootSchema) })
@@ -297,7 +298,7 @@ export default class StoreConf {
           const model = getWidgetModel(type, newSchema, typeBuilder)
           this.commit(types.$MODEL_SET, { model })
 
-          // set selecte
+          // set selectedSchema
           state.selectedSchema = newSchema
         },
 

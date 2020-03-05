@@ -7,7 +7,6 @@ export default () => ({
   widget: '',
   size: 'default',
   container: false,
-  mode: '',
   option: {},
   children: [],
   logics: [],

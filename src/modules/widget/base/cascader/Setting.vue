@@ -92,7 +92,7 @@ export default {
       // value 的类型string or number
       function validate (data) {
         for (const item of data) {
-          if (!(item.key && (item.value || item.vaue === 0))) {
+          if (!(item.key && (item.value || item.value === 0))) {
             result = false
             return
           } else {

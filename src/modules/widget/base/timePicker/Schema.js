@@ -6,8 +6,10 @@ export default class TimePickerSchema extends Schema {
     this.title = '时间'
     this.placeholder = '请选择'
     this.rules = [{ required: false, message: '必填', trigger: 'change' }]
-    this.option.type = 'time'
-    this.option.format = 'HH:mm:ss'
+    this.option = {
+      range: false,
+      format: 'HH:mm:ss'
+    }
     this.$init(props)
   }
 }
