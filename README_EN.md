@@ -32,14 +32,13 @@ This repository is the core dependency of the designer and renderer. For more re
 
 ## Usage
 
-`npm` 
-
 ```js
 import Epage from 'epage'
 import 'epage/src/style/main.less'
 
 const el = document.getElementById('root')
 // Instantiate Designer. Render is the renderer. widgets is the widget to be registered
+// About Render and widgets can visit https://github.com/epage-team/epage-iview
 new Epage({ el, Render, widgets })
 ```
 
