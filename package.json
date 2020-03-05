@@ -30,6 +30,12 @@
   },
   "homepage": "https://github.com/didi/epage#readme",
   "license": "MIT",
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && git add .",
+      "commit-msg": "node build/verify-commit-msg.js"
+    }
+  },
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.8.4",
@@ -53,6 +59,7 @@
     "eslint-plugin-vue": "^6.0.1",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^3.0.1",
+    "husky": "^4.2.3",
     "iview": "^2.13.0",
     "less": "^3.11.1",
     "less-loader": "^5.0.0",

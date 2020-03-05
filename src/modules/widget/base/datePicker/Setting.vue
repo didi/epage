@@ -44,7 +44,7 @@ import { include } from '../../../helper'
 
 export default {
   extends: settingExtend,
-  data() {
+  data () {
     return {
       dateFormatOptions: [
         'yyyy',
@@ -66,9 +66,6 @@ export default {
       timeFormat: '无'
     }
   },
-  created () {
-    this.updateType()
-  },
   computed: {
     formatVal () {
       return this.getFormat()
@@ -81,7 +78,7 @@ export default {
     type (newVal, oldval) {
       const key = this.selectedSchema.key
       if (newVal !== oldval) {
-        this.store.updateWidgetOption(key, {'type': newVal, 'format': this.formatVal})
+        this.store.updateWidgetOption(key, { type: newVal, format: this.formatVal })
       }
     },
     dateFormat () {
@@ -91,18 +88,21 @@ export default {
       this.updateType()
     }
   },
+  created () {
+    this.updateType()
+  },
   methods: {
     getFormat () {
       const { dateFormat, timeFormat, hasTime } = this
-      return this.dateFormat + (hasTime && this.timeFormat !== '无' ? ' ' + timeFormat : '')
+      return dateFormat + (hasTime && timeFormat !== '无' ? ' ' + timeFormat : '')
     },
     onTypeChange (range) {
       const key = this.selectedSchema.key
       const widupdateType = range ? 'array<string>' : 'string'
-      
+
       // type 可以先改变，但是 value 先改变则会报错
       this.updateType()
-      this.$nextTick(()=>{
+      this.$nextTick(() => {
         this.store.updateWidgetType(key, widupdateType)
       })
     },

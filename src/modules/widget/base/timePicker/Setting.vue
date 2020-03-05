@@ -47,7 +47,7 @@ export default {
       const widgetType = isRange ? 'array<string>' : 'string'
 
       this.store.updateWidgetOption(key, { type: type, format: 'HH:mm:ss' })
-      this.$nextTick(()=>{
+      this.$nextTick(() => {
         this.store.updateWidgetType(key, widgetType)
       })
     },
