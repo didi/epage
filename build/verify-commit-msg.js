@@ -21,11 +21,11 @@ function checkGitAccount () {
 
 
 function checkCommitMsg (msg) {
-  const commitRE = /^(revert: )?(feat|fix|polish|docs|style|refactor|perf|test|workflow|ci|chore|types|build)(\(.+\))?: .{1,50}/
+  const commitRE = /^(revert|feat|fix|docs|style|refactor|perf|test|workflow|chore|build)(\(.+\))?: .{1,50}/
 
   if (!commitRE.test(msg)) {
     console.log()
-    console.error(color.red('Invalid commit message format.') + '\nmust start with feat|fix|polish|docs|style|refactor|perf|test|workflow|ci|chore|types|build:\nExample: feat: upgrade v0.1 xxx\n')
+    console.error(color.red('Invalid commit message format.') + '\nmust start with revert|feat|fix|docs|style|refactor|perf|test|workflow|chore|build:\nExample: feat: upgrade v0.1 xxx\n')
     process.exit(1)
   } else {
     return true
