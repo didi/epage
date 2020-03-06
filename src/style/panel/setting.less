@@ -40,12 +40,17 @@
     &-title{
       font-weight: bold;
       font-size: 12px;
-      height: 24px;
+      height: 28px;
+      line-height: 28px;
+      text-align: center;
+      border-bottom: 1px dashed #ddd;
     }
     &-btns{
-      position: absolute;
-      right: 3px;
-      top: 3px;
+      text-align: center;
+      padding: 8px 4px;
+      // position: absolute;
+      // right: 3px;
+      // top: 3px;
     }
   }
   &-option-add{
@@ -107,18 +112,23 @@
 
   .@{eppre}-rule-item{
     padding: 6px;
-    border-bottom: 1px dashed #aaa;
+    border-bottom: 1px dashed #dddee1;
+    &:first-of-type{
+      display: none;
+    }
     &:last-child{
       border-bottom: none;
     }
   }
   .@{eppre}-rule-item-title{
     position: relative;
+    height: 24px;
+    line-height: 24px;
   }
   .@{eppre}-rule-item-delete{
     position: absolute;
     right: 0;
-    top: 0;
+    top: 4px;
     cursor: pointer;
     transition: .3s ease all;
     width: 16px;

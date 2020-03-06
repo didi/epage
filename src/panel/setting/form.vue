@@ -16,12 +16,12 @@ Form(:label-width='80')
       Radio(label='top') 上
       Radio(label='left') 左
       Radio(label='right') 右
-  FormItem(label='保存地址')
-    Input(:size='size' v-model='rootSchema.option.url')
-  FormItem(label='保存方法')
-    Select(v-model='rootSchema.option.method' :transfer='true')
-      Option(value='POST') POST
-      Option(value='PUT') PUT
+  //- FormItem(label='保存地址')
+  //-   Input(:size='size' v-model='rootSchema.option.url')
+  //- FormItem(label='保存方法')
+  //-   Select(:size='size' v-model='rootSchema.option.method' :transfer='true')
+  //-     Option(value='POST') POST
+  //-     Option(value='PUT') PUT
   slot
 
 </template>
