@@ -1,6 +1,6 @@
 # 如何贡献代码
 
-欢迎一起共建 epage-iview
+欢迎一起共建 epage
 
 ## Branch 说明
 
