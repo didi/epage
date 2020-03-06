@@ -30,7 +30,7 @@
             )
               //- @on-change='onKeyValueChange(k, "key", ...arguments)'
 
-        Col(:span="dataType === 'object' ? 11 : 15" offset='1')
+        Col(:span="dataType === 'object' ? 11 : 18" offset='1')
           FormItem(:label-width='1')
             Input(v-if='dataType === "object"' type='text' size='small' placeholder='请输入显示' v-model="schemaOption.data[k].value")
             Input(v-else type='text' size='small' placeholder='请输入显示' v-model="schemaOption.data[k]")
