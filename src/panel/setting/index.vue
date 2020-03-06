@@ -1,9 +1,9 @@
 <template lang="pug">
 Tabs(:value='tab' size='small')
-  Button(slot="extra" size="small" type="text")
-    a(:href='docURL' target='_blank')
-      Icon(type="help")
-      span &nbsp;帮助
+  //- Button(slot="extra" size="small" type="text")
+  a.ep-setting-help-link(slot="extra" :href='docURL' target='_blank')
+    Icon(type="help")
+    span &nbsp;帮助
 
   TabPane(label='属性' name='widget')
     epage-panel.ep-setting-prop

@@ -7,6 +7,27 @@
   width: @ep-setting-width;
   background-color: @ep-panel-bg;
   box-shadow: -2px 0 8px rgba(0,0,0,.15);
+  transition: .3s ease width;
+  &-fold{
+    width: @ep-setting-min-width;
+  }
+  .@{eppre}-control-handle{
+    position: absolute;
+    bottom: 0;
+    height: @ep-setting-footer-height;
+    line-height: @ep-setting-footer-height;
+    width: 100%;
+    text-align: center;
+    border-top: 1px solid #eee;
+    cursor: pointer;
+    background-color: @ep-panel-bg;
+    letter-spacing: 2px;
+    user-select: none;
+  }
+  &-help-link{
+    display: block;
+    margin: 7px 10px 0 0;
+  }
   &-prop,
   &-form{
     padding: 10px;
@@ -56,7 +77,8 @@
     padding: 6px 12px 6px 0;
   }
   &>.ivu-tabs{
-    height: 100%;
+    height: calc(100% - @ep-setting-footer-height);
+    width: @ep-setting-width;
     &>.ivu-tabs-content{
       position: absolute;
       bottom: 0px;

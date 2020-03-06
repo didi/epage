@@ -3,11 +3,10 @@
   .ep-tool
     epage-tool(:widgets='widgets' @on-add='onAddWidget')
 
-  .ep-work
+  .ep-work(:class='{"ep-work-expand": settingState.fold}')
     .ep-work-btns
-      Button(type='primary' size='small' icon='soup-can-outline' @click='getSchema') 获取schema
-      Button(type='primary' size='small' icon='ios-paper' @click='getFormData' style='margin-left: 10px;') 获取数据
-      Button(type='primary' size='small' icon='soup-can-outline' @click='validateForm' style='margin-left: 10px;') 校验
+      Button(type='primary' size='small' @click='getFormData') form
+      Button(type='primary' size='small' @click='validateForm' style='margin-left: 6px;') validate
 
     Tabs.ep-work-tabs(v-model='tab' size='small' @on-click='renderView')
       TabPane(label='设计' name='design' :icon='icon.design')
@@ -26,8 +25,9 @@
         epage-panel.ep-work-schema
           epage-schema(v-if='tab === "schema"' v-model='rootSchema' :store='store')
 
-  .ep-setting
+  .ep-setting(:class='{"ep-setting-fold": settingState.fold}')
     epage-setting(:store='store' :setting='setting')
+    .ep-control-handle(@click='onUnfold') {{settingState.text}}
 
 </template>
 <script>
@@ -37,7 +37,7 @@ import { EpageTool, EpageSchema, EpageLogic, EpageSetting } from '../panel'
 import { helper } from '../modules'
 import { IVIEW_V3 } from '../modules/constant/static'
 import { map2to3 } from '../modules/constant/icon-type-map'
-// import '../style/main.less'
+
 const mainVersion = parseInt(version || 2)
 const defaultPanels = () => ({
   preview: true,
@@ -70,6 +70,10 @@ export default {
   },
   data () {
     return {
+      settingState: {
+        fold: false,
+        text: '收起'
+      },
       env: process.env.NODE_ENV,
       tab: 'design',
       panels: defaultPanels(),
@@ -109,6 +113,14 @@ export default {
     this.renderView('design')
   },
   methods: {
+    onUnfold () {
+      const { fold } = this.settingState
+      if (fold) {
+        this.settingState = { fold: false, text: '收起' }
+      } else {
+        this.settingState = { fold: true, text: '展开' }
+      }
+    },
     setIcon () {
       // 兼容iview@3+ 新icon方案
       if (mainVersion >= IVIEW_V3) {
@@ -150,17 +162,6 @@ export default {
       APPS[this.tab].validateFields().then(args => {
         console.log('validate: ', args)
       })
-    },
-    getSchema () {
-      const { getSchema } = this.$root.$options.extension
-      const { option } = this.rootSchema
-      const { url, ..._option } = option
-      const schema = helper.getSchema(this.rootSchema)
-      if (helper.isFunction(getSchema)) {
-        return getSchema(schema)
-      }
-      const args = Object.assign({}, _option, { body: JSON.stringify(schema) })
-      return fetch(url, args)
     },
     getFormData () {
       const { getFormData } = this.$root.$options.extension
