@@ -28,7 +28,7 @@ npm install epage -S
 
 ## Release
  
-This repository is the core dependency of the designer and renderer. For more renderer andd other open source code, see: [https://github.com/epage-team](https://github.com/epage-team)。
+This repository is the core dependency of the designer and renderer. To view the change log, please visit [CHANGLOG](./CHANGELOG.md). For more renderer andd other open source code, see: [https://github.com/epage-team](https://github.com/epage-team)。
 
 ## Usage
 

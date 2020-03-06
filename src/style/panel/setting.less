@@ -7,6 +7,27 @@
   width: @ep-setting-width;
   background-color: @ep-panel-bg;
   box-shadow: -2px 0 8px rgba(0,0,0,.15);
+  transition: .3s ease width;
+  &-fold{
+    width: @ep-setting-min-width;
+  }
+  .@{eppre}-control-handle{
+    position: absolute;
+    bottom: 0;
+    height: @ep-setting-footer-height;
+    line-height: @ep-setting-footer-height;
+    width: 100%;
+    text-align: center;
+    border-top: 1px solid #eee;
+    cursor: pointer;
+    background-color: @ep-panel-bg;
+    letter-spacing: 2px;
+    user-select: none;
+  }
+  &-help-link{
+    display: block;
+    margin: 7px 10px 0 0;
+  }
   &-prop,
   &-form{
     padding: 10px;
@@ -19,16 +40,22 @@
     &-title{
       font-weight: bold;
       font-size: 12px;
-      height: 24px;
+      height: 28px;
+      line-height: 28px;
+      text-align: center;
+      border-bottom: 1px dashed #ddd;
     }
     &-btns{
-      position: absolute;
-      right: 3px;
-      top: 3px;
+      text-align: center;
+      padding: 8px 4px;
+      // position: absolute;
+      // right: 3px;
+      // top: 3px;
     }
   }
   &-option-add{
-    padding-top: 4px;
+    padding: 6px 4px;
+    text-align: center;
     button{
       margin-left: 4.2%;
     }
@@ -56,7 +83,8 @@
     padding: 6px 12px 6px 0;
   }
   &>.ivu-tabs{
-    height: 100%;
+    height: calc(100% - @ep-setting-footer-height);
+    width: @ep-setting-width;
     &>.ivu-tabs-content{
       position: absolute;
       bottom: 0px;
@@ -85,18 +113,23 @@
 
   .@{eppre}-rule-item{
     padding: 6px;
-    border-bottom: 1px dashed #aaa;
+    border-bottom: 1px dashed #dddee1;
+    &:first-of-type{
+      display: none;
+    }
     &:last-child{
       border-bottom: none;
     }
   }
   .@{eppre}-rule-item-title{
     position: relative;
+    height: 24px;
+    line-height: 24px;
   }
   .@{eppre}-rule-item-delete{
     position: absolute;
     right: 0;
-    top: 0;
+    top: 4px;
     cursor: pointer;
     transition: .3s ease all;
     width: 16px;

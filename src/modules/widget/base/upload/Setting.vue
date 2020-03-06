@@ -59,31 +59,36 @@ setting-form(:store='store' :setting='setting')
   FormItem(v-if='!$slots.type' label='上传类型')
     RadioGroup(v-model='schemaOption.type')
       Radio(label='select') 点击选择
-      Radio(label='drag') 支持拖拽
+      Radio(label='drag') 拖拽
   template(v-else)
     slot(name='type')
 
-  .fd-setting-block(v-if='!$slots.format')
-    h5.fd-setting-block-title 格式
-    .fd-setting-block-btns
+  .ep-setting-block(v-if='!$slots.format')
+    h5.ep-setting-block-title 格式
+    .ep-setting-block-btns
       Button(size='small' type='ghost' style='margin-right: 4px;' @click='onSelectAll') 全选
       Button(size='small' type='ghost' @click='onInverseSelect') 反选
 
     CheckboxGroup(size='small' v-model='schemaOption.format')
-      Checkbox(v-for='(item, k) in extensions' :label='item' :key='k' style='width: 53px;') {{item}}
+      Checkbox(v-for='(item, k) in extensions' :label='item' :key='k' style='width: 56px;') {{item}}
       Input(
         v-if='formatAdding'
         size='small'
         v-model='newFormat'
+        ref='newFormat'
         @on-enter='onFormatAddEnter'
         style='width: 53px;')
       Button(v-else size='small' icon='plus' type='dashed' @click='onFormatAdd')
   template(v-else)
     slot(name='format')
 
-  .fd-setting-block(v-if='!$slots.headers')
-    h5.fd-setting-block-title 请求头
-    Row(v-for='(item, k) in schemaOption.headers' :key='k + "--"')
+  .ep-setting-block(v-if='!$slots.headers')
+    h5.ep-setting-block-title 请求头
+    Row(
+      v-for='(item, k) in schemaOption.headers'
+      :key='k + "--"'
+      style='margin-top: 6px;'
+    )
       Col(span='8' offset='1')
         Input(type='text' size='small' placeholder='请输入key' v-model='schemaOption.headers[k].key')
 
@@ -93,7 +98,7 @@ setting-form(:store='store' :setting='setting')
       Col(span='2' offset='1' style='line-height: 24px;')
         Icon(type='trash-a' title='删除' @click.native='onHeaderDelete(k)')
 
-    Row.fd-setting-option-add
+    Row.ep-setting-option-add
       Button(type='dashed' size='small' @click='onHeaderAdd') + 添加
   template(v-else)
     slot(name='headers')
@@ -118,9 +123,7 @@ export default {
       newFormat: '',
       extData: '{}',
       extDataError: false,
-      adapterContnet: `接口返回数据格式为{name: xxx, url: xxx}，
-      // data 为接口响应值,如：
-      return { name: data.name, url: data.url }`
+      adapterContnet: 'return格式必须为:{name, url}\ndata 为接口返回值，示例：\nreturn {\n  name: data.filename,\n  url: data.url\n}'
     }
   },
   computed: {

@@ -74,18 +74,18 @@ Form(:label-width='80')
 
           .ep-setting-block(v-if='selectedValidators.length')
             h5.ep-setting-block-title 规则
-            .ep-setting-block-btns
-              Button(v-if='selectedValidators.length' type='primary' size='small' @click='addRule' icon='plus') 添加
 
             .ep-rule-item(v-for='(rule, k) in rules' :key='k')
               template(v-if='k !== 0')
-                .ep-rule-item-title(:key='k') 规则{{k}}
+                .ep-rule-item-title(:key='k') 规则({{k}})
                   Icon.ep-rule-item-delete(type='android-close' @click.native='deleteRule(k)' title='删除此规则')
                 FormItem(label='类型' v-if='selectedValidators.length')
                   Select(size='small' :transfer='true' v-model='rules[k].type' @on-change='onRuleTypeChange(rules[k].type, k)')
                     Option(v-for='(item, k) in selectedValidators' :key="item.type" :value='item.type') {{item.name}}
                 ep-widget-rule(:rule='rules[k]' :index='k' @on-message-change='onRuleMessageChange')
 
+            .ep-setting-block-btns
+              Button(v-if='selectedValidators.length' type='dashed' size='small' @click='addRule' icon='plus') 添加新规则
         template(v-else)
           slot(name='rule')
 

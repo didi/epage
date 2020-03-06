@@ -28,11 +28,9 @@ npm install epage -S
 
 ## 仓库更新说明
 
-本仓库为`渲染器`核心依赖及`设计器`，更多`渲染器`及其他开源代码参见：[https://github.com/epage-team](https://github.com/epage-team)。
+本仓库为`渲染器`核心依赖及`设计器`，更新日志查看[CHANGLOG](./CHANGELOG.md)。更多`渲染器`及其他开源代码参见：[https://github.com/epage-team](https://github.com/epage-team)。
 
 ## 设计器及渲染器示例
-
-`npm` 方式引入
 
 ```js
 import Epage from 'epage'

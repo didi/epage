@@ -25,10 +25,10 @@
     thead
       tr
         th 类型
-        th 主控<br />widget
+        th 主控widget
         th 行为
         th 值
-        th 受控<br />widget
+        th 受控widget
         th 操作
     tbody
       tr(v-for='(logic, key) in schema.logics' :key='key')
@@ -43,7 +43,7 @@
               span(v-for='(prop, j) in effect.properties' :key='j')
                 Tag(color='blue') {{map.prop[prop.key].text}}: {{map.prop[prop.key].option[prop.value ? 'open': 'close']}}
         td
-          Button(size='small' type='ghost' @click='onEdit(logic, key)' icon="edit" title='编辑')
+          Button(size='small' type='ghost' @click='onEdit(logic, key)' icon="edit" title='编辑' style='margin-right: 6px;')
           Button(size='small' type='ghost' @click='onDelete(key)' icon="trash-a" title='删除')
 
   .ep-logic-table-empty(v-if='!schema.logics || schema.logics.length === 0') 暂无逻辑配置
