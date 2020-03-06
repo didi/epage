@@ -1,2 +1,2 @@
-# `Epage` CHANGELOG
+# Change Log
 
