@@ -40,7 +40,7 @@ export default {
   data () {
     return {
       tab: 'widget',
-      docURL: '//epage.didichuxing.com'
+      docURL: 'http://epage.didichuxing.com'
     }
   },
   computed: {
