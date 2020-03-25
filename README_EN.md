@@ -54,7 +54,7 @@ Earlier in the development of epage, we carried out the design based on the nati
 
 Wechat group
 
-![](./public/imgs/epage-qrcode.jpg)
+![](https://github.com/didi/epage/blob/master/public/imgs/epage-qrcode.jpg?raw=true)
 
 ## License
 
