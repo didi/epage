@@ -50,6 +50,11 @@ The project originated from the process form scenario. The custom development of
  
 Earlier in the development of epage, we carried out the design based on the native dom node rendering, so that the designer and the renderer were separated to achieve multiple designs at one time. [How to develop widget?](http://epage.didichuxing.com/developer/widget.html)
 
+## Communication Group
+
+Wechat group
+
+![](./public/imgs/epage-qrcode.jpg)
 
 ## License
 

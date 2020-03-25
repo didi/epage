@@ -50,6 +50,11 @@ new Epage({ el, Render, widgets })
 
 开发epage时，就进行了基于原生dom节点渲染的设计，使得设计器及渲染器分离，实现一次设计多处渲染。关于如何定制开发widget可以访问 [如何开发widget?](http://epage.didichuxing.com/developer/widget.html)
 
+## 交流群
+
+微信群
+
+![](./public/imgs/epage-qrcode.jpg)
 
 ## License
 
