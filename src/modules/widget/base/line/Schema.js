@@ -1,5 +1,5 @@
 
-import Schema from '../../../schema'
+import Schema from '../../../schema/Schema'
 
 export default class LineSchema extends Schema {
   constructor (props) {
@@ -15,7 +15,7 @@ export default class LineSchema extends Schema {
       type: 'dashed', // solid | dashed | dotted
       color: '#aaa'
     }
-    this.$init(props)
+    this.create(props)
   }
 }
 

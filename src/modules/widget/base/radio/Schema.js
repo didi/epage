@@ -1,4 +1,4 @@
-import Schema from '../../../../modules/schema'
+import Schema from '../../../schema/FormSchema'
 import { getRuleValidator } from '../../../helper'
 
 export default class RadioSchema extends Schema {
@@ -16,12 +16,12 @@ export default class RadioSchema extends Schema {
       ],
       dynamicData: []
     }
-    this.$init(props)
+    this.create(props)
     const rule = {
       trigger: 'change',
       validator: getRuleValidator(this.rules[0], this.type)
     }
-    this.updateRequiredRule(rule)
+    this.updateRequiredRule(rule, new.target)
   }
 }
 

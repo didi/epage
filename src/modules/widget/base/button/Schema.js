@@ -1,5 +1,5 @@
 
-import Schema from '../../../../modules/schema'
+import Schema from '../../../schema/Schema'
 
 export default class ButtonSchema extends Schema {
   constructor (props) {
@@ -17,7 +17,7 @@ export default class ButtonSchema extends Schema {
       // 形状，可选 'square': 方角；'circle': 圆角
       shape: 'square'
     }
-    this.$init(props)
+    this.create(props)
   }
 }
 

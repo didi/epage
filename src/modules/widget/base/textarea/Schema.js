@@ -1,4 +1,4 @@
-import Schema from '../../../../modules/schema'
+import Schema from '../../../schema/FormSchema'
 
 export default class TextareaSchema extends Schema {
   constructor (props) {
@@ -8,7 +8,7 @@ export default class TextareaSchema extends Schema {
     this.option = {
       rows: 3
     }
-    this.$init(props)
+    this.create(props)
   }
 }
 

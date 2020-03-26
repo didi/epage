@@ -13,6 +13,8 @@ import {
   mergeWidget,
   setValidators,
   updateRequiredRule,
+  getSchemaType,
+  getRequiredRuleType,
   getRuleValidator
 } from './epUtil'
 
@@ -49,6 +51,8 @@ export {
   mergeWidget,
   setValidators,
   updateRequiredRule,
+  getSchemaType,
+  getRequiredRuleType,
   getRuleValidator,
 
   randomStr,

@@ -1,4 +1,4 @@
-import Schema from '../../../../modules/schema'
+import Schema from '../../../schema/FormSchema'
 
 export default class SwitchSchema extends Schema {
   constructor (props) {
@@ -10,7 +10,7 @@ export default class SwitchSchema extends Schema {
       open: '是',
       close: '否'
     }
-    this.$init(props)
+    this.create(props)
   }
 }
 

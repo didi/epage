@@ -1,4 +1,4 @@
-import Schema from '../../../../modules/schema'
+import Schema from '../../../schema/FormSchema'
 
 export default class InputSchema extends Schema {
   constructor (props) {
@@ -8,7 +8,7 @@ export default class InputSchema extends Schema {
     this.option.password = false
     this.option.prefix = ''
     this.option.suffix = ''
-    this.$init(props)
+    this.create(props)
   }
 }
 

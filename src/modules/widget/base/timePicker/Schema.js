@@ -1,4 +1,4 @@
-import Schema from '../../../../modules/schema'
+import Schema from '../../../schema/FormSchema'
 
 export default class TimePickerSchema extends Schema {
   constructor (props) {
@@ -10,7 +10,7 @@ export default class TimePickerSchema extends Schema {
       range: false,
       format: 'HH:mm:ss'
     }
-    this.$init(props)
+    this.create(props)
   }
 }
 

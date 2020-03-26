@@ -1,4 +1,4 @@
-import Schema from '../../../../modules/schema'
+import Schema from '../../../schema/Schema'
 
 export default class SubTableSchema extends Schema {
   constructor (props) {
@@ -24,7 +24,7 @@ export default class SubTableSchema extends Schema {
       dynamicData: [],
       noDataText: '暂无内容'
     }
-    this.$init(props)
+    this.create(props)
   }
 }
 
