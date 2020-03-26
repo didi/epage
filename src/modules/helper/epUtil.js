@@ -396,11 +396,11 @@ export function setValidators (groups, validator, replace) {
 }
 
 /**
- * get and check required rule type. schema.rules[0]
+ * get and check rule type
  * @param {schema} schema widget schema. required
  * @param {Schema} WidgetSchema Schema class. not required
  */
-export function getRequiredRuleType (schema, WidgetSchema) {
+export function getSchemaType (schema, WidgetSchema) {
   const widgetType = (WidgetSchema && WidgetSchema.type) ? WidgetSchema.type : null
   const schemaType = schema && isNotEmptyString(schema.type) ? schema.type : null
   // 缺省值
@@ -410,6 +410,25 @@ export function getRequiredRuleType (schema, WidgetSchema) {
   } else if (isNotEmptyString(widgetType)) {
     type = widgetType
   }
+  return type
+}
+
+/**
+ * get and check required rule type. schema.rules[0]
+ * @param {schema} schema widget schema. required
+ * @param {Schema} WidgetSchema Schema class. not required
+ */
+export function getRequiredRuleType (schema, WidgetSchema) {
+  // const widgetType = (WidgetSchema && WidgetSchema.type) ? WidgetSchema.type : null
+  // const schemaType = schema && isNotEmptyString(schema.type) ? schema.type : null
+  // // 缺省值
+  // let type = 'string'
+  // if (isArray(widgetType) && widgetType.length) {
+  //   type = include(widgetType, schemaType) ? schemaType : widgetType[0]
+  // } else if (isNotEmptyString(widgetType)) {
+  //   type = widgetType
+  // }
+  const type = getSchemaType(schema, WidgetSchema)
   return TypeBuilder.resolve(type, true)
 }
 
@@ -432,7 +451,10 @@ export function updateRequiredRule (schema, WidgetSchema, rule) {
   if (type) {
     newRule.type = type
   } else {
+    console.dir(schema)
+    console.dir(WidgetSchema)
     const requiredType = getRequiredRuleType(schema, WidgetSchema)
+    console.log(9, requiredType)
     if (requiredType) {
       newRule.type = requiredType
     }

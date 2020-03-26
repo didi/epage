@@ -1,4 +1,4 @@
-import Schema from '../../../../modules/schema'
+import Schema from '../../../schema/FormSchema'
 
 export default class SliderSchema extends Schema {
   constructor (props) {
@@ -6,7 +6,7 @@ export default class SliderSchema extends Schema {
     this.type = 'number'
     this.title = '滑块'
     this.placeholder = '请输入'
-    this.$init(props)
+    this.create(props)
   }
 }
 

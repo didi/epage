@@ -1,4 +1,4 @@
-import Schema from '../../../../modules/schema'
+import Schema from '../../../schema/FormSchema'
 
 export default class DatePickerSchema extends Schema {
   constructor (props) {
@@ -8,7 +8,7 @@ export default class DatePickerSchema extends Schema {
     this.rules = [{ required: false, message: '必填', trigger: 'change' }]
     this.option.range = false
     this.option.format = 'yyyy-MM-dd'
-    this.$init(props)
+    this.create(props)
   }
 }
 

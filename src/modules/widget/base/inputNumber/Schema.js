@@ -1,4 +1,4 @@
-import Schema from '../../../../modules/schema'
+import Schema from '../../../schema/FormSchema'
 
 export default class InputNumberSchema extends Schema {
   constructor (props) {
@@ -13,7 +13,7 @@ export default class InputNumberSchema extends Schema {
       step: 1,
       precision: 1
     }
-    this.$init(props)
+    this.create(props)
   }
 }
 

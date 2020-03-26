@@ -1,4 +1,4 @@
-import Schema from '../../../../modules/schema'
+import Schema from '../../../schema/Schema'
 
 export default class ButtonSchema extends Schema {
   constructor (props) {
@@ -16,7 +16,7 @@ export default class ButtonSchema extends Schema {
       url: '',
       method: 'POST'
     }
-    this.$init(props)
+    this.create(props)
   }
 }
 

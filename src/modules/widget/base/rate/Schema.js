@@ -1,4 +1,4 @@
-import Schema from '../../../../modules/schema'
+import Schema from '../../../schema/FormSchema'
 
 export default class RateSchema extends Schema {
   constructor (props) {
@@ -11,7 +11,7 @@ export default class RateSchema extends Schema {
       allowHalf: false,
       showText: false
     }
-    this.$init(props)
+    this.create(props)
   }
 }
 

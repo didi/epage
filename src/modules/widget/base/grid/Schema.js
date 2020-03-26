@@ -1,9 +1,8 @@
-import Schema from '../../../../modules/schema'
+import Schema from '../../../schema/Schema'
 
 export default class GridSchema extends Schema {
   constructor (props) {
     super()
-    this.type = 'object'
     this.title = '布局'
     this.container = true
     // 设置form data数据是否平级展开还是层级嵌套
@@ -24,7 +23,7 @@ export default class GridSchema extends Schema {
     //   margin: '0 0 0 0',
     //   'border-radius': '4px'
     // }
-    this.$init(props)
+    this.create(props)
   }
 }
 

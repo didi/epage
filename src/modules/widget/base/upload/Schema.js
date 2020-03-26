@@ -1,4 +1,4 @@
-import Schema from '../../../../modules/schema'
+import Schema from '../../../schema/FormSchema'
 
 export default class UploadSchema extends Schema {
   constructor (props) {
@@ -33,7 +33,7 @@ export default class UploadSchema extends Schema {
       // 上传时附带的额外参数
       data: {}
     }
-    this.$init(props)
+    this.create(props)
   }
 }
 

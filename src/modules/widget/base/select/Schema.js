@@ -1,4 +1,4 @@
-import Schema from '../../../../modules/schema'
+import Schema from '../../../schema/FormSchema'
 import { getRuleValidator } from '../../../helper'
 
 export default class SelectSchema extends Schema {
@@ -18,12 +18,12 @@ export default class SelectSchema extends Schema {
       multiple: false,
       clearable: true
     }
-    this.$init(props)
+    this.create(props)
     const rule = {
       trigger: 'change',
       validator: getRuleValidator(this.rules[0], this.type)
     }
-    this.updateRequiredRule(rule)
+    this.updateRequiredRule(rule, new.target)
   }
 }
 
