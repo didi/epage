@@ -13,6 +13,8 @@ schema.RootSchema // 根Schema，继承至grid widget的Schema
 
 原通过`Epage.Schema`方式继承需改为 `Epage.schema.BaseSchema` 或 `Epage.schema.FormSchema`
 
+- [feat] : 替换 `schema.title` 为 `schema.label`
+
 ### 0.1.0
 
 - [feat] : 正式开源第一版
