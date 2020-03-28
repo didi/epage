@@ -6,15 +6,24 @@ import {
   jsonClone
 } from '../helper'
 
+// this prop list should be ignore when copy schema
 const IGNORE_PROP_LIST = ['list']
 
+/**
+ * the basic Schema
+ */
 export default class BaseSchema {
   constructor (props) {
     const { schema } = props || {}
+    // globally unique
     this.key = randomStr()
+    // widget type
     this.widget = ''
+    // should be hidden
     this.hidden = false
+    // extra options for this schema
     this.option = {}
+    // create schema instance from schema object
     this.create(props)
     if (!this.widget) {
       this.widget = new.target
