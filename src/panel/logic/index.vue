@@ -3,17 +3,13 @@
   h3.ep-logic-title 逻辑配置表
   .ep-logic-btns
     Button.ep-logic-btn-value(
-      type='primary'
       :size='size'
-      icon='plus'
       @click='addLogic("value")'
-    ) 值逻辑
+    ) + 值逻辑
     Button.ep-logic-btn-event(
-      type='primary'
       :size='size'
-      icon='plus'
       @click='addLogic("event")'
-    ) 事件逻辑
+    ) + 事件逻辑
   table.ep-logic-table
     //- colgroup
     //-   col(width='8%')

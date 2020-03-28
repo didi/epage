@@ -6,6 +6,12 @@ export default class SwitchSchema extends FormSchema {
     this.type = 'boolean'
     this.label = '开关'
     this.placeholder = '请输入'
+    this.rules = [{
+      type: 'boolean',
+      message: '必填',
+      trigger: 'change',
+      required: false
+    }]
     this.option = {
       open: '是',
       close: '否'
