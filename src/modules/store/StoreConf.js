@@ -1,7 +1,7 @@
 import types from './types'
 import TypeBuilder from './TypeBuilder'
 import { defaultSchema } from '../constant'
-import Schema from '../schema'
+import RootSchema from '../schema/RootSchema'
 import EventLogic from '../../panel/logic/EventLogic'
 import ValueLogic from '../../panel/logic/ValueLogic'
 import Logic from '../../panel/logic/Logic'
@@ -23,22 +23,7 @@ import {
 
 const logic = new Logic([new EventLogic(), new ValueLogic()])
 const typeBuilder = new TypeBuilder()
-const rootSchema = Object.assign({}, new Schema(), {
-  widget: 'grid',
-  type: 'object',
-  size: 'default',
-  logics: [],
-  container: true,
-  children: [{
-    span: 24,
-    list: []
-  }],
-  label: {
-    width: 80,
-    position: 'right',
-    colon: false
-  }
-})
+const rootSchema = new RootSchema()
 const selectedSchema = defaultSchema()
 
 export default class StoreConf {
@@ -123,7 +108,7 @@ export default class StoreConf {
         [types.$ROOT_SCHEMA_SET] (state, { rootSchema }) {
           const { flatWidgets } = this.getters
           const model = {}
-          const _rootSchema = new Schema({ schema: rootSchema, widgets: flatWidgets })
+          const _rootSchema = new RootSchema({ schema: rootSchema, widgets: flatWidgets })
 
           // 初始化 model
           state.rootSchema = Object.assign({}, state.rootSchema, _rootSchema)

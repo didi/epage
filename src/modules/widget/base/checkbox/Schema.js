@@ -1,7 +1,7 @@
-import Schema from '../../../schema/FormSchema'
+import { FormSchema } from '../../../schema'
 import { getRuleValidator } from '../../../helper'
 
-export default class CheckboxSchema extends Schema {
+export default class CheckboxSchema extends FormSchema {
   constructor (props) {
     super()
     this.type = 'array<string>'

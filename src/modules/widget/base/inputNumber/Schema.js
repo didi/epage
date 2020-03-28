@@ -1,6 +1,6 @@
-import Schema from '../../../schema/FormSchema'
+import { FormSchema } from '../../../schema'
 
-export default class InputNumberSchema extends Schema {
+export default class InputNumberSchema extends FormSchema {
   constructor (props) {
     super()
     this.type = 'number'

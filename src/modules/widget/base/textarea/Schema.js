@@ -1,6 +1,6 @@
-import Schema from '../../../schema/FormSchema'
+import { FormSchema } from '../../../schema'
 
-export default class TextareaSchema extends Schema {
+export default class TextareaSchema extends FormSchema {
   constructor (props) {
     super()
     this.title = '输入框'

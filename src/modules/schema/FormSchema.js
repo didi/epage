@@ -1,13 +1,5 @@
-import Schema from './Schema'
+import Schema from './BaseSchema'
 import {
-  isNotEmptyString,
-  isPlainObject,
-  // isArray,
-  // isNumber,
-  // isFunction,
-  // randomStr,
-  // include,
-  // jsonClone
   setKeyAndName,
   updateRequiredRule,
   getSchemaType
@@ -15,7 +7,7 @@ import {
 
 export default class FormSchema extends Schema {
   constructor (props) {
-    const { schema } = props || {}
+    const { schema, widgets = {} } = props || {}
     super()
     this.name = ''
     this.type = getSchemaType(schema, new.target)
@@ -23,28 +15,24 @@ export default class FormSchema extends Schema {
     this.description = ''
     this.help = ''
     this.disabled = false
-    this.rules = [{ required: false, message: '必填', type: 'string', trigger: 'blur' }]
+    // 校验规则，参考 [async-validator](https://github.com/yiminghe/async-validator)
+    this.rules = [{
+      required: false,
+      message: '必填',
+      type: 'string',
+      trigger: 'blur'
+    }]
+    this.create(props)
 
-    // if (!this.widget) {
-    //   this.widget = new.target
-    //     ? new.target.widget
-    //     : (schema ? schema.widget : '')
-    // }
-  }
-
-  create (props) {
-    const { schema, clone, widgets = {}, dynamic } = props || {}
-    if (isPlainObject(schema) && isNotEmptyString(schema.widget)) {
-      new Schema(props).create.call(this, props)
-      if (clone && !dynamic) {
-        this.name = this.key
-      }
-    }
     if (widgets[this.widget]) {
       updateRequiredRule(this, widgets[this.widget].Schema)
     }
-    setKeyAndName(this)
-    return this
+  }
+
+  create (props) {
+    const { clone, dynamic } = props || {}
+    Schema.prototype.create.call(this, props)
+    setKeyAndName(this, clone, dynamic)
   }
 
   updateRequiredRule (rule, Schema) {

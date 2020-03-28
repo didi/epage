@@ -4,17 +4,5 @@
 export default () => ({
   key: '',
   type: 'object',
-  widget: '',
-  size: 'default',
-  container: false,
-  option: {},
-  children: [],
-  logics: [],
-  label: {
-    width: 80,
-    // right | left | top
-    position: 'right',
-    // label 后是否自动加冒号
-    colon: false
-  }
+  widget: ''
 })

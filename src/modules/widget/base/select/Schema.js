@@ -1,7 +1,7 @@
-import Schema from '../../../schema/FormSchema'
+import { FormSchema } from '../../../schema'
 import { getRuleValidator } from '../../../helper'
 
-export default class SelectSchema extends Schema {
+export default class SelectSchema extends FormSchema {
   constructor (props) {
     super()
     this.title = '下拉框'
