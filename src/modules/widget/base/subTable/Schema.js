@@ -1,6 +1,6 @@
-import Schema from '../../../schema/Schema'
+import { BaseSchema } from '../../../schema'
 
-export default class SubTableSchema extends Schema {
+export default class SubTableSchema extends BaseSchema {
   constructor (props) {
     super()
     this.title = ''

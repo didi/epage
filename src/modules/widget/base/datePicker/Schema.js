@@ -1,6 +1,6 @@
-import Schema from '../../../schema/FormSchema'
+import { FormSchema } from '../../../schema'
 
-export default class DatePickerSchema extends Schema {
+export default class DatePickerSchema extends FormSchema {
   constructor (props) {
     super()
     this.title = '日期选择'

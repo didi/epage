@@ -1,6 +1,6 @@
-import Schema from '../../../schema/FormSchema'
+import { FormSchema } from '../../../schema'
 
-export default class SwitchSchema extends Schema {
+export default class SwitchSchema extends FormSchema {
   constructor (props) {
     super()
     this.type = 'boolean'

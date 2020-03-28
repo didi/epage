@@ -281,18 +281,25 @@ export function getWidgetModel (SchemaType, schema, typeBuilder) {
 /**
  * 检查并设置schema key 及 name
  * @param {Object} schema 待实例化的JSON
+ * @param {Boolean} clone 是否复制
+ * @param {Boolean} dynamic 是否为动态添加
  */
-export function setKeyAndName (schema) {
+export function setKeyAndName (schema, clone, dynamic) {
   if (!isNotEmptyString(schema.key)) {
-    const key = randomStr()
-    schema.key = key
-    if (!schema.name) {
-      schema.name = key
-    }
-  } else {
+    schema.key = randomStr()
     if (!schema.name) {
       schema.name = schema.key
     }
+  } else {
+    if (clone) {
+      schema.key = randomStr()
+    }
+    if (!schema.name) {
+      schema.name = schema.key
+    }
+  }
+  if (clone && !dynamic) {
+    schema.name = schema.key
   }
 }
 

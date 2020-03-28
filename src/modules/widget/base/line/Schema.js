@@ -1,7 +1,7 @@
 
-import Schema from '../../../schema/Schema'
+import { BaseSchema } from '../../../schema'
 
-export default class LineSchema extends Schema {
+export default class LineSchema extends BaseSchema {
   constructor (props) {
     super()
     this.option = {

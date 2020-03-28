@@ -1,6 +1,6 @@
-import Schema from '../../../schema/FormSchema'
+import { FormSchema } from '../../../schema'
 
-export default class TimePickerSchema extends Schema {
+export default class TimePickerSchema extends FormSchema {
   constructor (props) {
     super()
     this.title = '时间'

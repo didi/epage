@@ -1,16 +1,25 @@
-import Schema from '../../../schema/Schema'
+import { BaseSchema } from '../../../schema'
+import {
+  isArray,
+  isPlainObject,
+  isNotEmptyString,
+  jsonClone,
+  isNumber,
+  isFunction
+} from '../../../helper'
 
-export default class GridSchema extends Schema {
+const getDefaultChildren = () => [
+  { span: 12, list: [] },
+  { span: 12, list: [] }
+]
+export default class GridSchema extends BaseSchema {
   constructor (props) {
     super()
     this.title = '布局'
     this.container = true
     // 设置form data数据是否平级展开还是层级嵌套
     // this.group = false
-    this.children = [
-      { span: 12, list: [] },
-      { span: 12, list: [] }
-    ]
+    this.children = getDefaultChildren()
     this.option = {
       gutter: 0,
       align: 'top',
@@ -24,6 +33,36 @@ export default class GridSchema extends Schema {
     //   'border-radius': '4px'
     // }
     this.create(props)
+    this.createChildren(props)
+  }
+
+  createChildren (props) {
+    let { schema, widgets = {}, clone, dynamic } = props || {}
+    if (isPlainObject(schema) && isNotEmptyString(schema.widget)) {
+      // 避免影响到原schema对象，这里需要深度clone一份
+      schema = jsonClone(schema)
+      const children = isArray(schema.children) ? schema.children : []
+      if (!children.length) {
+        children.push(getDefaultChildren())
+      }
+      children.forEach(child => {
+        if (!isNumber(child.span) || child.span < 0) {
+          child.span = 12
+        }
+        const list = []
+        if (isArray(child.list)) {
+          child.list.forEach(sub => {
+            const widget = widgets[sub.widget]
+            if (widget && isFunction(widget.Schema)) {
+              const newSub = new widget.Schema({ schema: sub, widgets, clone, dynamic })
+              list.push(newSub)
+            }
+          })
+        }
+        child.list = list
+      })
+      this.children = children
+    }
   }
 }
 

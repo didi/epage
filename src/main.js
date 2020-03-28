@@ -8,7 +8,7 @@ import {
   helper,
   constant,
   Store,
-  Schema,
+  schema,
   widget
 } from './modules'
 
@@ -16,10 +16,10 @@ Epage.Rule = Rule
 Epage.Worker = EpWorker
 Epage.Event = EpEvent
 Epage.Store = Store
-Epage.Schema = Schema
 Epage.TypeBuilder = TypeBuilder
 Epage.constant = constant
 Epage.helper = helper
+Epage.schema = schema
 Epage.widget = widget
 Epage.setting = setting
 

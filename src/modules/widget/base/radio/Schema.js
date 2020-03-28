@@ -1,7 +1,7 @@
-import Schema from '../../../schema/FormSchema'
+import { FormSchema } from '../../../schema'
 import { getRuleValidator } from '../../../helper'
 
-export default class RadioSchema extends Schema {
+export default class RadioSchema extends FormSchema {
   constructor (props) {
     super()
     this.title = '单选框'
