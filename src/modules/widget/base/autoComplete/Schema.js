@@ -5,7 +5,7 @@ export default class AutoCompleteSchema extends FormSchema {
   constructor (props) {
     super()
     this.type = 'string'
-    this.title = '自动完成'
+    this.label = '自动完成'
     this.widget = 'autoComplete'
     this.placeholder = '请输入'
     this.option = {

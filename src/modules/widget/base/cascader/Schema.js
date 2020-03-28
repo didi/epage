@@ -5,7 +5,7 @@ export default class CascaderSchema extends FormSchema {
   constructor (props) {
     super()
     this.type = 'array<string>'
-    this.title = '级联选择'
+    this.label = '级联选择'
     this.placeholder = '请选择'
     this.rules = [{ required: false, message: '必填', type: 'array', trigger: 'change' }]
     this.option = {

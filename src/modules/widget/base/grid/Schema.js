@@ -15,7 +15,7 @@ const getDefaultChildren = () => [
 export default class GridSchema extends BaseSchema {
   constructor (props) {
     super()
-    this.title = '布局'
+    this.label = '布局'
     this.container = true
     // 设置form data数据是否平级展开还是层级嵌套
     // this.group = false

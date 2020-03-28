@@ -4,7 +4,7 @@ export default class InputNumberSchema extends FormSchema {
   constructor (props) {
     super()
     this.type = 'number'
-    this.title = '数字'
+    this.label = '数字'
     this.placeholder = '请输入'
     this.rules = [{ required: false, message: '必填', trigger: 'change', type: 'number' }]
     this.option = {

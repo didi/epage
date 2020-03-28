@@ -14,12 +14,12 @@ Form(:label-width='80')
         template(v-else)
           slot(name='name')
 
-    template(v-if='order.key === "title"')
-      template(v-if='setting.title !== false')
-        FormItem(v-if='!$slots.title' label='标题')
-          Input(type='text' size='small' placeholder='请输入标题' v-model='selectedSchema.title')
+    template(v-if='order.key === "label"')
+      template(v-if='setting.label !== false')
+        FormItem(v-if='!$slots.label' label='标题')
+          Input(type='text' size='small' placeholder='请输入标题' v-model='selectedSchema.label')
         template(v-else)
-          slot(name='title')
+          slot(name='label')
 
     template(v-if='order.key === "placeholder"')
       template(v-if='setting.placeholder !== false')
@@ -104,7 +104,7 @@ export default {
       default: () => [
         { key: 'key' },
         { key: 'name' },
-        { key: 'title' },
+        { key: 'label' },
         { key: 'placeholder' },
         { key: 'description' },
         { key: 'help' },

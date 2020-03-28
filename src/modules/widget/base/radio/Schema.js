@@ -4,7 +4,7 @@ import { getRuleValidator } from '../../../helper'
 export default class RadioSchema extends FormSchema {
   constructor (props) {
     super()
-    this.title = '单选框'
+    this.label = '单选框'
     this.placeholder = '请选择'
     this.option = {
       type: 'static',

@@ -3,7 +3,7 @@ import { BaseSchema } from '../../../schema'
 export default class SubTableSchema extends BaseSchema {
   constructor (props) {
     super()
-    this.title = ''
+    this.label = '表格'
     this.placeholder = '暂无内容'
     this.option = {
       type: 'static',
