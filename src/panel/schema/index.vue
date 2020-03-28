@@ -77,7 +77,6 @@ export default {
       let schema = ''
       try {
         schema = JSON.parse(this.importModal.schema)
-        console.log(schema)
         this.store.initRootSchema(schema)
         this.store.deselectWidget()
         Message.success({ content: '导入成功', duration: 2 })
