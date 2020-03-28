@@ -458,10 +458,7 @@ export function updateRequiredRule (schema, WidgetSchema, rule) {
   if (type) {
     newRule.type = type
   } else {
-    console.dir(schema)
-    console.dir(WidgetSchema)
     const requiredType = getRequiredRuleType(schema, WidgetSchema)
-    console.log(9, requiredType)
     if (requiredType) {
       newRule.type = requiredType
     }

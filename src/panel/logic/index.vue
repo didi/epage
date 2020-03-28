@@ -137,17 +137,14 @@ export default {
         const logic = this.map.logic[type].get()
         this.modal.logic = logic
       }
-      console.log('add', type)
     },
     onDelete (index) {
       this.store.removeLogic(index)
-      console.log('delete')
     },
     onEdit (logic, index) {
       this.modal.visible = true
       this.modal.logic = JSON.parse(JSON.stringify(logic))
       this.modal.index = index
-      console.log('edit')
     },
     onModalOk () {
       const { type, key, action, effects } = this.modal.logic
