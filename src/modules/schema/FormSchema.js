@@ -9,8 +9,11 @@ export default class FormSchema extends Schema {
   constructor (props) {
     const { schema, widgets = {} } = props || {}
     super()
+    // form name
     this.name = ''
+    // type of widget value
     this.type = getSchemaType(schema, new.target)
+    // label name
     this.label = ''
     this.description = ''
     this.help = ''
@@ -29,6 +32,7 @@ export default class FormSchema extends Schema {
     }
   }
 
+  // over write the base Schema method
   create (props) {
     const { clone, dynamic } = props || {}
     Schema.prototype.create.call(this, props)
