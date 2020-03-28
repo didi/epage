@@ -3,7 +3,7 @@ import { FormSchema } from '../../../schema'
 export default class InputSchema extends FormSchema {
   constructor (props) {
     super()
-    this.title = '输入框'
+    this.label = '输入框'
     this.placeholder = '请输入'
     this.option.password = false
     this.option.prefix = ''

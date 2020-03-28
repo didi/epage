@@ -4,7 +4,7 @@ export default class SwitchSchema extends FormSchema {
   constructor (props) {
     super()
     this.type = 'boolean'
-    this.title = '开关'
+    this.label = '开关'
     this.placeholder = '请输入'
     this.option = {
       open: '是',

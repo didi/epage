@@ -3,7 +3,7 @@ import { FormSchema } from '../../../schema'
 export default class TextareaSchema extends FormSchema {
   constructor (props) {
     super()
-    this.title = '输入框'
+    this.label = '多行文本'
     this.placeholder = '请输入'
     this.option = {
       rows: 3

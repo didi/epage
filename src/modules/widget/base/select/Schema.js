@@ -4,7 +4,7 @@ import { getRuleValidator } from '../../../helper'
 export default class SelectSchema extends FormSchema {
   constructor (props) {
     super()
-    this.title = '下拉框'
+    this.label = '下拉框'
     this.placeholder = '请选择'
     this.rules = [
       { required: false, message: '必填', trigger: 'change' }

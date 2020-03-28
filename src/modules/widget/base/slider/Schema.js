@@ -4,7 +4,7 @@ export default class SliderSchema extends FormSchema {
   constructor (props) {
     super()
     this.type = 'number'
-    this.title = '滑块'
+    this.label = '滑块'
     this.placeholder = '请输入'
     this.create(props)
   }

@@ -3,7 +3,7 @@ import { FormSchema } from '../../../schema'
 export default class DatePickerSchema extends FormSchema {
   constructor (props) {
     super()
-    this.title = '日期选择'
+    this.label = '日期选择'
     this.placeholder = '请选择'
     this.rules = [{ required: false, message: '必填', trigger: 'change' }]
     this.option.range = false

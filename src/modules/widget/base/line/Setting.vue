@@ -1,6 +1,6 @@
 <template lang="pug">
 setting-form(:store='store' :setting='setting')
-  span(slot='title')
+  span(slot='label')
   span(slot='description')
   span(slot='placeholder')
   span(slot='name')

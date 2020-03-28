@@ -3,7 +3,7 @@ import { FormSchema } from '../../../schema'
 export default class UploadSchema extends FormSchema {
   constructor (props) {
     super()
-    this.title = '上传'
+    this.label = '上传'
     this.placeholder = '请选择文件'
     this.option = {
       // 上传的地址，必填
