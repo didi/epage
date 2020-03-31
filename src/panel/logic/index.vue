@@ -29,12 +29,12 @@
     tbody
       tr(v-for='(logic, key) in schema.logics' :key='key')
         td {{map.logic[logic.type].title}}
-        td {{flatSchemas[logic.key].title || (flatSchemas[logic.key].option ? flatSchemas[logic.key].option.text : logic.key)}}
+        td {{getSchemaText(logic.key)}}
         td {{map.logic[logic.type].map[logic.action].value}}
         td {{logic.type === "value" ? logic.value : '--'}}
         td
           Row.ep-logic-action(v-for='(effect, i) in logic.effects' :key="i")
-            Col(span='12').ep-logic-controlled {{flatSchemas[effect.key] ? flatSchemas[effect.key].title : ''}}
+            Col(span='12').ep-logic-controlled {{getSchemaText(effect.key)}}
             Col(span='12')
               span(v-for='(prop, j) in effect.properties' :key='j')
                 Tag(color='blue') {{map.prop[prop.key].text}}: {{map.prop[prop.key].option[prop.value ? 'open': 'close']}}
@@ -131,6 +131,12 @@ export default {
     }
   },
   methods: {
+    getSchemaText (key) {
+      const schema = this.flatSchemas[key] || {}
+      const label = schema.label || ''
+      const option = schema.option || {}
+      return label.trim() || option.text || key
+    },
     addLogic (type) {
       if (this.map.logic[type]) {
         this.modal.visible = true

@@ -1,5 +1,11 @@
 # Change Log
 
+### 0.2.1
+
+- [fix] : 修复逻辑面板主控、被控widget显示名不正确
+- [fix] : 修复无`schema.type`值时，获取`store.getFormData()`报错
+
+
 ### 0.2.0
 
 - [feat] : 导出增加`schema`，移除原导出`Schema`，同时`schema`模块中提供多种基础`Schema`可供继承

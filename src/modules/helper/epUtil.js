@@ -41,6 +41,7 @@ export function getFormData (model, rootSchema) {
     return v
   }
   const cleanValue = (value, schema) => {
+    if (!schema.type) return value
     const resolvedType = TypeBuilder.resolve(schema.type)
     return isArray(value)
       ? value.map(v => convert(typeof v, resolvedType, v))
@@ -49,13 +50,13 @@ export function getFormData (model, rootSchema) {
 
   const getSchemaForm = function (schema, listItem) {
     const result = {}
-    const { container, name, dynamic, list = [], key, group, children } = schema
+    const { container, name, type, dynamic, list = [], key, group, children } = schema
     if (dynamic) {
       if (container) {
         result[name] = list.map(sc => {
           return getSchemaForm(sc, dynamic)
         })
-      } else {
+      } else if (type) {
         result[name] = list.map(sc => {
           return cleanValue(model[sc.key], sc)
         })
@@ -81,7 +82,7 @@ export function getFormData (model, rootSchema) {
             })
           })
         }
-      } else {
+      } else if (type) {
         result[name] = cleanValue(model[key], schema)
       }
     }

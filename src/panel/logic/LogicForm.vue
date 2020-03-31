@@ -8,7 +8,7 @@
           :key='key'
           :value="s.key"
           v-if='!s.container'
-        ) {{s.title || (s.option ? `${s.option.text}(${s.key})` : s.key)}}
+        ) {{getSchemaText(s.key)}}
 
     FormItem(:label='map.type[curLogic.type] || "关系"')
       Select( v-model="curLogic.action")
@@ -28,7 +28,7 @@
               v-for='(sub, j) in getUnControlledSchemaList(curLogic)'
               :key='j'
               :value="sub.key"
-            ) {{(sub.title || sub.name) ? `${sub.title || sub.name}(${sub.key})` : sub.key}}
+            ) {{getSchemaText(sub.key)}}
           Row
             Col(v-for='(prop, k) in effect.properties' :key='k' span='12')
               FormItem(:label='map.prop[prop.key].text' :label-width='80')
@@ -126,6 +126,12 @@ export default {
     }
   },
   methods: {
+    getSchemaText (key) {
+      const schema = this.flatSchemas[key] || {}
+      const label = schema.label || ''
+      const option = schema.option || {}
+      return label.trim() || option.text || key
+    },
     getLogicOption ({ key, type }) {
       let result = []
       const { flatWidgets } = this

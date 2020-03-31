@@ -4,6 +4,7 @@ import { BaseSchema } from '../../../schema'
 export default class ButtonSchema extends BaseSchema {
   constructor (props) {
     super()
+    this.disabled = false
     this.option = {
       text: '提交',
       // 按钮类型：primary、dashed、text、default
