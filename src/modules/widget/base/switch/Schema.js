@@ -3,9 +3,7 @@ import { FormSchema } from '../../../schema'
 export default class SwitchSchema extends FormSchema {
   constructor (props) {
     super()
-    this.type = 'boolean'
     this.label = '开关'
-    this.placeholder = '请输入'
     this.rules = [{
       type: 'boolean',
       message: '必填',

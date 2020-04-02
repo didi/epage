@@ -71,8 +71,7 @@ Object.assign(GridSchema, {
   title: '布局',
   widget: 'grid',
   icon: 'grid',
-  type: 'object',
-  validators: [],
+  // validators: [],
   logic: {
     value: [],
     event: []

@@ -3,10 +3,14 @@ import { FormSchema } from '../../../schema'
 export default class InputNumberSchema extends FormSchema {
   constructor (props) {
     super()
-    this.type = 'number'
     this.label = '数字'
     this.placeholder = '请输入'
-    this.rules = [{ required: false, message: '必填', trigger: 'change', type: 'number' }]
+    this.rules = [{
+      required: false,
+      message: '必填',
+      trigger: 'change',
+      type: 'number'
+    }]
     this.option = {
       min: 0,
       max: 100,

@@ -4,13 +4,14 @@ import { getRuleValidator } from '../../../helper'
 export default class RadioSchema extends FormSchema {
   constructor (props) {
     super()
+    this.type = 'string'
     this.label = '单选框'
     this.placeholder = '请选择'
     this.option = {
       type: 'static',
       direction: 'horizontal',
       url: '',
-      adapter: '',
+      adapter: 'return data',
       data: [
         { key: 'A', value: 'A' }
       ],

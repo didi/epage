@@ -5,7 +5,11 @@ export default class TimePickerSchema extends FormSchema {
     super()
     this.label = '时间'
     this.placeholder = '请选择'
-    this.rules = [{ required: false, message: '必填', trigger: 'change' }]
+    this.rules = [{
+      required: false,
+      message: '必填',
+      trigger: 'change'
+    }]
     this.option = {
       range: false,
       format: 'HH:mm:ss'

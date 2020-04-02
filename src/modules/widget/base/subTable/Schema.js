@@ -4,7 +4,6 @@ export default class SubTableSchema extends BaseSchema {
   constructor (props) {
     super()
     this.label = '表格'
-    this.placeholder = '暂无内容'
     this.option = {
       type: 'static',
       columns: [{
@@ -34,7 +33,7 @@ Object.assign(SubTableSchema, {
   widget: 'subTable',
   icon: 'ios-grid-view',
   type: 'array',
-  validators: [],
+  // validators: [],
   logic: {
     value: [],
     event: []

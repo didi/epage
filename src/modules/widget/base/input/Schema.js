@@ -5,9 +5,11 @@ export default class InputSchema extends FormSchema {
     super()
     this.label = '输入框'
     this.placeholder = '请输入'
-    this.option.password = false
-    this.option.prefix = ''
-    this.option.suffix = ''
+    this.option = {
+      password: false,
+      prefix: '', // 前缀字符
+      suffix: '' // 后缀字符
+    }
     this.create(props)
   }
 }

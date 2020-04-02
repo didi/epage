@@ -6,15 +6,20 @@ export default class SelectSchema extends FormSchema {
     super()
     this.label = '下拉框'
     this.placeholder = '请选择'
-    this.rules = [
-      { required: false, message: '必填', trigger: 'change' }
-    ]
+    this.rules = [{
+      required: false,
+      message: '必填',
+      trigger: 'change'
+    }]
     this.option = {
       type: 'static',
       url: '',
-      adapter: 'return res',
+      adapter: 'return data',
       dynamicData: [],
-      data: [{ key: 'A', value: 'A' }, { key: 'B', value: 'B' }],
+      data: [
+        { key: 'A', value: 'A' },
+        { key: 'B', value: 'B' }
+      ],
       multiple: false,
       clearable: true
     }

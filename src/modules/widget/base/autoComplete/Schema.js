@@ -4,14 +4,12 @@ import { getRuleValidator } from '../../../helper'
 export default class AutoCompleteSchema extends FormSchema {
   constructor (props) {
     super()
-    this.type = 'string'
     this.label = '自动完成'
-    this.widget = 'autoComplete'
     this.placeholder = '请输入'
     this.option = {
       type: 'static',
       url: '',
-      adapter: '',
+      adapter: 'return data',
       data: ['A'],
       dynamicData: [],
       clearable: true

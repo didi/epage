@@ -6,15 +6,21 @@ export default class CheckboxSchema extends FormSchema {
     super()
     this.type = 'array<string>'
     this.label = '多选框'
-    this.placeholder = '请选择'
-    this.rules = [{ required: false, message: '必填', type: 'array', trigger: 'change' }]
+    this.rules = [{
+      required: false,
+      message: '必填',
+      type: 'array',
+      trigger: 'change'
+    }]
     this.option = {
       type: 'static',
       direction: 'horizontal',
       url: '',
-      adapter: '',
+      adapter: 'return data',
       dynamicData: [],
-      data: [{ key: 'A', value: 'A' }]
+      data: [
+        { key: 'A', value: 'A' }
+      ]
     }
     this.create(props)
     const rule = {

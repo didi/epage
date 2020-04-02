@@ -19,11 +19,11 @@ export default class CascaderSchema extends FormSchema {
       filterable: false,
       data: [
         {
-          value: 'option A',
           key: 'A',
+          value: 'option A',
           children: [{
-            value: 'option B',
-            key: 'B'
+            key: 'B',
+            value: 'option B'
           }]
         }
       ]

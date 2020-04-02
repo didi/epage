@@ -76,7 +76,7 @@ export default class StoreConf {
           for (const i in flatWidgets) {
             const { Schema } = flatWidgets[i]
             if (!isFunction(Schema) || !isArray(Schema.validators)) {
-              return
+              continue
             }
             map[i] = []
             Schema.validators.forEach(validator => {
@@ -85,7 +85,7 @@ export default class StoreConf {
               if (!val) {
                 return console.log(`validator ${validator} is not exist`)
               }
-              map[i].push(Rule.rules[validator])
+              map[i].push(val)
             })
           }
           return map
