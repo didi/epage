@@ -1,10 +1,10 @@
-var webpack = require('webpack')
-var merge = require('webpack-merge')
-var webpackBaseConfig = require('./webpack.base.conf.js')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
+const webpack = require('webpack')
+const merge = require('webpack-merge')
+const webpackBaseConfig = require('./webpack.base.conf.js')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-var webpackConfig = merge(webpackBaseConfig, {
+const webpackConfig = merge(webpackBaseConfig, {
   mode: 'development',
   entry: {
     vendor: './examples/index.js'

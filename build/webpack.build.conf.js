@@ -1,18 +1,18 @@
-var path = require('path')
-var webpack = require('webpack')
-var merge = require('webpack-merge')
-var webpackBaseConfig = require('./webpack.base.conf.js')
-var UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
-var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
-var CleanWebpackPlugin = require('clean-webpack-plugin')
-var pkg = require('../package.json')
+const path = require('path')
+const webpack = require('webpack')
+const merge = require('webpack-merge')
+const webpackBaseConfig = require('./webpack.base.conf.js')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+const pkg = require('../package.json')
 
-var banner = `epage v${pkg.version}
+const banner = `epage v${pkg.version}
 (c) 2020-present Chengzi
 Released under the MIT License.`
 
-var webpackConfig = merge(webpackBaseConfig, {
+const webpackConfig = merge(webpackBaseConfig, {
   mode: 'production',
   entry: {
     'epage': './src/main.js'
@@ -73,7 +73,7 @@ var webpackConfig = merge(webpackBaseConfig, {
 })
 
 if (process.env.npm_config_report) {
-  var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
   webpackConfig.plugins.push(new BundleAnalyzerPlugin())
 }
 

@@ -1,10 +1,15 @@
 # Change Log
 
+
+### 0.2.2
+
+- [fix] : 修复基础widget的Schema默认字段，去除冗余字段，修改默认
+- [fix] : 更新 package.json 增加 `peerDependencies` 字段
+
 ### 0.2.1
 
 - [fix] : 修复逻辑面板主控、被控widget显示名不正确
 - [fix] : 修复无`schema.type`值时，获取`store.getFormData()`报错
-
 
 ### 0.2.0
 

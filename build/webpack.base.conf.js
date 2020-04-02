@@ -1,8 +1,8 @@
-var path = require('path')
-var webpack = require('webpack')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
-var VueLoaderPlugin = require('vue-loader/lib/plugin')
-var NODE_ENV = process.env.NODE_ENV || 'production'
+const path = require('path')
+const webpack = require('webpack')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const NODE_ENV = process.env.NODE_ENV || 'production'
 
 const scirptPath =  [
   path.resolve(__dirname, '../src')

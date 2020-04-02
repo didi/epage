@@ -1,6 +1,6 @@
 {
   "name": "epage",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Epage 一款基于schema的可视化页面配置工具",
   "author": "Chengzi <ttghost@126.com>",
   "main": "./dist/epage.min.js",
@@ -35,6 +35,11 @@
       "pre-commit": "npm run lint && git add .",
       "commit-msg": "node build/verify-commit-msg.js"
     }
+  },
+  "peerDependencies": {
+    "vue": ">2.5",
+    "iview": ">=2.13",
+    "vuex": ">=3.1"
   },
   "dependencies": {},
   "devDependencies": {

@@ -30,4 +30,5 @@ Object.keys(styles).forEach(function (key) {
     return styles[key].join(msg)
   }
 })
+
 module.exports = color
