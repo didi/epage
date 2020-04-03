@@ -61,35 +61,25 @@ export default {
         'mm:ss',
         '无'
       ],
-      type: 'date',
       dateFormat: 'yyyy-MM-dd',
       timeFormat: '无'
     }
   },
   computed: {
-    formatVal () {
-      return this.getFormat()
-    },
     hasTime () {
       return include(this.dateFormat, 'dd')
     }
   },
   watch: {
-    type (newVal, oldval) {
-      const key = this.selectedSchema.key
-      if (newVal !== oldval) {
-        this.store.updateWidgetOption(key, { type: newVal, format: this.formatVal })
-      }
-    },
     dateFormat () {
-      this.updateType()
+      this.updateFormat()
     },
     timeFormat () {
-      this.updateType()
+      this.updateFormat()
     }
   },
   created () {
-    this.updateType()
+    this.updateFormat()
   },
   methods: {
     getFormat () {
@@ -98,35 +88,15 @@ export default {
     },
     onTypeChange (range) {
       const key = this.selectedSchema.key
-      const widupdateType = range ? 'array<string>' : 'string'
+      const widgetType = range ? 'array<string>' : 'string'
 
       // type 可以先改变，但是 value 先改变则会报错
-      this.updateType()
-      this.$nextTick(() => {
-        this.store.updateWidgetType(key, widupdateType)
-      })
+      this.store.updateWidgetType(key, widgetType)
     },
-    updateType () {
-      const timeOptions = ['HH:mm:ss', 'HH:mm', 'mm:ss']
-      const monthOptions = ['yyyy-MM', 'yyyy/MM']
+    updateFormat () {
       const format = this.getFormat()
-      const { range } = this.selectedSchema.option
-      let type = 'date'
-
-      if (range) {
-        type = this.hasTime && include(timeOptions, this.timeFormat) ? 'datetimerange' : 'daterange'
-      } else {
-        if (format === 'yyyy') {
-          type = 'year'
-        } else if (include(monthOptions, this.dateFormat)) {
-          type = 'month'
-        } else if (this.hasTime && include(timeOptions, this.timeFormat)) {
-          type = 'datetime'
-        } else {
-          type = 'date'
-        }
-      }
-      this.type = type
+      const { key } = this.selectedSchema
+      this.store.updateWidgetOption(key, { format })
     }
   }
 }
