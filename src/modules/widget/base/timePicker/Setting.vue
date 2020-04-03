@@ -33,8 +33,7 @@ export default {
     formatOptions () {
       return [
         'HH:mm:ss',
-        'HH:mm',
-        'mm:ss'
+        'HH:mm'
       ]
     }
   },

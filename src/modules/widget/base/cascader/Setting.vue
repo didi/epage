@@ -27,7 +27,7 @@ setting-form(:store='store' :setting='setting')
           Button(type="primary" @click="onTreeOk") 确定
 
   FormItem(label='分隔符')
-    Input(v-model="selectedSchema.option.delimiter" placeholder="展示模式下默认为'/'" size="small" style="width: 100px")
+    Input(v-model="selectedSchema.option.delimiter" placeholder="默认为'/'" size="small" style="width: 100px")
 </template>
 <script>
 import settingExtend from '../../extends/setting'
