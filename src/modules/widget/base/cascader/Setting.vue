@@ -19,8 +19,9 @@ setting-form(:store='store' :setting='setting')
           Input(v-model="selectedSchema.option.childrenAlias" size="small" placeholder="children")
     template(slot="tree")
       Modal(v-model="showModal" width="650" :closable="false")
-        .ep-modal-tree_wrapper(v-if="showModal")
+        .ep-widget-cascader-modal(v-if="showModal")
           data-tree(:raw-data= "treeData" :schema-type="selectedSchema.type")
+          .ep-widget-cascader-modal-msg 注意key值与数据源类型是否一致
         template(slot="footer")
           Button(type="default" @click="onTreeCancel" style="marginRight: 10px;") 取消
           Button(type="primary" @click="onTreeOk") 确定

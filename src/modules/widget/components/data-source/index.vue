@@ -44,7 +44,7 @@
 
     template(v-if = "$slots.tree")
       Row.ep-setting-option-add
-        Button(type='dashed' size='small' @click="$emit('tree-data:append')") + 添加选项
+        Button(type='dashed' size='small' @click="$emit('tree-data:append')") + 编辑选项
 
   template(v-else-if='schemaOption.type === "dynamic"')
     FormItem

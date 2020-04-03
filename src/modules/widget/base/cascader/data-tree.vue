@@ -1,6 +1,6 @@
 <template>
   <Tree
-    class="ep-data-tree-wrapper"
+    class="data-tree"
     :data="rootList"
     :render="renderContent"
   />
@@ -23,16 +23,12 @@ export default {
     return {
       rootList: [
         {
-          value: '本地数据',
+          value: 'Root',
           expand: true,
           render: (h, { root, node, data }) => {
             return <div class="leaf-root">
-              <span>
-                <span>{data.value}</span>
-              </span>
-              <span class="btn">
-                <i-button icon="ios-plus-empty" type="primary" size="small" style={{ width: '52px' }} onClick={_ => this.append(data)}></i-button>
-              </span>
+              <span>{data.value}</span>
+              <i-button icon="ios-plus-empty" type="primary" size="small" title='添加子节点' onClick={_ => this.append(data)}></i-button>
             </div>
           },
           children: []
@@ -54,12 +50,12 @@ export default {
   methods: {
     renderContent (h, { root, node, data }) {
       const list = [
-        { key: 'value', placeholder: '请输入value', tips: '显示字段' },
-        { key: 'key', placeholder: '请输入key', tips: '提交字段' }
+        { key: 'key', placeholder: '请输入key', tips: '提交字段' },
+        { key: 'value', placeholder: '请输入value', tips: '显示字段' }
       ]
       return (
         <div class="leaf-item">
-          <div class="leaf-content_wrapper">
+          <div class="leaf-content-wrapper">
             {list.map(item => {
               return (
                 <div>
@@ -76,17 +72,17 @@ export default {
                     onInput={value => { data[item.key] = value.trim() }}
                     placeholder={item.placeholder}
                     class={{
-                      'leaf-content_wrapper-input': true,
-                      'ivu-form-item-error': item.key === 'value' && this.checkKeyType(data[item.key])
+                      'leaf-content-wrapper-input': true,
+                      'ivu-form-item-error': item.key === 'key' && this.checkKeyType(data[item.key])
                     }}
                   />
                 </div>
               )
             })}
           </div>
-          <div class="leaf-operat_wrapper">
-            <i-button class="mr5" icon="ios-plus-empty" type="ghost" size="small" onClick={_ => this.append(data)}></i-button>
-            <i-button icon="ios-minus-empty" type="ghost" size="small" onClick={_ => this.remove(root, node, data)}></i-button>
+          <div class="leaf-operat-wrapper">
+            <i-button class="mr5" icon="ios-plus-empty" type="ghost" size="small" title='添加子节点' onClick={_ => this.append(data)}></i-button>
+            <i-button icon="ios-minus-empty" type="ghost" size="small" title='删除当前节点' onClick={_ => this.remove(root, node, data)}></i-button>
           </div>
         </div>
       )

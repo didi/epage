@@ -1,46 +1,50 @@
-.@{eppre}-modal-tree_wrapper{
+.@{eppre}-widget-cascader-modal{
   max-height: 420px;
   overflow-y: auto;
   overflow-x: hidden;
-}
-.@{eppre}-data-tree-wrapper{
-  .ivu-form-item-content{
-    margin-left: 0 !important;
+  &-msg{
+    color:#999;
+    padding: 20px 0 0;
   }
-  .leaf_common(){
-    display: inline-block;
-    width: 100%;
-  }
-  .mr5{
-    margin-right: 5px;
-  }
-  .leaf-root{
-    .leaf_common;
-    .btn{
-      display: inline-block;
-      float: right;
-      margin-right: 40px;
-    }
-  }
-  .leaf-item{
-    .leaf_common;
+  .data-tree {
     position: relative;
-    vertical-align: middle;
-    .leaf-content_wrapper{
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      &-input{
-        width: 100px;
-        margin-right: 10px;
+    .ivu-form-item-content{
+      margin-left: 0 !important;
+    }
+    .leaf_common(){
+      display: inline-block;
+      width: 100%;
+    }
+    .mr5{
+      margin-right: 5px;
+    }
+    .leaf-root{
+      .leaf_common;
+      button{
+        width: 48px;
+        position: absolute;
+        right: 0;
       }
     }
-    .leaf-operat_wrapper{
-      display: inline-block;
-      position: absolute;
-      top: 4px;
-      right: 0;
-      margin-right: 20px;
+    .leaf-item{
+      .leaf_common;
+      position: relative;
+      vertical-align: middle;
+      .leaf-content-wrapper{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        &-input{
+          width: 100px;
+          margin-right: 10px;
+        }
+      }
+      .leaf-operat-wrapper{
+        display: inline-block;
+        position: absolute;
+        top: 4px;
+        right: 15px;
+      }
     }
   }
 }
