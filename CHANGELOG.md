@@ -1,6 +1,13 @@
 # Change Log
 
 
+### 0.2.3
+
+- [fix] : 修复datePicker schema定义，去除`option.type`
+- [fix] : 修复timePicker 设置表单时间点及区间切换错误
+- [fix] : 修复cascader连接符不生效问题，优化手动输入数据时样式
+- [fix] : 修复inputNumber设置表单步长及精度最小值不准确问题
+
 ### 0.2.2
 
 - [fix] : 修复基础widget的Schema默认字段，去除冗余字段，修改默认
