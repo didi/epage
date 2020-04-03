@@ -12,12 +12,12 @@ setting-form(:store='store' :setting='setting')
     slot(name='max')
 
   FormItem(v-if='!$slots.step' label='步长')
-    InputNumber(v-model='selectedSchema.option.step' :transfer='true' size='small')
+    InputNumber(v-model='selectedSchema.option.step' :transfer='true' size='small' :min='0')
   template(v-else)
     slot(name='step')
 
   FormItem(v-if='!$slots.precision' label='精度')
-    InputNumber(v-model='selectedSchema.option.precision' :transfer='true' size='small')
+    InputNumber(v-model='selectedSchema.option.precision' :transfer='true' size='small' :min='0')
   template(v-else)
     slot(name='precision')
 
