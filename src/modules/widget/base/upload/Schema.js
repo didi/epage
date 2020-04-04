@@ -5,6 +5,12 @@ export default class UploadSchema extends FormSchema {
     super()
     this.label = '上传'
     this.placeholder = '请选择文件'
+    this.rules = [{
+      required: false,
+      message: '必填',
+      trigger: 'change',
+      type: 'array'
+    }]
     this.option = {
       // 上传的地址，必填
       action: '',

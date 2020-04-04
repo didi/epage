@@ -39,6 +39,9 @@ export function getValueType (value) {
  */
 function checkValueTypeWithStringExpectedType (value, expectedType) {
   const matched = expectedType.match(/array<([^<>]+)>/)
+  if (expectedType === 'array') {
+    return true
+  }
   if (!matched || !matched[1]) {
     return false
   }
