@@ -1,4 +1,3 @@
-build/*.js
 dist/*.js
 .vscode/
 node_modules/

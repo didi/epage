@@ -15,7 +15,7 @@ Released under the MIT License.`
 const webpackConfig = merge(webpackBaseConfig, {
   mode: 'production',
   entry: {
-    'epage': './src/main.js'
+    epage: './src/main.js'
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
@@ -32,15 +32,13 @@ const webpackConfig = merge(webpackBaseConfig, {
       root: 'Vuex',
       commonjs: 'vuex',
       commonjs2: 'vuex',
-      amd: 'vuex',
-
+      amd: 'vuex'
     },
     vue: {
       root: 'Vue',
       commonjs: 'vue',
       commonjs2: 'vue',
-      amd: 'vue',
-
+      amd: 'vue'
     }
   },
   // devtool: 'source-map',
@@ -55,7 +53,9 @@ const webpackConfig = merge(webpackBaseConfig, {
     })]
   },
   plugins: [
-    new CleanWebpackPlugin({cleanOnceBeforeBuildPatterns: path.resolve(__dirname, '../dist')}),
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: path.resolve(__dirname, '../dist')
+    }),
     new webpack.BannerPlugin(banner),
     new webpack.optimize.ModuleConcatenationPlugin(),
     new ExtractTextPlugin({

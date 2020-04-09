@@ -8,7 +8,7 @@ const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const webpackConfig = merge(webpackBaseConfig, {
   mode: 'production',
   entry: {
-    'epage': './src/style/main.less',
+    epage: './src/style/main.less'
   },
   output: {
     path: path.resolve(__dirname, '../dist'),

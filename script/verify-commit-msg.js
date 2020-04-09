@@ -5,11 +5,11 @@ const color = require('./color')
 
 function checkGitAccount () {
   child.exec('git config user.email', function (err, sto) {
-    unsafeStr = /@didi(chuxing|global)?\.com$/
-  
+    const unsafeStr = /@didi(chuxing|global)?\.com$/
+
     if (err) process.exit(1)
     const account = (sto || '').trim()
-  
+
     if (unsafeStr.test(account)) {
       console.error(color.red('Please switch to your personal  github account !!!'))
       process.exit(1)
@@ -18,7 +18,6 @@ function checkGitAccount () {
     }
   })
 }
-
 
 function checkCommitMsg (msg) {
   const commitRE = /^(revert|feat|fix|docs|style|refactor|perf|test|workflow|chore|build)(\(.+\))?: .{1,50}/
