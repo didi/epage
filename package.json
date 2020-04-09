@@ -1,18 +1,17 @@
 {
   "name": "epage",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Epage 一款基于schema的可视化页面配置工具",
   "author": "Chengzi <ttghost@126.com>",
   "main": "./dist/epage.min.js",
   "main:epage": "./src/main.js",
   "scripts": {
     "start": "npm run dev",
-    "dev": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.dev.conf.js",
-    "prod": "cross-env NODE_ENV=production webpack --config build/webpack.build.conf.js && npm run style",
-    "style": "cross-env NODE_ENV=production webpack --config build/webpack.style.js",
+    "dev": "webpack-dev-server --config script/webpack.dev.conf.js",
+    "build": "webpack --config script/webpack.build.conf.js && npm run style",
+    "style": "webpack --config script/webpack.style.js",
     "lint": "eslint --ext .vue --ext .js src/ --fix",
-    "test": "cross-env NODE_ENV=testing webpack --config build/webpack.build.conf.js",
-    "analyz": "npm_config_report=true npm run prod"
+    "analyz": "npm_config_report=true npm run build"
   },
   "files": [
     "dist",
@@ -33,7 +32,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "npm run lint && git add .",
-      "commit-msg": "node build/verify-commit-msg.js"
+      "commit-msg": "node script/verify-commit-msg.js"
     }
   },
   "peerDependencies": {

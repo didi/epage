@@ -65,9 +65,6 @@ const webpackConfig = merge(webpackBaseConfig, {
       cssProcessorOptions: {
         safe: true
       }
-    }),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"production"'
     })
   ]
 })

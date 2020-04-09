@@ -24,7 +24,6 @@ Object.assign(LineSchema, {
   title: '线条',
   widget: 'line',
   icon: 'ios-pause',
-  // validators: [],
   logic: {
     value: null,
     event: null

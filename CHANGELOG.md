@@ -1,6 +1,12 @@
 # Change Log
 
 
+### 0.2.4
+
+- [fix] : 修改上传widget 的默认校验规则
+- [fix] : 修改基础非表单Schema默认静态属性，去除`validators`和`type`
+- [fix] : 修改打包脚本由`npm run prod`改为`npm run build`
+
 ### 0.2.3
 
 - [fix] : 修复datePicker schema定义，去除`option.type`

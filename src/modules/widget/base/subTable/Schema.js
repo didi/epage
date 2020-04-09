@@ -33,7 +33,6 @@ Object.assign(SubTableSchema, {
   widget: 'subTable',
   icon: 'ios-grid-view',
   type: 'array',
-  // validators: [],
   logic: {
     value: [],
     event: []

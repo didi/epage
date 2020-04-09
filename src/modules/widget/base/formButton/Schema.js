@@ -25,7 +25,6 @@ Object.assign(ButtonSchema, {
   title: '表单按钮',
   widget: 'formButton',
   icon: 'social-youtube-outline',
-  // validators: [],
   logic: {
     value: null,
     event: []
