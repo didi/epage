@@ -1,6 +1,10 @@
 # Change Log
 
 
+### 0.2.5
+
+- [fix] : 修复隐藏widget依然进行表单规则校验问题，增加`getFormRules`
+
 ### 0.2.4
 
 - [fix] : 修改上传widget 的默认校验规则
