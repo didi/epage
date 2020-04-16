@@ -152,6 +152,21 @@ export default class Store {
   }
 
   /**
+   * get form rule
+   * @returns {Object} rules object
+   */
+  getFormRules () {
+    const { flatSchemas, flatRules } = this.$$store.state
+    const rules = {}
+    for (const key in flatSchemas) {
+      if (!flatSchemas[key].hidden) {
+        rules[key] = flatRules[key]
+      }
+    }
+    return rules
+  }
+
+  /**
    * determine if the widget is selected,
    * generally used in design mode
    * @returns {Boolean} selected or unselected
