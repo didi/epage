@@ -299,3 +299,21 @@ export function formatDate (_date, _format) {
     .replace('mm', minute)
     .replace('ss', second)
 }
+
+export function copy (str) {
+  const input = document.createElement('textArea')
+  input.setAttribute('style', 'position: absolute;z-index: -1;height: 0;width: 0;')
+  document.body.appendChild(input)
+  input.value = str
+  input.select()
+  const isCopied = document.execCommand('copy', 'false', null)
+
+  return new Promise((resolve, reject) => {
+    if (isCopied) {
+      resolve(str)
+    } else {
+      reject(new Error('error'))
+    }
+    document.body.removeChild(input)
+  })
+}

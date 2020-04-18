@@ -33,7 +33,8 @@ import {
   getValueType,
   checkValueType,
   formatDate,
-  isNumberString
+  isNumberString,
+  copy
 } from './util'
 
 export {
@@ -69,5 +70,6 @@ export {
   getValueType,
   checkValueType,
   formatDate,
-  isNumberString
+  isNumberString,
+  copy
 }
