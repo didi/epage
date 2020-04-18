@@ -20,7 +20,11 @@
     FormItem(label='值' v-if='curLogic.type === "value"')
       Input(v-model="curLogic.value" placeholder="请输入值")
 
-    FormItem(:label='`受控widget-${i + 1}`' v-for='(effect, i) in controlledWidgetEffects' :key='i')
+    FormItem(
+      :label='`受控widget-${i + 1}`'
+      v-for='(effect, i) in controlledWidgetEffects'
+      :key='i'
+    )
       Row.ep-logic-controlled-border
         Col(span='20')
           Select(v-model="controlledWidgetEffects[i].key")
@@ -51,7 +55,7 @@
           )
 </template>
 <script>
-import * as helper from '../../modules/helper'
+import { isArray } from '../../modules/helper'
 
 export default {
   props: {
@@ -102,7 +106,7 @@ export default {
       }
       const getList = (schema, type, logicList) => {
         const widgetLogic = flatWidgets[schema.widget].Schema.logic || {}
-        if (helper.isArray(widgetLogic[type]) && widgetLogic[type].length) {
+        if (isArray(widgetLogic[type]) && widgetLogic[type].length) {
           logicList[type].push(schema)
         }
       }
@@ -114,7 +118,8 @@ export default {
       return logicList
     },
     controlledWidgetEffects () {
-      return (this.curLogic.effects || []).filter(item => this.curLogic.key !== item.key)
+      const effects = this.curLogic.effect || []
+      return effects.filter(item => this.curLogic.key !== item.key)
     }
   },
   watch: {
@@ -130,6 +135,7 @@ export default {
       const schema = this.flatSchemas[key] || {}
       const label = schema.label || ''
       const option = schema.option || {}
+
       return label.trim() || option.text || key
     },
     getLogicOption ({ key, type }) {
@@ -137,7 +143,10 @@ export default {
       const { flatWidgets } = this
       const schema = this.schemaList.filter(item => item.key === key)[0] || {}
       const widget = flatWidgets[schema.widget]
-      if (widget && widget.Schema && type in widget.Schema.logic) result = widget.Schema.logic[type]
+
+      if (widget && widget.Schema && type in widget.Schema.logic) {
+        result = widget.Schema.logic[type]
+      }
       // if (schema.logic && type in schema.logic) result = schema.logic[type]
       return result
     },

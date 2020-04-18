@@ -32,8 +32,20 @@
 
         Col(:span="dataType === 'object' ? 11 : 18" offset='1')
           FormItem(:label-width='1')
-            Input(v-if='dataType === "object"' type='text' size='small' placeholder='请输入显示' v-model="schemaOption.data[k].value")
-            Input(v-else type='text' size='small' placeholder='请输入显示' v-model="schemaOption.data[k]")
+            Input(
+              v-if='dataType === "object"'
+              type='text'
+              size='small'
+              placeholder='请输入显示'
+              v-model="schemaOption.data[k].value"
+            )
+            Input(
+              v-else
+              type='text'
+              size='small'
+              placeholder='请输入显示'
+              v-model="schemaOption.data[k]"
+            )
               //- @on-change='onKeyValueChange(k, "value", ...arguments)'
 
         Col(span='2' offset='1' style='line-height: 24px;')
@@ -50,12 +62,25 @@
     FormItem
       span(slot='label') 接口
         field-tip(:content='tips.url')
-      Input(type='textarea' :rows='3' size='small' v-model='schemaOption.url' placeholder='http://' @on-change='onTextareaChange')
+      Input(
+        type='textarea'
+        :rows='3'
+        size='small'
+        v-model='schemaOption.url'
+        placeholder='http://'
+        @on-change='onTextareaChange'
+      )
 
     FormItem
       span(slot='label') 转换器
         field-tip(:content='tips.adapter')
-      Input(type='textarea' size='small' :autosize='{minRows: 3, maxRows: 8}' v-model='schemaOption.adapter' @on-change='onTextareaChange')
+      Input(
+        type='textarea'
+        size='small'
+        :autosize='{minRows: 3, maxRows: 8}'
+        v-model='schemaOption.adapter'
+        @on-change='onTextareaChange'
+      )
     slot(name="dynamic")
     FormItem
       Button(@click='onFetch' size='small') 测试
@@ -63,7 +88,7 @@
   slot
 </template>
 <script>
-import { ajax, randomStr, isNumberString, include } from '../../../helper'
+import { ajax, randomStr, isNumberString, include, isArray } from '../../../helper'
 import EpWorker from '../../../worker'
 import TypeBuilder from '../../../store/TypeBuilder'
 import tips from './tips'
@@ -105,7 +130,7 @@ export default {
       const widget = flatWidgets[selectedSchema.widget]
       if (widget && widget.Schema) {
         type = widget.Schema.type
-        if (Array.isArray(type)) {
+        if (isArray(type)) {
           const { multiple } = this.schemaOption
           // TODO:优化
           // 只保留基本类型  select、radio
@@ -217,17 +242,15 @@ export default {
     onFetch () {
       const { url, adapter } = this.schemaOption
       if (url) {
-        ajax(url)
-          .then(res => {
-            this.worker.postMessage({
-              action: this.workerAction,
-              data: res,
-              fn: adapter
-            })
+        ajax(url).then(res => {
+          this.worker.postMessage({
+            action: this.workerAction,
+            data: res,
+            fn: adapter
           })
-          .catch(err => {
-            this.$emit('error', { success: false, message: err })
-          })
+        }).catch(err => {
+          this.$emit('error', { success: false, message: err })
+        })
       } else {
         console.warn('请输入接口地址')
       }

@@ -30,6 +30,7 @@ import { version } from 'iview'
 import EpagePanel from '../../components/panel'
 import { map2to3 } from '../../modules/constant/icon-type-map'
 import { IVIEW_V3 } from '../../modules/constant/static'
+import { isFunction } from '../../modules/helper'
 
 export default {
   components: {
@@ -38,9 +39,7 @@ export default {
   props: {
     widgets: {
       type: Array,
-      default: () => {
-        return []
-      }
+      default: () => ([])
     },
     add: {
       type: Function,
@@ -55,12 +54,16 @@ export default {
   methods: {
     addWidget (widget) {
       if (!widget) return
-      if (!(widget.Schema !== 'function')) return
+      if (!isFunction(widget.Schema)) return
+
       this.$emit('on-add', widget.Schema.widget)
-      // this.$emit('on-add', widget)
     },
     getClassName (clsses) {
-      return clsses.split(/\s+/g).map(i => i.split('.')[1]).filter(_ => _).join(' ')
+      return clsses
+        .split(/\s+/g)
+        .map(i => i.split('.')[1])
+        .filter(_ => _)
+        .join(' ')
     },
     getIcon (widget) {
       const { icon } = widget.Schema

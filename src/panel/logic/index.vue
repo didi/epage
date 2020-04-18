@@ -11,13 +11,6 @@
       @click='addLogic("event")'
     ) + 事件逻辑
   table.ep-logic-table
-    //- colgroup
-    //-   col(width='8%')
-    //-   col(width='15%')
-    //-   col(width='10%')
-    //-   col(width='15%')
-    //-   col(width='37%')
-    //-   col(width='15%')
     thead
       tr
         th 类型
@@ -39,8 +32,21 @@
               span(v-for='(prop, j) in effect.properties' :key='j')
                 Tag(color='blue') {{map.prop[prop.key].text}}: {{map.prop[prop.key].option[prop.value ? 'open': 'close']}}
         td
-          Button(size='small' type='ghost' @click='onEdit(logic, key)' icon="edit" title='编辑' style='margin-right: 6px;')
-          Button(size='small' type='ghost' @click='onDelete(key)' icon="trash-a" title='删除')
+          Button(
+            size='small'
+            type='ghost'
+            @click='onEdit(logic, key)'
+            icon="edit"
+            title='编辑'
+            style='margin-right: 6px;'
+          )
+          Button(
+            size='small'
+            type='ghost'
+            @click='onDelete(key)'
+            icon="trash-a"
+            title='删除'
+          )
 
   .ep-logic-table-empty(v-if='!schema.logics || schema.logics.length === 0') 暂无逻辑配置
 

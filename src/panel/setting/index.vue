@@ -1,6 +1,5 @@
 <template lang="pug">
 Tabs(:value='tab' size='small')
-  //- Button(slot="extra" size="small" type="text")
   a.ep-setting-help-link(slot="extra" :href='docURL' target='_blank')
     Icon(type="help")
     span &nbsp;帮助
