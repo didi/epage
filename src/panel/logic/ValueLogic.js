@@ -1,3 +1,5 @@
+import Effect from './Effect'
+
 export default class ValueLogic {
   constructor () {
     this.type = 'value'
@@ -42,13 +44,7 @@ export default class ValueLogic {
       key: '',
       action: '',
       value: '',
-      effects: [{
-        key: '',
-        properties: [
-          { key: 'hidden', value: false },
-          { key: 'disabled', value: false }
-        ]
-      }]
+      effects: [new Effect()]
     }
   }
 }

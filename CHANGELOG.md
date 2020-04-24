@@ -1,6 +1,11 @@
 # Change Log
 
 
+### 0.2.6
+
+- [fix] : 修复配置逻辑关系时，更改主控widget，受控widget不更新问题
+- [feat] : 增加逻辑配置中 `Effect`及 `Properties` 类
+
 ### 0.2.5
 
 - [fix] : 修复隐藏widget依然进行表单规则校验问题，增加`getFormRules`

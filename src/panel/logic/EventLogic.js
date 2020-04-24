@@ -1,3 +1,5 @@
+import Effect from './Effect'
+
 export default class EventLogic {
   constructor () {
     this.type = 'event'
@@ -18,15 +20,7 @@ export default class EventLogic {
       // event type: click | change or others
       action: '',
 
-      effects: [{
-        // schema key for effected widgets
-        key: '',
-        // properties for effected  effected widgets
-        properties: [
-          { key: 'hidden', value: false },
-          { key: 'disabled', value: false }
-        ]
-      }]
+      effects: [new Effect()]
     }
   }
 }
