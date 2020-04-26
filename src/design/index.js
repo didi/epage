@@ -1,6 +1,8 @@
 import Vue from 'vue'
-import { Store, Rule } from '../modules'
+import { Store, Rule, helper } from '../modules'
 import Editor from './index.vue'
+
+const { isArray, isFunction } = helper
 
 export default class Design {
   constructor (option) {
@@ -28,7 +30,7 @@ export default class Design {
     this.setting = setting || {}
     this.env = env || 'production'
     this.$$origin = null
-    if (Array.isArray(widgets)) {
+    if (isArray(widgets)) {
       this.store.initWidgets(widgets)
       if (typeof schema === 'object') {
         this.store.initRootSchema(schema)
@@ -48,7 +50,7 @@ export default class Design {
   }
 
   destroy () {
-    if (this.$$origin && typeof this.$$origin.$destroy === 'function') {
+    if (this.$$origin && isFunction(this.$$origin.$destroy)) {
       this.$$origin.$destroy()
       this.$$origin.$off()
       this.store.$$store = null
