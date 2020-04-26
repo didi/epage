@@ -3,7 +3,7 @@
   h5.ep-setting-block-title 数据源
   FormItem(v-if='Array.isArray(type)' label='数据类型')
     RadioGroup(v-model='selectedSchema.type' size='small' @on-change='onTypeChange')
-      Radio(v-for='(item, k) in type' :key='item.value' :label='item.value')
+      Radio(v-for='item in type' :key='item.value' :label='item.value')
         span {{item.label}}
 
   FormItem(label='数据来源')
@@ -15,7 +15,7 @@
 
   template(v-if='schemaOption.type === "static"')
     template(v-if="hasItems && !$slots.tree")
-      Row(v-for='(item,  k) in schemaOption.data' :key='k + "--"')
+      Row(v-for='(item, k) in schemaOption.data' :key='item.key + k')
         Col(span='8' offset='1' v-if="dataType === 'object'")
           FormItem(
             :label-width='1'

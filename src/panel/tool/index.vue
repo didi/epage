@@ -1,15 +1,15 @@
 <template lang="pug">
 Tabs(size='small')
   TabPane(
-    v-for='(tool, k) in widgets'
-    :key='k'
+    v-for='tool in widgets'
+    :key='tool.key'
     :label='tool.title'
     :name='tool.title'
   )
     epage-panel
       .ep-tool-item(
-        v-for='(widget, i) in tool.widgets'
-        :key='i'
+        v-for='widget in tool.widgets'
+        :key='widget.Schema.widget'
         :title='widget.Schema.title'
         :animation='200'
         @click='addWidget(widget)'

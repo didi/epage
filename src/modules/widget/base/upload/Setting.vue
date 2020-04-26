@@ -70,7 +70,12 @@ setting-form(:store='store' :setting='setting')
       Button(size='small' type='ghost' @click='onInverseSelect') 反选
 
     CheckboxGroup(size='small' v-model='schemaOption.format')
-      Checkbox(v-for='(item, k) in extensions' :label='item' :key='k' style='width: 56px;') {{item}}
+      Checkbox(
+        v-for='ext in extensions'
+        :key='ext'
+        :label='ext'
+        style='width: 56px;'
+      ) {{ext}}
       Input(
         v-if='formatAdding'
         size='small'
@@ -86,7 +91,7 @@ setting-form(:store='store' :setting='setting')
     h5.ep-setting-block-title 请求头
     Row(
       v-for='(item, k) in schemaOption.headers'
-      :key='k + "--"'
+      :key='item.key + k'
       style='margin-top: 6px;'
     )
       Col(span='8' offset='1')

@@ -1,6 +1,6 @@
 <template lang="pug">
 Form(:label-width='80')
-  div(v-for='(order, i) in orders' :key='order.key')
+  div(v-for='order in orders' :key='order.key')
     template(v-if='order.key === "key"')
       FormItem(v-if='!$slots.key' label='唯一标识')
         Input(type='text' size='small' placeholder='不能重复' :disabled='true' v-model='selectedSchema.key')
@@ -81,7 +81,7 @@ Form(:label-width='80')
                   Icon.ep-rule-item-delete(type='android-close' @click.native='deleteRule(k)' title='删除此规则')
                 FormItem(label='类型' v-if='selectedValidators.length')
                   Select(size='small' :transfer='true' v-model='rules[k].type' @on-change='onRuleTypeChange(rules[k].type, k)')
-                    Option(v-for='(item, k) in selectedValidators' :key="item.type" :value='item.type') {{item.name}}
+                    Option(v-for='item in selectedValidators' :key="item.type" :value='item.type') {{item.name}}
                 ep-widget-rule(:rule='rules[k]' :index='k' @on-message-change='onRuleMessageChange')
 
             .ep-setting-block-btns
