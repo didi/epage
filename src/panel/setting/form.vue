@@ -21,6 +21,9 @@ Form(:label-width='80')
       Radio(label='left') 左
       Radio(label='right') 右
 
+  FormItem(label='页面宽度(px)')
+    InputNumber(:size='size' :min='200' :step='1' v-model='rootSchema.style.maxWidth')
+
   //- FormItem(label='保存地址')
   //-   Input(:size='size' v-model='rootSchema.option.url')
   //- FormItem(label='保存方法')

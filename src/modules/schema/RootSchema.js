@@ -21,6 +21,10 @@ export default class RootSchema extends Schema {
       position: 'right',
       colon: false
     }
+    this.style = {
+      maxWidth: 1600
+    }
+
     this.create(props)
     this.createChildren(props)
   }

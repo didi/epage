@@ -11,11 +11,11 @@
     Tabs.ep-work-tabs(v-model='tab' size='small' @on-click='renderView')
       TabPane(label='设计' name='design' :icon='icon.design')
         epage-panel.ep-work-design
-          div(ref='design')
+          div(ref='design' :style='viewStyle')
 
       TabPane(v-if='panels.preview' label='预览' name='preview' :icon='icon.preview')
         epage-panel.ep-work-preview
-          div(ref='preview')
+          div(ref='preview' :style='viewStyle')
 
       TabPane(v-if='panels.logic' label='逻辑' name='logic' :icon='icon.logic')
         epage-panel.ep-work-logic
@@ -101,6 +101,15 @@ export default {
     },
     selectedSchema () {
       return this.store.getSelectedSchema()
+    },
+    viewStyle () {
+      const rootStyle = this.store.getRootSchema().style || {}
+      const { maxWidth } = rootStyle
+      let style = ''
+      if (helper.isNumber(maxWidth)) {
+        style = `max-width: ${maxWidth}px;margin-left: auto;margin-right: auto;`
+      }
+      return style
     }
   },
   beforeMount () {

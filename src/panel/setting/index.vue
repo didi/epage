@@ -9,7 +9,7 @@ Tabs(:value='tab' size='small')
       template(v-if='isSelected && settingWidget')
         component(:is='settingWidget' :store='store' :setting='setting')
 
-  TabPane(label='表单' name='form' )
+  TabPane(label='页面配置' name='form' )
     epage-panel.ep-setting-form
       form-setting(:store='store')
 
