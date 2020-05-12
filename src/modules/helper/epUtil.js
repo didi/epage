@@ -1,5 +1,13 @@
 
-import { randomStr, isNotEmptyString, isArray, isFunction, include, jsonClone, checkValueType } from './util'
+import {
+  randomStr,
+  isNotEmptyString,
+  isArray,
+  isFunction,
+  include,
+  jsonClone,
+  checkValueType
+} from './util'
 import TypeBuilder from '../store/TypeBuilder'
 
 /**

@@ -22,8 +22,9 @@ Official website:  [http://epage.didichuxing.com](http://epage.didichuxing.com)
 ## Install
 
 ```sh
-// install vue vuex iview@2 vuedragable in advance
+# install vue vuex iview@2 vuedragable in advance
 npm install epage -S
+# or yarn add epage
 ```
 
 ## Release
@@ -44,7 +45,7 @@ new Epage({ el, Render, widgets })
 
 ## Design Concepts
 
-Describing page functions, presentations, and interactions in a schema way, generating the schema in a visual way and ultimately generating the expected page.
+Describing page functions, presentations, and interactions in a [schema](http://epage.didichuxing.com/developer/schema.html) way, generating the schema in a visual way and ultimately generating the expected page.
 
 The project originated from the process form scenario. The custom development of each form is too costly and poorly maintainable. The most important thing is that the implementer wants to configure the generated form by visual means. Based on such a scenario, during the development process, we found that the form scenario is very similar to some other pages (such as list pages, detail pages, chart reports, etc.) from a certain perspective, and should be configured visually to reach the component Reuse, flexible configuration, easy maintenance, etc. Of course, in the process of using, we found that the complexity of the business is far from being covered by the basic components, so we need to have strong extensibility in order to customize the business components. Some projects even use different front-end frameworks
  

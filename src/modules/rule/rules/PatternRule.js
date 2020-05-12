@@ -33,6 +33,7 @@ export default class PatternRule {
       this.rule.message = rule.message
       const flags = [ignoreCase ? 'i' : '', global ? 'g' : '', multiline ? 'm' : ''].join('')
       let reg = new RegExp()
+
       if (typeof pattern === 'string' && pattern.length) {
         try {
           reg = new RegExp(rule.pattern, flags)

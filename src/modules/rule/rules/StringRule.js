@@ -24,9 +24,10 @@ export default class StringRule {
   update (rule) {
     if (rule) {
       const { min, max } = rule
-      this.rule.message = rule.message
       const intMin = parseInt(min)
       const intMax = parseInt(max)
+
+      this.rule.message = rule.message
       if (isNaN(intMin)) {
         delete this.rule.min
       } else {
