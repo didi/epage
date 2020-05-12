@@ -2,12 +2,24 @@
 .ep-setting-block
   h5.ep-setting-block-title 数据源
   FormItem(v-if='Array.isArray(type)' label='数据类型')
-    RadioGroup(v-model='selectedSchema.type' size='small' @on-change='onTypeChange')
-      Radio(v-for='item in type' :key='item.value' :label='item.value')
+    RadioGroup(
+      v-model='selectedSchema.type'
+      size='small'
+      @on-change='onTypeChange'
+    )
+      Radio(
+        v-for='item in type'
+        :key='item.value'
+        :label='item.value'
+      )
         span {{item.label}}
 
   FormItem(label='数据来源')
-    RadioGroup(v-model='schemaOption.type' size='small' @on-change='onOriginChange')
+    RadioGroup(
+      v-model='schemaOption.type'
+      size='small'
+      @on-change='onOriginChange'
+    )
       Radio(label='static')
         span 手动
       Radio(label='dynamic')
@@ -25,7 +37,7 @@
               type='text'
               size='small'
               placeholder='请输入key'
-              :number='["number", "array<number>"].indexOf(selectedSchema.type) > -1'
+              :number='isNumberType(selectedSchema.type)'
               v-model='schemaOption.data[k].key'
             )
               //- @on-change='onKeyValueChange(k, "key", ...arguments)'
@@ -94,6 +106,8 @@ import TypeBuilder from '../../../store/TypeBuilder'
 import tips from './tips'
 import FieldTip from '../field-tip'
 
+const numberTypes = ['number', 'array<number>']
+
 export default {
   components: {
     FieldTip
@@ -128,20 +142,32 @@ export default {
       const selectedSchema = this.store.getSelectedSchema()
       const flatWidgets = this.store.getFlatWidgets()
       const widget = flatWidgets[selectedSchema.widget]
+
       if (widget && widget.Schema) {
         type = widget.Schema.type
         if (isArray(type)) {
           const { multiple } = this.schemaOption
           // TODO:优化
           // 只保留基本类型  select、radio
-          if (multiple in this.schemaOption || type.find(item => !include(item, 'array'))) {
+          if (
+            multiple in this.schemaOption ||
+            type.find(item => !include(item, 'array'))
+          ) {
             type = type.filter(k => !include(k, 'array'))
-              .map(k => ({ label: k, value: multiple ? `array<${k}>` : k }))
+              .map(k => ({
+                label: k,
+                value: multiple ? `array<${k}>` : k
+              }))
           } else { // cascader、checkbox
             type = type.filter(k => include(k, 'array'))
               .map(k => {
                 const match = k.match(/array<([^<>]+)>/)
-                if (match && match[1]) return { label: match[1], value: k }
+                if (match && match[1]) {
+                  return {
+                    label: match[1],
+                    value: k
+                  }
+                }
               })
           }
         }
@@ -173,6 +199,9 @@ export default {
     this.listenerMessage()
   },
   methods: {
+    isNumberType (type) {
+      return numberTypes.indexOf(type) > -1
+    },
     resolve (type) {
       // return Epage.TypeBuilder.resolve(type)
       return TypeBuilder.resolve(type)
@@ -192,12 +221,10 @@ export default {
     checkKeyType (key) {
       const schemaType = this.selectedSchema.type
       // schema.type 中可选的 number 类型
-      const numberTypes = ['number', 'array<number>']
       return include(numberTypes, schemaType) && !isNumberString(key + '')
     },
 
     onTypeChange (type) {
-      const numberTypes = ['number', 'array<number>']
       const { key } = this.selectedSchema
       this.store.updateWidgetType(key, type)
       this.selectedSchema.option.data.forEach(item => {
@@ -220,7 +247,12 @@ export default {
       const newKey = randomStr(7)
       let value = newKey
       // key - value
-      if (this.dataType === 'object') value = { key: newKey, value: newKey }
+      if (this.dataType === 'object') {
+        value = {
+          key: newKey,
+          value: newKey
+        }
+      }
       data.push(value)
 
       this.store.updateWidgetOption(key, { data })
