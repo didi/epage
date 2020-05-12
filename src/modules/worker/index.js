@@ -45,11 +45,15 @@ export default class EpWorker {
           } else {
             return __recursive(data, fn)
           }
+          function isArray (arr) {
+            return Array.isArray(arr)
+          }
           // 递归转换数据
           function __recursive (data, fn) {
+            if (!isArray(data)) return []
             return data.map(function (item) {
               const newItem = Object.assign({}, fn(item))
-              const rawChildren = Array.isArray(item[children]) ? item[children] : []
+              const rawChildren = isArray(item[children]) ? item[children] : []
               newItem.children = __recursive(rawChildren, fn)
               return newItem
             })
@@ -111,6 +115,7 @@ export default class EpWorker {
       function checkKVList (data) {
         let success = true
         let message = ''
+
         if (Array.isArray(data)) {
           for (let i = 0; i < data.length; i++) {
             if (!isObj(data[i]) || !('key' in data[i]) || !('value' in data[i])) {
@@ -139,18 +144,30 @@ export default class EpWorker {
             !isAvailableNumber(size) ||
             !isAvailableNumber(total)
           ) {
-            return { success: false, message: pageErrorMsg }
+            return {
+              success: false,
+              message: pageErrorMsg
+            }
           }
           // check data
           for (let i = 0; i < data.length; i++) {
             if (!isObj(data[i])) {
-              return { success: false, message: data[i] + ' 不符合格式规范' }
+              return {
+                success: false,
+                message: data[i] + ' 不符合格式规范'
+              }
             }
           }
         } else {
-          return { success: false, message: '需要返回对象{ page: {}, data: []}' }
+          return {
+            success: false,
+            message: '需要返回对象{ page: {}, data: []}'
+          }
         }
-        return { success: true, message: '' }
+        return {
+          success: true,
+          message: ''
+        }
       }
 
       // 可以后续扩展 action 及参数、检查函数
@@ -180,7 +197,10 @@ export default class EpWorker {
           return self.postMessage(result)
         }
         if (!fn) {
-          result = { success: false, message: '请传入 fn 参数' }
+          result = {
+            success: false,
+            message: '请传入 fn 参数'
+          }
           return self.postMessage(result)
         }
 
@@ -189,13 +209,19 @@ export default class EpWorker {
           // fun = new Function(...actionMap[action].args, fn)
           fun = t(Function, r(actionMap[action].args).concat([fn]))
         } catch (e) {
-          result = { success: false, message: e }
+          result = {
+            success: false,
+            message: e
+          }
           return self.postMessage(result)
         }
         const _data = fun(data)
         result = actionMap[action].check(_data)
         if (result.success) {
-          const newData = { success: result.success, data: _data }
+          const newData = {
+            success: result.success,
+            data: _data
+          }
           self.postMessage(newData)
         } else {
           return self.postMessage(result)
