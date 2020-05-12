@@ -3,42 +3,73 @@ Form(:label-width='80')
   div(v-for='order in orders' :key='order.key')
     template(v-if='order.key === "key"')
       FormItem(v-if='!$slots.key' label='唯一标识')
-        Input(type='text' size='small' placeholder='不能重复' :disabled='true' v-model='selectedSchema.key')
+        Input(
+          type='text'
+          size='small'
+          placeholder='不能重复'
+          :disabled='true'
+          v-model='selectedSchema.key'
+        )
       template(v-else)
         slot(name='key')
 
     template(v-if='order.key === "name"')
       template(v-if='setting.name !== false')
         FormItem(v-if='!$slots.name' label='字段名')
-          Input(type='text' size='small' placeholder='不能重复' v-model='selectedSchema.name')
+          Input(
+            type='text'
+            size='small'
+            placeholder='不能重复'
+            v-model='selectedSchema.name'
+          )
         template(v-else)
           slot(name='name')
 
     template(v-if='order.key === "label"')
       template(v-if='setting.label !== false')
         FormItem(v-if='!$slots.label' label='标题')
-          Input(type='text' size='small' placeholder='请输入标题' v-model='selectedSchema.label')
+          Input(
+            type='text'
+            size='small'
+            placeholder='请输入标题'
+            v-model='selectedSchema.label'
+          )
         template(v-else)
           slot(name='label')
 
     template(v-if='order.key === "placeholder"')
       template(v-if='setting.placeholder !== false')
         FormItem(v-if='!$slots.placeholder' label='占位提示')
-          Input(type='text' size='small' placeholder='请输入...' v-model='selectedSchema.placeholder')
+          Input(
+            type='text'
+            size='small'
+            placeholder='请输入...'
+            v-model='selectedSchema.placeholder'
+          )
         template(v-else)
           slot(name='placeholder')
 
     template(v-if='order.key === "description"')
       template(v-if='setting.description !== false')
         FormItem(v-if='!$slots.description' label='组件说明')
-          Input(type='textarea' size='small' placeholder='请输入组件说明' v-model='selectedSchema.description')
+          Input(
+            type='textarea'
+            size='small'
+            placeholder='请输入组件说明'
+            v-model='selectedSchema.description'
+          )
         template(v-else)
           slot(name='description')
 
     template(v-if='order.key === "help"')
       template(v-if='setting.help !== false')
         FormItem(v-if='!$slots.help' label='帮助信息')
-          Input(type='textarea' size='small' placeholder='请输入帮助信息' v-model='selectedSchema.help')
+          Input(
+            type='textarea'
+            size='small'
+            placeholder='请输入帮助信息'
+            v-model='selectedSchema.help'
+          )
         template(v-else)
           slot(name='help')
 
@@ -70,7 +101,12 @@ Form(:label-width='80')
                 span(slot='open') 是
                 span(slot='close') 否
             FormItem(label='错误提示' v-if='rules[0].required')
-              Input(type='text' size='small' placeholder='错误提示信息' v-model='rules[0].message')
+              Input(
+                type='text'
+                size='small'
+                placeholder='错误提示信息'
+                v-model='rules[0].message'
+              )
 
           .ep-setting-block(v-if='selectedValidators.length')
             h5.ep-setting-block-title 规则
@@ -78,14 +114,36 @@ Form(:label-width='80')
             .ep-rule-item(v-for='(rule, k) in rules' :key='k')
               template(v-if='k !== 0')
                 .ep-rule-item-title(:key='k') 规则({{k}})
-                  Icon.ep-rule-item-delete(type='android-close' @click.native='deleteRule(k)' title='删除此规则')
+                  Icon.ep-rule-item-delete(
+                    type='android-close'
+                    @click.native='deleteRule(k)'
+                    title='删除此规则'
+                  )
                 FormItem(label='类型' v-if='selectedValidators.length')
-                  Select(size='small' :transfer='true' v-model='rules[k].type' @on-change='onRuleTypeChange(rules[k].type, k)')
-                    Option(v-for='item in selectedValidators' :key="item.type" :value='item.type') {{item.name}}
-                ep-widget-rule(:rule='rules[k]' :index='k' @on-message-change='onRuleMessageChange')
+                  Select(
+                    size='small'
+                    :transfer='true'
+                    v-model='rules[k].type'
+                    @on-change='onRuleTypeChange(rules[k].type, k)'
+                  )
+                    Option(
+                      v-for='item in selectedValidators'
+                      :key="item.type" :value='item.type'
+                    ) {{item.name}}
+                ep-widget-rule(
+                  :rule='rules[k]'
+                  :index='k'
+                  @on-message-change='onRuleMessageChange'
+                )
 
             .ep-setting-block-btns
-              Button(v-if='selectedValidators.length' type='dashed' size='small' @click='addRule' icon='plus') 添加新规则
+              Button(
+                v-if='selectedValidators.length'
+                type='dashed'
+                size='small'
+                @click='addRule'
+                icon='plus'
+              ) 添加新规则
         template(v-else)
           slot(name='rule')
 
