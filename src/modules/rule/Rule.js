@@ -72,17 +72,8 @@ export default class Rule {
         map[type] = rules[k]
       })
 
-      const conbineMap = (map1, map2) => {
-        if (map1) {
-          map2 && Object.assign(map1, map2)
-        } else {
-          map2 && (map1 = map2)
-        }
-        return map1
-      }
-
       if (Rule.rules) {
-        conbineMap(Rule.rules, map)
+        Object.assign(Rule.rules, map)
         // conbineList(Rule.rule.list, list)
       } else {
         Rule.rules = map
@@ -90,4 +81,5 @@ export default class Rule {
     }
   }
 }
+
 Rule.rules = {}
