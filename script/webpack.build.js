@@ -1,11 +1,11 @@
 const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
-const webpackBaseConfig = require('./webpack.base.conf.js')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const webpackBaseConfig = require('./webpack.base.js')
 const pkg = require('../package.json')
 
 const banner = `epage v${pkg.version}

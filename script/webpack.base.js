@@ -2,7 +2,7 @@ const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
-const scirptPath =  [
+const scirptPath = [
   path.resolve(__dirname, '../src')
 ]
 
@@ -13,24 +13,22 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader',
         include: scirptPath
-      },
-      {
+      }, {
         test: /\.pug$/,
         loader: 'pug-plain-loader'
-      },
-      {
+      }, {
         test: /\.js$/,
         loader: 'babel-loader',
         include: scirptPath
       }, {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
-          use: ["css-loader"]
+          use: ['css-loader']
         })
       }, {
         test: /\.less$/,
         use: ExtractTextPlugin.extract({
-          use: ["css-loader", "less-loader"]
+          use: ['css-loader', 'less-loader']
         })
       }, {
         test: /\.(gif|jpg|png)\??.*$/,
@@ -58,5 +56,5 @@ module.exports = {
       '@': path.resolve(__dirname, '../src')
     }
   },
-  stats: { children: false },
+  stats: { children: false }
 }

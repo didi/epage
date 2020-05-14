@@ -7,9 +7,9 @@
   "main:epage": "./src/main.js",
   "scripts": {
     "start": "npm run dev",
-    "dev": "webpack-dev-server --config script/webpack.dev.conf.js",
-    "build": "webpack --config script/webpack.build.conf.js && npm run style",
+    "dev": "webpack-dev-server --config script/webpack.dev.js",
     "style": "webpack --config script/webpack.style.js",
+    "build": "webpack --config script/webpack.build.js && npm run style",
     "lint": "eslint --ext .vue --ext .js src/ --fix",
     "analyz": "npm_config_report=true npm run build"
   },

@@ -1,8 +1,8 @@
 const webpack = require('webpack')
 const merge = require('webpack-merge')
-const webpackBaseConfig = require('./webpack.base.conf.js')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const webpackBaseConfig = require('./webpack.base.js')
 
 const webpackConfig = merge(webpackBaseConfig, {
   mode: 'development',
@@ -22,7 +22,7 @@ const webpackConfig = merge(webpackBaseConfig, {
     }),
     new ExtractTextPlugin({
       filename: '[name].css'
-    }),
+    })
   ]
 })
 

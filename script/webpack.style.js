@@ -1,9 +1,9 @@
 const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
-const webpackBaseConfig = require('./webpack.base.conf.js')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+const webpackBaseConfig = require('./webpack.base.conf.js')
 
 const webpackConfig = merge(webpackBaseConfig, {
   mode: 'production',

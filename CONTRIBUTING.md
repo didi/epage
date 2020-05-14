@@ -36,9 +36,7 @@ PR
   - `refactor` 重构（即不是新增功能，也不是修改bug的代码变动）
   - `perf` 性能优化
   - `test` 测试新增或更新
-  - `workflow` 开发流程变更
   - `chore` 构建过程或辅助工具的变动
-  - `build` 改变了build工具
 - `{scope}`: 可选，用于说明 commit 影响的范围
 - `{description}`
   - 尽可能详细的描述就好，1-50个字符
