@@ -24,7 +24,7 @@ function checkCommitMsg (msg) {
 
   if (!commitRE.test(msg)) {
     console.log()
-    console.error(color.red('Invalid commit message format.') + '\nmust start with revert|feat|fix|docs|style|refactor|perf|test|workflow|chore|build:\nExample: feat: upgrade v0.1 xxx\n')
+    console.error(color.red('Invalid commit message format.') + '\nmust start with revert|feat|fix|docs|style|refactor|perf|test|chore:\nExample: feat: upgrade v0.1 xxx\n')
     process.exit(1)
   } else {
     return true
