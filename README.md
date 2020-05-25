@@ -55,7 +55,7 @@ new Epage({ el, Render, widgets })
 
 微信群
 
-![](http://epage.didichuxing.com/static/epage-qrcode.jpeg)
+![](https://github.com/didi/epage/blob/master/public/imgs/epage-qrcode.jpg?raw=true)
 
 ## License
 
