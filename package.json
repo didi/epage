@@ -1,6 +1,6 @@
 {
   "name": "epage",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "Epage 一款基于schema的可视化页面配置工具",
   "author": "Chengzi <ttghost@126.com>",
   "main": "./dist/epage.min.js",

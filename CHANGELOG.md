@@ -1,5 +1,25 @@
 # Change Log
 
+### 0.2.7（2020/06/11）
+
+- [feat] : `worker`支持`custom`类型脚本，不对结果进行校验
+```js
+const worker = new Epage.Worker()
+const data = [1, 2]
+
+worker.onmessage = function (e) {
+  const { message, success, data } = e.data
+  console.log(data)
+  // [{ value: 1 }, { value: 2 }]
+}
+worker.postMessage({
+  action: 'custom',
+  data: data,
+  fn: `return data.map(function(item){
+    return { value: item }
+    })`
+})
+```
 
 ### 0.2.6
 

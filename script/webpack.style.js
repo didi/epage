@@ -3,7 +3,7 @@ const webpack = require('webpack')
 const merge = require('webpack-merge')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
-const webpackBaseConfig = require('./webpack.base.conf.js')
+const webpackBaseConfig = require('./webpack.base.js')
 
 const webpackConfig = merge(webpackBaseConfig, {
   mode: 'production',

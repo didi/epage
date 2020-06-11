@@ -23,7 +23,6 @@
  *  }
  *  ```
  */
-
 export default class EpWorker {
   constructor () {
     return this.createWorker()
@@ -138,7 +137,7 @@ export default class EpWorker {
         const pageErrorMsg = 'page 格式不符合规范，应为： { current: Number, size: Number, total: Number }'
         if (isObj(data)) {
           // check page
-          const { current, size, total } = data.page
+          const { current, size, total } = data.page || {}
           if (!isObj(data.page) ||
             !isAvailableNumber(current) ||
             !isAvailableNumber(size) ||
@@ -150,11 +149,12 @@ export default class EpWorker {
             }
           }
           // check data
-          for (let i = 0; i < data.length; i++) {
-            if (!isObj(data[i])) {
+          const innerData = data.data || []
+          for (let i = 0; i < innerData.length; i++) {
+            if (!isObj(innerData[i])) {
               return {
                 success: false,
-                message: data[i] + ' 不符合格式规范'
+                message: innerData[i] + ' 不符合格式规范'
               }
             }
           }
@@ -179,6 +179,15 @@ export default class EpWorker {
         tableFetch: {
           args: ['data'],
           check: checkTableList
+        },
+        custom: {
+          args: ['data'],
+          check: function () {
+            return {
+              success: true,
+              message: ''
+            }
+          }
         }
       }
 
