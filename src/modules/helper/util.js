@@ -282,13 +282,23 @@ export function debounce (func, wait, options) {
 
 export function formatDate (_date, _format) {
   const date = _date instanceof Date ? _date : new Date()
-  const year = date.getFullYear()
-  let month = date.getMonth() + 1 + ''
-  const day = date.getDate()
-  const minute = date.getMinutes()
-  const hour = date.getHours()
-  const second = date.getSeconds()
-  month = month.length === 1 ? '0' + month : month
+  let year = date.getFullYear()
+  let month = date.getMonth() + 1
+  let day = date.getDate()
+  let minute = date.getMinutes()
+  let hour = date.getHours()
+  let second = date.getSeconds()
+  const addPrefix = function (num) {
+    const n = num + ''
+    return n.length === 1 ? '0' + n : n
+  }
+
+  year = addPrefix(year)
+  month = addPrefix(month)
+  day = addPrefix(day)
+  minute = addPrefix(minute)
+  hour = addPrefix(hour)
+  second = addPrefix(second)
 
   const format = _format || 'yyyy-MM-dd'
   return format
