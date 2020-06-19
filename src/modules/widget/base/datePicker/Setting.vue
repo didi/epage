@@ -57,7 +57,6 @@ export default {
       ],
       timeFormatOptions: [
         'HH:mm:ss',
-        'HH:mm',
         'mm:ss',
         '无'
       ],

@@ -305,7 +305,7 @@ export function formatDate (_date, _format) {
     .replace('yyyy', year)
     .replace('MM', month)
     .replace('dd', day)
-    .replace('hh', hour)
+    .replace('HH', hour)
     .replace('mm', minute)
     .replace('ss', second)
 }
