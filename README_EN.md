@@ -22,7 +22,7 @@ Official website:  [http://epage.didichuxing.com](http://epage.didichuxing.com)
 ## Install
 
 ```sh
-# install vue vuex iview vuedragable in advance
+# install vue vuex iview vuedraggable in advance
 npm install epage -S
 # or yarn add epage
 ```
