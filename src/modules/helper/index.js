@@ -15,7 +15,8 @@ import {
   updateRequiredRule,
   getSchemaType,
   getRequiredRuleType,
-  getRuleValidator
+  getRuleValidator,
+  usePlugins
 } from './epUtil'
 
 import {
@@ -55,6 +56,7 @@ export {
   getSchemaType,
   getRequiredRuleType,
   getRuleValidator,
+  usePlugins,
 
   randomStr,
   isPlainObject,
