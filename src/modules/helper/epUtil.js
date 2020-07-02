@@ -502,3 +502,16 @@ export function getRuleValidator (rule, type) {
     callback()
   }
 }
+/**
+ * 为Vue安装依赖，已use的不在use
+ * @param {Vue} Vue原型
+ * @param {Array} 待安装的vue plugins 列表
+ */
+export function usePlugins (Vue, plugins) {
+  if (!Vue || !isArray(plugins)) return
+  const list = Vue._installedPlugins
+  plugins.forEach(plugin => {
+    if (isArray(list) && include(list, plugin)) return
+    Vue.use(plugin)
+  })
+}

@@ -4,7 +4,13 @@ export default class RateSchema extends FormSchema {
   constructor (props) {
     super()
     this.label = '评分'
-    this.rules = [{ required: false, message: '必填', min: 0, type: 'number' }]
+    this.rules = [{
+      required: false,
+      message: '必填',
+      min: 0,
+      type: 'number',
+      trigger: 'change'
+    }]
     this.option = {
       count: 5,
       allowHalf: false,
