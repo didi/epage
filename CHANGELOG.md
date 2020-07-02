@@ -1,5 +1,9 @@
 # Change Log
 
+### 0.2.9（2020/07/02）
+
+- [fix] : 工具方法增加 `usePlugins`方法，判断Vue项目plugin是否重复安装
+
 ### 0.2.8（2020/06/19）
 
 - [fix] : 修复`helper`模块下`formatDate`格式时间HH未替换及转字符串未补0问题
