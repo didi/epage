@@ -1,16 +1,11 @@
 <template lang="pug">
-Tabs(size='small')
-  TabPane(
-    v-for='tool in widgets'
-    :key='tool.key'
-    :label='tool.title'
-    :name='tool.title'
-  )
-    epage-panel
+Collapse.ivu-collapse-simple(:value='widgets[0].key' simple)
+  Panel(v-for='tool in widgets' :name='tool.key' :key='tool.key') {{tool.title}}
+    template(slot='content')
       .ep-tool-item(
         v-for='widget in tool.widgets'
         :key='widget.Schema.widget'
-        :title='widget.Schema.title'
+        :title='"点击添加 " + widget.Schema.title'
         :animation='200'
         @click='addWidget(widget)'
       )
@@ -24,6 +19,31 @@ Tabs(size='small')
               Icon(v-if='getIcon(widget).isClass' :custom='getIcon(widget).cls')
               Icon(v-else :type='getIcon(widget).icon')
           span {{widget.Schema.title}}
+//- Tabs(size='small')
+//-   TabPane(
+//-     v-for='tool in widgets'
+//-     :key='tool.key'
+//-     :label='tool.title'
+//-     :name='tool.title'
+//-   )
+//-     epage-panel
+//-       .ep-tool-item(
+//-         v-for='widget in tool.widgets'
+//-         :key='widget.Schema.widget'
+//-         :title='widget.Schema.title'
+//-         :animation='200'
+//-         @click='addWidget(widget)'
+//-       )
+//-         .ep-tool-item-inner
+//-           template(v-if='getIcon(widget).icon')
+//-             template(v-if='mainVersion === 2')
+//-               i(v-if='getIcon(widget).isClass' :class='getIcon(widget).cls')
+//-               Icon(v-else :type='getIcon(widget).icon')
+
+//-             template(v-else-if='mainVersion >= 3')
+//-               Icon(v-if='getIcon(widget).isClass' :custom='getIcon(widget).cls')
+//-               Icon(v-else :type='getIcon(widget).icon')
+//-           span {{widget.Schema.title}}
 </template>
 <script>
 import { version } from 'iview'

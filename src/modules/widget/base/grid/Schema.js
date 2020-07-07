@@ -68,7 +68,7 @@ export default class GridSchema extends BaseSchema {
 
 // 静态配置，同类widget公有
 Object.assign(GridSchema, {
-  title: '布局',
+  title: '栅格',
   widget: 'grid',
   icon: 'grid',
   logic: {
