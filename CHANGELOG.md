@@ -1,5 +1,14 @@
 # Change Log
 
+
+### 0.3.0
+
+- [feat] : 升级设计器主界面工具面板，分类展开方式呈现
+- [feat] : 原工作面板内置的`form`及`validate`按钮删除，可在epage外自行实现
+- [fix] : 删除设计器实例化时`getFormData`、`getSchema`参数。同时增加设计器内部渲染器示例的引用`epage.$render`，尤其在预览视图可以对渲染示例操作，如获取预览模式下用户输入的值`epage.$render.store.getFormData()`
+
+**注意** `epage.$render.store`与`epage.store`不同，后者为设计器内部的渲染器示例的store，后者为设计器内部的store，二者在设计视图下是相同的
+
 ### 0.2.9（2020/07/02）
 
 - [fix] : 工具方法增加 `usePlugins`方法，判断Vue项目plugin是否重复安装

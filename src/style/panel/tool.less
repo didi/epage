@@ -6,7 +6,7 @@
   height: 100%;
   overflow: auto;
   background-color: @ep-panel-bg;
-  box-shadow: 2px 0 8px rgba(0,0,0,.15);
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
   &-item{
     padding: 5px 0 5px 16px;
     transition: .3s ease background-color;
@@ -24,18 +24,6 @@
       transform: scale(0.9);
     }
   }
-  // .ivu-tabs-bar{
-  //   margin-bottom: 0;
-  // }
-  // &>.ivu-tabs{
-  //   height: 100%;
-  //   &>.ivu-tabs-content {
-  //     position: absolute;
-  //     bottom: 0px;
-  //     top: 40px;
-  //     width: 100%;
-  //   }
-  // }
   .@{eppre}-panel{
     overflow: hidden;
     position: absolute;
@@ -63,8 +51,7 @@
     }
   }
   .ivu-collapse-simple{
-    border-left: none;
-    border-right: none;
+    border: none;
     background-color: #fff;
     border-radius: 0;
   }

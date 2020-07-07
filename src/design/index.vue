@@ -4,18 +4,17 @@
     epage-tool(:widgets='widgets' @on-add='onAddWidget')
 
   .ep-work(:class='{"ep-work-expand": settingState.fold}')
-    .ep-work-btns
-      Button(type='primary' size='small' @click='getFormData') form
-      Button(type='primary' size='small' @click='validateForm' style='margin-left: 6px;') validate
 
     Tabs.ep-work-tabs(v-model='tab' size='small' @on-click='renderView')
       TabPane(label='设计' name='design' :icon='icon.design')
         epage-panel.ep-work-design
-          div(ref='design' :style='viewStyle')
+          div(:style='viewStyle')
+            div(ref='design')
 
       TabPane(v-if='panels.preview' label='预览' name='preview' :icon='icon.preview')
         epage-panel.ep-work-preview
-          div(ref='preview' :style='viewStyle')
+          div(:style='viewStyle')
+            div(ref='preview')
 
       TabPane(v-if='panels.logic' label='逻辑' name='logic' :icon='icon.logic')
         epage-panel.ep-work-logic
@@ -144,9 +143,10 @@ export default {
       }
     },
     renderView (tab) {
-      const { Render } = this.$root.$options.extension
+      const { Render, setRender } = this.$root.$options.extension
       const el = this.$refs[tab]
       this.store.updateTab(tab)
+
       if (tab === 'preview') {
         const schema = this.store.getSchema()
         const widgets = this.store.getWidgets()
@@ -157,35 +157,17 @@ export default {
         /* eslint-disable no-new */
         APPS[tab] = new Render({ el, widgets, schema, mode: 'edit' })
         APPS[tab].store.updateTab(tab)
+        setRender(APPS[tab])
       } else if (tab === 'design') {
         if (!APPS[tab]) {
           /* eslint-disable no-new */
           APPS[tab] = new Render({ el, store: this.store, mode: 'edit' })
+          setRender(APPS[tab])
         }
       }
     },
     onAddWidget (widget) {
       this.store.addWidget(widget)
-    },
-    validateForm (form) {
-      APPS[this.tab].validateFields().then(args => {
-        console.log('validate: ', args)
-      })
-    },
-    getFormData () {
-      const { getFormData } = this.$root.$options.extension
-      let formData = {}
-      if (APPS.preview) {
-        // const flatSchemas = APPS.preview.store.getFlatSchemas()
-        const model = APPS.preview.store.getModel()
-        const rootSchema = APPS.preview.store.getRootSchema()
-        formData = helper.getFormData(model, rootSchema)
-      }
-
-      if (helper.isFunction(getFormData)) {
-        return getFormData(formData)
-      }
-      console.log('model: ', formData)
     }
   }
 }

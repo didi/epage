@@ -10,8 +10,6 @@ export default class Design {
       el,
       widgets = [],
       schema,
-      getSchema,
-      getFormData,
       Render,
       panels,
       setting,
@@ -21,9 +19,9 @@ export default class Design {
 
     this.el = el
     this.store = new Store({ Rule: CustomRule || Rule })
-    this.getSchema = getSchema
-    this.getFormData = getFormData
     this.Render = Render
+    // 设计及预览面板渲染器示例
+    this.$render = null
     // 设计器不同面板显示信息，设计(design)面板不可隐藏
     this.panels = panels || {}
     // 控制widget 属性显隐等信息
@@ -42,9 +40,13 @@ export default class Design {
     }
   }
 
+  setRender (instance) {
+    this.$render = instance
+  }
+
   render () {
-    const { el, store, Render, panels, setting, env, getSchema, getFormData } = this
-    const extension = { store, Render, getSchema, getFormData, env, panels, setting }
+    const { el, store, Render, panels, setting, env } = this
+    const extension = { store, Render, env, panels, setting, setRender: this.setRender.bind(this) }
     /* eslint-disable no-new */
     return new Vue({ extension, el, render: h => h(Editor) })
   }
