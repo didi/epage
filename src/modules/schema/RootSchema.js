@@ -1,4 +1,4 @@
-import Schema from '../widget/base/grid/Schema'
+import Schema from './base/grid/Schema'
 
 /**
  * root schema
