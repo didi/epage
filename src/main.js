@@ -1,21 +1,21 @@
-import Epage from './design/index.js'
-import TypeBuilder from './modules/store/TypeBuilder'
-import * as setting from './design/widget/setting'
-import widget from './design/widget'
 import {
   Rule,
-  EpWorker,
-  EpEvent,
+  Worker,
+  Event,
   helper,
   constant,
   Store,
   schema,
-  Logic
-} from './modules'
+  Logic,
+  TypeBuilder
+} from 'epage-core'
+import Epage from './Design.js'
+import * as setting from './widget/setting'
+import widget from './widget'
 
 Epage.Rule = Rule
-Epage.Worker = EpWorker
-Epage.Event = EpEvent
+Epage.Worker = Worker
+Epage.Event = Event
 Epage.Store = Store
 Epage.TypeBuilder = TypeBuilder
 Epage.constant = constant
