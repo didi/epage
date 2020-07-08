@@ -64,7 +64,7 @@
       @on-add-effect='onAddEffect')
 </template>
 <script>
-import Logic from './Logic'
+import Logic from '../../../modules/logic'
 import LogicForm from './LogicForm'
 
 const logic = new Logic()

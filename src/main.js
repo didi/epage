@@ -9,7 +9,8 @@ import {
   constant,
   Store,
   schema,
-  widget
+  widget,
+  Logic
 } from './modules'
 
 Epage.Rule = Rule
@@ -22,5 +23,6 @@ Epage.helper = helper
 Epage.schema = schema
 Epage.widget = widget
 Epage.setting = setting
+Epage.Logic = Logic
 
 export default Epage

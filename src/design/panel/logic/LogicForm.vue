@@ -55,8 +55,9 @@
           )
 </template>
 <script>
-import { isArray } from '../../modules/helper'
-import Effect from './Effect'
+import { isArray } from '../../../modules/helper'
+import Logic from '../../../modules/logic'
+const { Effect } = Logic
 
 export default {
   props: {

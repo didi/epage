@@ -42,7 +42,7 @@
 </template>
 <script>
 import { Message } from 'iview'
-import { copy } from '../../modules/helper'
+import { copy } from '../../../modules/helper'
 
 export default {
   props: {

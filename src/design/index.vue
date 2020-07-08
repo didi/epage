@@ -32,7 +32,7 @@
 <script>
 import { version } from 'iview'
 import EpagePanel from '../components/panel'
-import { EpageTool, EpageSchema, EpageLogic, EpageSetting } from '../panel'
+import { EpageTool, EpageSchema, EpageLogic, EpageSetting } from './panel'
 import { helper } from '../modules'
 import { IVIEW_V3 } from '../modules/constant/static'
 import { map2to3 } from '../modules/constant/icon-type-map'

@@ -2,10 +2,7 @@ import types from './types'
 import TypeBuilder from './TypeBuilder'
 import { defaultSchema } from '../constant'
 import RootSchema from '../schema/RootSchema'
-import EventLogic from '../../panel/logic/EventLogic'
-import ValueLogic from '../../panel/logic/ValueLogic'
-import Logic from '../../panel/logic/Logic'
-
+import Logic from '../logic'
 import {
   flattenSchema,
   isFunction,
@@ -21,7 +18,7 @@ import {
   updateRequiredRule
 } from '../helper'
 
-const logic = new Logic([new EventLogic(), new ValueLogic()])
+const logic = new Logic()
 const typeBuilder = new TypeBuilder()
 const rootSchema = new RootSchema()
 const selectedSchema = defaultSchema()

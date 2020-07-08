@@ -16,7 +16,7 @@ Tabs(:value='tab' size='small')
 </template>
 <script>
 import FormSetting from './form'
-import EpagePanel from '../../components/panel'
+import EpagePanel from '../../../components/panel'
 
 export default {
   components: {
