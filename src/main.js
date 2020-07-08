@@ -1,6 +1,7 @@
 import Epage from './design/index.js'
 import TypeBuilder from './modules/store/TypeBuilder'
-import * as setting from './modules/widget/setting'
+import * as setting from './design/widget/setting'
+import widget from './design/widget'
 import {
   Rule,
   EpWorker,
@@ -9,7 +10,6 @@ import {
   constant,
   Store,
   schema,
-  widget,
   Logic
 } from './modules'
 

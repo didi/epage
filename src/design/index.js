@@ -20,7 +20,7 @@ export default class Design {
     this.el = el
     this.store = new Store({ Rule: CustomRule || Rule })
     this.Render = Render
-    // 设计及预览面板渲染器示例
+    // 设计及预览面板渲染器实例
     this.$render = null
     // 设计器不同面板显示信息，设计(design)面板不可隐藏
     this.panels = panels || {}

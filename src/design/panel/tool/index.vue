@@ -47,15 +47,11 @@ Collapse.ivu-collapse-simple(:value='widgets[0].key' simple)
 </template>
 <script>
 import { version } from 'iview'
-import EpagePanel from '../../../components/panel'
 import { map2to3 } from '../../../modules/constant/icon-type-map'
 import { IVIEW_V3 } from '../../../modules/constant/static'
 import { isFunction } from '../../../modules/helper'
 
 export default {
-  components: {
-    EpagePanel
-  },
   props: {
     widgets: {
       type: Array,

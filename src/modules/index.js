@@ -5,7 +5,6 @@ import * as helper from './helper'
 import * as constant from './constant'
 import Store from './store'
 import * as schema from './schema'
-import widget from './widget'
 import Logic from './logic'
 export {
   helper,
@@ -15,6 +14,5 @@ export {
   EpEvent,
   Store,
   schema,
-  widget,
   Logic
 }
