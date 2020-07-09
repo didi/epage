@@ -11,45 +11,24 @@ Collapse.ivu-collapse-simple(:value='widgets[0].key' simple)
       )
         .ep-tool-item-inner
           template(v-if='getIcon(widget).icon')
-            template(v-if='mainVersion === 2')
+            template(v-if='MAIN_VERSION === IVIEW_V2')
               i(v-if='getIcon(widget).isClass' :class='getIcon(widget).cls')
               Icon(v-else :type='getIcon(widget).icon')
 
-            template(v-else-if='mainVersion >= 3')
+            template(v-else-if='MAIN_VERSION >= IVIEW_V3')
               Icon(v-if='getIcon(widget).isClass' :custom='getIcon(widget).cls')
               Icon(v-else :type='getIcon(widget).icon')
           span {{widget.Schema.title}}
-//- Tabs(size='small')
-//-   TabPane(
-//-     v-for='tool in widgets'
-//-     :key='tool.key'
-//-     :label='tool.title'
-//-     :name='tool.title'
-//-   )
-//-     epage-panel
-//-       .ep-tool-item(
-//-         v-for='widget in tool.widgets'
-//-         :key='widget.Schema.widget'
-//-         :title='widget.Schema.title'
-//-         :animation='200'
-//-         @click='addWidget(widget)'
-//-       )
-//-         .ep-tool-item-inner
-//-           template(v-if='getIcon(widget).icon')
-//-             template(v-if='mainVersion === 2')
-//-               i(v-if='getIcon(widget).isClass' :class='getIcon(widget).cls')
-//-               Icon(v-else :type='getIcon(widget).icon')
-
-//-             template(v-else-if='mainVersion >= 3')
-//-               Icon(v-if='getIcon(widget).isClass' :custom='getIcon(widget).cls')
-//-               Icon(v-else :type='getIcon(widget).icon')
-//-           span {{widget.Schema.title}}
 </template>
 <script>
-import { version } from 'iview'
-import { helper, constant } from 'epage-core'
+import { helper } from 'epage-core'
+import {
+  icon2to3,
+  IVIEW_V2,
+  IVIEW_V3,
+  MAIN_VERSION
+} from '../../util/iview-patch'
 
-const { map2to3, IVIEW_V3 } = constant
 const { isFunction } = helper
 
 export default {
@@ -65,7 +44,9 @@ export default {
   },
   data () {
     return {
-      mainVersion: parseInt(version || 2)
+      IVIEW_V2,
+      IVIEW_V3,
+      MAIN_VERSION
     }
   },
   methods: {
@@ -95,8 +76,8 @@ export default {
           cls = this.getClassName(_icon)
         } else {
           // 兼容iview@3+ 新icon方案
-          if (this.mainVersion >= IVIEW_V3 && _icon in map2to3) {
-            _icon = map2to3[_icon]
+          if (this.MAIN_VERSION >= IVIEW_V3 && _icon in icon2to3) {
+            _icon = icon2to3[_icon]
           }
         }
       }

@@ -36,12 +36,12 @@
     }
   },
   "peerDependencies": {
-    "vue": ">2.5",
+    "vue": ">=2.5",
     "iview": ">=2.13",
     "vuex": ">=3.1"
   },
   "dependencies": {
-    "epage-core": "^0.1.0"
+    "epage-core": "^0.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",

@@ -23,7 +23,7 @@ setting-form(:store='store' :setting='setting')
   template(v-else)
     slot(name='shape')
 
-  template(v-if='mainVersion >= IVIEW_V3')
+  template(v-if='MAIN_VERSION >= IVIEW_V3')
     FormItem(v-if='!$slots.ghost' label='幽灵按钮')
       i-switch(v-model='selectedSchema.option.ghost')
         span(slot='open') 是
@@ -34,7 +34,7 @@ setting-form(:store='store' :setting='setting')
   FormItem(v-if='!$slots.type' label='类型')
     RadioGroup(v-model='selectedSchema.option.type' size='small')
       Radio(label='default') Default
-      Radio(v-if='mainVersion < IVIEW_V3' label='ghost') Ghost
+      Radio(v-if='MAIN_VERSION < IVIEW_V3' label='ghost') Ghost
       Radio(label='dashed') Dashed
       Radio(label='primary') Primary
       Radio(label='text') Text
@@ -50,18 +50,17 @@ setting-form(:store='store' :setting='setting')
 
 </template>
 <script>
-import { version } from 'iview'
-import { constant } from 'epage-core'
 import settingExtend from '../../extends/setting'
-
-const { IVIEW_V3 } = constant
-const mainVersion = parseInt(version || 2)
+import {
+  IVIEW_V3,
+  MAIN_VERSION
+} from '../../../util/iview-patch'
 
 export default {
   extends: settingExtend,
   data () {
     return {
-      mainVersion,
+      MAIN_VERSION,
       IVIEW_V3
     }
   }

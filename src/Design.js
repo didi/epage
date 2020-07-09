@@ -1,8 +1,10 @@
 import Vue from 'vue'
+import iview from 'iview'
 import { Store, Rule, helper } from 'epage-core'
 import Editor from './index.vue'
+const Vuex = require('vuex')
 
-const { isArray, isFunction } = helper
+const { isArray, isFunction, usePlugins } = helper
 
 export default class Design {
   constructor (option) {
@@ -16,7 +18,7 @@ export default class Design {
       env,
       Rule: CustomRule
     } = option || {}
-
+    usePlugins(Vue, [Vuex, iview])
     this.el = el
     this.store = new Store({ Rule: CustomRule || Rule })
     this.Render = Render

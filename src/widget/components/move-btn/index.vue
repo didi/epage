@@ -25,12 +25,12 @@
   )
 </template>
 <script>
-import { version } from 'iview'
-import { constant } from 'epage-core'
+import {
+  getIcon,
+  IVIEW_V3,
+  MAIN_VERSION
+} from '../../../util/iview-patch'
 
-const { map2to3, IVIEW_V3 } = constant
-
-const mainVersion = parseInt(version || 2)
 export default {
   props: {
     index: {
@@ -57,16 +57,10 @@ export default {
   },
   methods: {
     setIcon () {
-      const { icon } = this
-      const _icon = {}
       // 兼容iview@3+ 新icon方案
-      if (mainVersion >= IVIEW_V3) {
-        if (icon.moveUp in map2to3) _icon.moveUp = map2to3[icon.moveUp]
-        if (icon.moveDown in map2to3) _icon.moveDown = map2to3[icon.moveDown]
-        if (icon.remove in map2to3) _icon.remove = map2to3[icon.remove]
-        if (icon.add in map2to3) _icon.add = map2to3[icon.add]
+      if (MAIN_VERSION >= IVIEW_V3) {
+        Object.assign(this.icon, getIcon(2, this.icon))
       }
-      Object.assign(this.icon, _icon)
     },
     onMoveUp (index) {
       this.$emit('on-move-up', index)

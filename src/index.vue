@@ -30,14 +30,20 @@
 
 </template>
 <script>
-import { version } from 'iview'
-import { helper, constant } from 'epage-core'
+import { helper } from 'epage-core'
 import EpagePanel from './components/panel'
-import { EpageTool, EpageSchema, EpageLogic, EpageSetting } from './panel'
+import {
+  EpageTool,
+  EpageSchema,
+  EpageLogic,
+  EpageSetting
+} from './panel'
+import {
+  getIcon,
+  IVIEW_V3,
+  MAIN_VERSION
+} from './util/iview-patch'
 
-const { IVIEW_V3, map2to3 } = constant
-
-const mainVersion = parseInt(version || 2)
 const defaultPanels = () => ({
   preview: true,
   logic: true,
@@ -131,15 +137,8 @@ export default {
     },
     setIcon () {
       // 兼容iview@3+ 新icon方案
-      if (mainVersion >= IVIEW_V3) {
-        const { icon } = this
-        const _icon = {}
-        if (icon.design in map2to3) _icon.design = map2to3[icon.design]
-        if (icon.preview in map2to3) _icon.preview = map2to3[icon.preview]
-        if (icon.logic in map2to3) _icon.logic = map2to3[icon.logic]
-        if (icon.schema in map2to3) _icon.schema = map2to3[icon.schema]
-
-        Object.assign(this.icon, _icon)
+      if (MAIN_VERSION >= IVIEW_V3) {
+        Object.assign(this.icon, getIcon(2, this.icon))
       }
     },
     renderView (tab) {
