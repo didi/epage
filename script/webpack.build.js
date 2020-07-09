@@ -27,6 +27,12 @@ const webpackConfig = merge(webpackBaseConfig, {
     umdNamedDefine: true
   },
   externals: {
+    'epage-core': {
+      root: 'EpageCore',
+      commonjs: 'epage-core',
+      commonjs2: 'epage-core',
+      amd: 'epage-core'
+    },
     iview: 'iview',
     vuex: {
       root: 'Vuex',

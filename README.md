@@ -21,6 +21,10 @@
 
 ## 安装
 
+此库提供设计器界面及基本交互，是pc端设计器核心依赖，移动端渲染器可以不依赖此库。widget能力及工具面板内容需配合渲染器一起使用，如[epage-iview](https://github.com/epage-team/epage-iview)，用户最终使用仅使用渲染器包即可。
+
+开发移动端渲染的话可以直接引入[epage-core](https://github.com/epage-team/epage-core)即可（因为仅完成渲染功能即可，不需要拖动配置界面）。
+
 ```sh
 # 需提前安装vue vuex iview vuedraggable
 npm install epage -S

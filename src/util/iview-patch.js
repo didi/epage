@@ -42,10 +42,10 @@ export const icon2to3 = {
  * @param {Object} icons icon neme
  * @return {Object} key与icons相同的新icon映射关系
  */
-export function getIcon(version, icons) {
+export function getIcon (version, icons) {
   const result = {}
   if (!icons) return result
-  for(const name in icons) {
+  for (const name in icons) {
     const icon = icons[name]
     if (version === IVIEW_V2) {
       result[name] = icon in icon2to3 ? icon2to3[name] : icon

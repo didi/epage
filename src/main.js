@@ -2,12 +2,12 @@ import {
   Rule,
   Worker,
   Event,
-  helper,
-  constant,
   Store,
-  schema,
   Logic,
-  TypeBuilder
+  TypeBuilder,
+  constant,
+  helper,
+  schema
 } from 'epage-core'
 import Epage from './Design.js'
 import * as setting from './widget/setting'
@@ -17,12 +17,12 @@ Epage.Rule = Rule
 Epage.Worker = Worker
 Epage.Event = Event
 Epage.Store = Store
+Epage.Logic = Logic
 Epage.TypeBuilder = TypeBuilder
 Epage.constant = constant
 Epage.helper = helper
 Epage.schema = schema
-Epage.widget = widget
 Epage.setting = setting
-Epage.Logic = Logic
+Epage.widget = widget
 
 export default Epage

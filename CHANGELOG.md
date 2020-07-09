@@ -9,6 +9,7 @@
 
 **注意** `epage.$render.store`与`epage.store`不同，后者为设计器内部的渲染器示例的store，后者为设计器内部的store，二者在设计视图下是相同的
 
+
 ### 0.2.9（2020/07/02）
 
 - [fix] : 工具方法增加 `usePlugins`方法，判断Vue项目plugin是否重复安装

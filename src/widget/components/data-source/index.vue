@@ -101,10 +101,10 @@
 </template>
 <script>
 import { helper, Worker as EpageWorker, TypeBuilder } from 'epage-core'
-
-const { ajax, randomStr, isNumberString, include, isArray } = helper
 import tips from './tips'
 import FieldTip from '../field-tip'
+
+const { ajax, randomStr, isNumberString, include, isArray } = helper
 
 const numberTypes = ['number', 'array<number>']
 
