@@ -109,11 +109,10 @@ export default {
     },
     viewStyle () {
       const rootStyle = this.store.getRootSchema().style || {}
-      const { maxWidth } = rootStyle
-      let style = ''
-      if (helper.isNumber(maxWidth)) {
-        style = `max-width: ${maxWidth}px;margin-left: auto;margin-right: auto;`
-      }
+      const style = Object.keys(rootStyle)
+        .map(attr => `${attr}:${rootStyle[attr]};`)
+        .join('')
+
       return style
     }
   },

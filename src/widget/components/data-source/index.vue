@@ -27,7 +27,7 @@
 
   template(v-if='schemaOption.type === "static"')
     template(v-if="hasItems && !$slots.tree")
-      Row(v-for='(item, k) in schemaOption.data' :key='item.key + k')
+      Row(v-for='(item, k) in schemaOption.data' :key='k')
         Col(span='8' offset='1' v-if="dataType === 'object'")
           FormItem(
             :label-width='1'
