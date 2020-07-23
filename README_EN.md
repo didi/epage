@@ -53,9 +53,9 @@ Earlier in the development of epage, we carried out the design based on the nati
 
 ## Communication Group
 
-Wechat group
+QQ group
 
-![](./public/imgs/epage-qrcode.png)
+<img src="https://img-hxy021.didistatic.com/static/star/epage-qrcode-qq.png" width="250">
 
 ## License
 

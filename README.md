@@ -57,9 +57,9 @@ new Epage({ el, Render, widgets })
 
 ## 交流群
 
-微信群
+QQ群
 
-![](./public/imgs/epage-qrcode.png)
+<img src="https://img-hxy021.didistatic.com/static/star/epage-qrcode-qq.png" width="250">
 
 ## License
 
