@@ -18,7 +18,7 @@ setting-form(:store='store' :setting='setting')
           :key='item.key'
           :value='item.key'
         ) {{item.value}}
-    
+
   template(v-else)
     slot(name='defaultValue')
 

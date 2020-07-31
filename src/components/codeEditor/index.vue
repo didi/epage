@@ -11,7 +11,10 @@ import 'codemirror/mode/javascript/javascript.js'
 export default {
   props: {
     // 外部传入的内容，用于实现双向绑定
-    value: String,
+    value: {
+      type: String,
+      default: ''
+    },
     // 外部传入的语法类型
     language: {
       type: String,
@@ -64,7 +67,7 @@ export default {
       // 尝试从父容器获取语法类型
       if (this.language) {
         // 获取具体的语法类型对象
-        let modeObj = this._getLanguage(this.language)
+        const modeObj = this._getLanguage(this.language)
 
         // 判断父容器传入的语法是否被支持
         if (modeObj) {
@@ -77,9 +80,9 @@ export default {
       // 在支持的语法类型列表中寻找传入的语法类型
       return this.modes.find((mode) => {
         // 所有的值都忽略大小写，方便比较
-        let currentLanguage = language.toLowerCase()
-        let currentLabel = mode.label.toLowerCase()
-        let currentValue = mode.value.toLowerCase()
+        const currentLanguage = language.toLowerCase()
+        const currentLabel = mode.label.toLowerCase()
+        const currentValue = mode.value.toLowerCase()
 
         // 由于真实值可能不规范，例如 java 的真实值是 x-java ，所以讲 value 和 label 同时和传入语法进行比较
         return currentLabel === currentLanguage || currentValue === currentLanguage
@@ -91,7 +94,7 @@ export default {
       this.coder.setOption('mode', `text/${val}`)
 
       // 获取修改后的语法
-      let label = this._getLanguage(val).label.toLowerCase()
+      const label = this._getLanguage(val).label.toLowerCase()
 
       // 允许父容器通过以下函数监听当前的语法值
       this.$emit('language-change', label)

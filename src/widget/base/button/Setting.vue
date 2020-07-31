@@ -79,7 +79,7 @@ export default {
   data () {
     return {
       MAIN_VERSION,
-      IVIEW_V3,
+      IVIEW_V3
       // editor: {
       //   visible: false,
       //   loading: false

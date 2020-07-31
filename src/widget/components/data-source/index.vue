@@ -284,7 +284,7 @@ export default {
       }
     },
     onDeleteOption (index) {
-      const { key, default: defaultValue } = this.selectedSchema
+      const { key } = this.selectedSchema
       const data = [...this.schemaOption.data]
       data.splice(index, 1)
       this.computeDefaultValue(this.selectedSchema, data)

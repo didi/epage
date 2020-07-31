@@ -52,7 +52,7 @@ export default {
     return {
       dynamicTime: [
         'usetime' // 使用时时间
-      ],
+      ]
     }
   },
   computed: {
@@ -76,7 +76,7 @@ export default {
       const { key, option } = this.selectedSchema
       if (isUsetime) {
         this.store.updateWidgetDefault({ [key]: 'usetime' })
-        } else {
+      } else {
         this.updateDefaultValue(option.range)
       }
     },
@@ -84,7 +84,7 @@ export default {
       const { key } = this.selectedSchema
       const value = range ? [] : ''
       this.store.updateWidgetDefault({ [key]: value })
-    },
+    }
   }
 }
 </script>

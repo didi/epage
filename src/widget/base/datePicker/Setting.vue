@@ -36,7 +36,7 @@ setting-form(:store='store' :setting='setting')
       ) {{item}}
   template(v-else)
     slot(name='format')
-  
+
   template(v-if='!$slots.defaultValue')
     FormItem(label='默认值')
       Checkbox(
@@ -114,7 +114,7 @@ export default {
       const { key, option } = this.selectedSchema
       if (isUsedate) {
         this.store.updateWidgetDefault({ [key]: 'usedate' })
-        } else {
+      } else {
         this.updateDefaultValue(option.range)
       }
     },
