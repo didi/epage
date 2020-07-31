@@ -46,6 +46,18 @@ setting-form(:store='store' :setting='setting')
   template(v-else)
     slot(name='icon')
 
+  FormItem(v-if='!$slots.script' label='点击腳本')
+    Input(
+      size='small'
+      :rows='6'
+      :autosize='{ minRows: 6, maxRows: 12 }'
+      type='textarea'
+      placeholder='输入 console.log(ctx) 看有哪些方法可用'
+      v-model='selectedSchema.option.script'
+    )
+  template(v-else)
+    slot(name='script')
+
   slot
 
 </template>
