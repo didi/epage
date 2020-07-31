@@ -22,6 +22,25 @@ setting-form(:store='store' :setting='setting')
   template(v-else)
     slot(name='format')
 
+  template(v-if='!$slots.defaultValue')
+    FormItem(label='默认值')
+      Checkbox(
+        :value='selectedSchema.default === "usetime"'
+        @on-change="onUsetimeChange"
+      ) 使用时日期
+
+    FormItem(v-if='dynamicTime.indexOf(selectedSchema.default) === -1' label=' ')
+      TimePicker(
+        :transfer='true'
+        :type='type'
+        :format='selectedSchema.option.format'
+        placeholder='请选择默认时间'
+        size='small'
+        v-model='selectedSchema.default'
+      )
+  template(v-else)
+    slot(name='defaultValue')
+
   slot
 </template>
 <script>
@@ -29,12 +48,22 @@ import settingExtend from '../../extends/setting'
 
 export default {
   extends: settingExtend,
+  data () {
+    return {
+      dynamicTime: [
+        'usetime' // 使用时时间
+      ],
+    }
+  },
   computed: {
     formatOptions () {
       return [
         'HH:mm:ss',
         'HH:mm'
       ]
+    },
+    type () {
+      return this.selectedSchema.option.range ? 'timerange' : 'time'
     }
   },
   methods: {
@@ -42,7 +71,20 @@ export default {
       const { key } = this.selectedSchema
       const widgetType = range ? 'array<string>' : 'string'
       this.store.updateWidgetType(key, widgetType)
-    }
+    },
+    onUsetimeChange (isUsetime) {
+      const { key, option } = this.selectedSchema
+      if (isUsetime) {
+        this.store.updateWidgetDefault({ [key]: 'usetime' })
+        } else {
+        this.updateDefaultValue(option.range)
+      }
+    },
+    updateDefaultValue (range) {
+      const { key } = this.selectedSchema
+      const value = range ? [] : ''
+      this.store.updateWidgetDefault({ [key]: value })
+    },
   }
 }
 </script>
