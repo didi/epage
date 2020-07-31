@@ -1,5 +1,17 @@
 <template lang="pug">
 setting-form(:store='store' :setting='setting')
+  FormItem(v-if='!$slots.defaultValue' label='默认值')
+    InputNumber(
+      size='small'
+      v-model='selectedSchema.default'
+      placeholder='默认值'
+      :min='selectedSchema.option.min'
+      :max='selectedSchema.option.max'
+      :step='selectedSchema.option.step'
+      :precision='selectedSchema.option.precision'
+    )
+  template(v-else)
+    slot(name='defaultValue')
 
   FormItem(v-if='!$slots.min' label='最小值')
     InputNumber(v-model='selectedSchema.option.min' :transfer='true' size='small')

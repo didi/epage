@@ -20,14 +20,44 @@ setting-form(:store='store' :setting='setting')
     template(slot="tree")
       Modal(v-model="showModal" width="650" :closable="false")
         .ep-widget-cascader-modal(v-if="showModal")
-          data-tree(:raw-data= "treeData" :schema-type="selectedSchema.type")
+          data-tree(
+            :raw-data= "treeData"
+            :schema-type="selectedSchema.type"
+            @on-remove-child='onRemoveTreeChild'
+          )
           .ep-widget-cascader-modal-msg 注意key值与数据源类型是否一致
         template(slot="footer")
           Button(type="default" @click="onTreeCancel" style="marginRight: 10px;") 取消
           Button(type="primary" @click="onTreeOk") 确定
 
-  FormItem(label='分隔符')
+  FormItem(v-if='!$slots.delimiter' label='分隔符')
     Input(v-model="selectedSchema.option.delimiter" placeholder="默认为'/'" size="small" style="width: 100px")
+  template(v-else)
+    slot(name='delimiter')
+
+  template(v-if='!$slots.defaultValue')
+    FormItem(v-if='selectedSchema.option.type === "static"' label='默认值')
+      Cascader(
+        :data='getSchemaData()'
+        placeholder='请选择默认值'
+        clearable
+        transfer
+        size='small'
+        v-model='selectedSchema.default'
+        :render-format='renderFormat'
+      )
+      //- CheckboxGroup(
+      //-   v-model='selectedSchema.default'
+      //-   size='small'
+      //- )
+      //-   Checkbox(
+      //-     v-for='(item, k) in selectedSchema.option.data || []'
+      //-     :key='item.key'
+      //-     :label='item.key'
+      //-   ) {{item.value}}
+  template(v-else)
+    slot(name='defaultValue')
+
 </template>
 <script>
 import { helper } from 'epage-core'
@@ -129,6 +159,38 @@ export default {
         return result
       }
       return recursion(data)
+    },
+    getSchemaData () {
+      const { data } = this.selectedSchema.option
+      return this.formatData(JSON.parse(JSON.stringify(data)))
+    },
+    renderFormat (label) {
+      const delimiter = this.selectedSchema.option.delimiter || '/'
+
+      return label.join(delimiter)
+    },
+    /**
+     * 将数据形式kv转化为lv形式
+     */
+    formatData (source = []) {
+      const labelAlias = 'value'
+      const valueAlias = 'key'
+      const keyMap = { [labelAlias]: 'label', [valueAlias]: 'value' }
+      for (const item of source) {
+        for (const key in keyMap) {
+          item[keyMap[key]] = item[key]
+        }
+        if (Array.isArray(item.children)) {
+          this.formatData(item.children)
+        } else {
+          item.children = []
+        }
+      }
+      return source
+    },
+    onRemoveTreeChild () {
+      const { key } = this.selectedSchema
+      this.store.updateWidgetDefault({ [key]: [] })
     }
   }
 }

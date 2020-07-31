@@ -225,20 +225,30 @@ export default {
     },
 
     onTypeChange (type) {
-      const { key } = this.selectedSchema
+      const { key, option, default: defaultValue } = this.selectedSchema
       this.store.updateWidgetType(key, type)
-      this.selectedSchema.option.data.forEach(item => {
+      const newData = option.data.map(item => {
         const key = include(numberTypes, type) ? Number(item.key) : String(item.key)
         if (!isNaN(key)) {
           item.key = key
         }
         return item
       })
+      this.store.updateWidgetOption(key, { data: newData })
+      // 数组类型选项，切换类型时候，默认值情况
+      this.updateDefaultValue(defaultValue)
     },
 
     onOriginChange (type) {
-      const { key } = this.selectedSchema
+      const { key, default: defaultValue } = this.selectedSchema
       this.store.updateWidgetOption(key, { type })
+      this.updateDefaultValue(defaultValue)
+    },
+
+    updateDefaultValue (defaultValue) {
+      const { key } = this.selectedSchema
+      const value = isArray(defaultValue) ? [] : undefined
+      this.store.updateWidgetDefault({ [key]: value })
     },
 
     onAddOption () {
@@ -258,10 +268,26 @@ export default {
       this.store.updateWidgetOption(key, { data })
       this.$emit('on-option-add')
     },
+
+    computeDefaultValue (schema, data) {
+      const { key, default: defaultValue } = schema
+
+      if (isArray(defaultValue)) {
+        const newValue = defaultValue.filter(v => {
+          return !!data.filter(item => item.key === v).length
+        })
+        if (defaultValue.length !== newValue.length) {
+          this.store.updateWidgetDefault({ [key]: newValue })
+        }
+      } else {
+        this.store.updateWidgetDefault({ [key]: undefined })
+      }
+    },
     onDeleteOption (index) {
-      const { key } = this.selectedSchema
+      const { key, default: defaultValue } = this.selectedSchema
       const data = [...this.schemaOption.data]
       data.splice(index, 1)
+      this.computeDefaultValue(this.selectedSchema, data)
 
       this.store.updateWidgetOption(key, { data })
       this.$emit('on-option-delete')

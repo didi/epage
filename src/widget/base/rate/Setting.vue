@@ -8,6 +8,18 @@ setting-form(:store='store' :setting='setting')
 
   span(slot="placeholder")
 
+  FormItem(v-if='!$slots.defaultValue' label='默认值')
+    InputNumber(
+      size='small'
+      :min='0'
+      :max='selectedSchema.option.count'
+      :step='selectedSchema.option.allowHalf ? 0.5 : 1'
+      v-model='selectedSchema.default'
+      placeholder='默认值'
+    )
+  template(v-else)
+    slot(name='defaultValue')
+
   FormItem(v-if='!$slots.count' label='总数')
     InputNumber(
       v-model='selectedSchema.option.count'

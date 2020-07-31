@@ -10,7 +10,14 @@ setting-form(:store='store' :setting='setting')
   FormItem(v-if='!$slots.adapter')
     span(slot='label') 匹配数据
       field-tip(:content="adapterContnet")
-    Input(size='small' v-model='schemaOption.adapter' type='textarea' placeholder='return { name: data.name, url: data.url }')
+    Input(
+      :rows='4'
+      :autosize='{ minRows: 4, maxRows: 12 }'
+      size='small'
+      v-model='schemaOption.adapter'
+      type='textarea'
+      placeholder='return { name: data.name, url: data.url }'
+    )
   template(v-else)
     slot(name='adapter')
 

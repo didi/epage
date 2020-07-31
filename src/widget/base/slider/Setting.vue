@@ -2,6 +2,11 @@
 setting-form(:store='store' :setting='setting')
   span(slot='placeholder')
 
+  FormItem(v-if='!$slots.defaultValue' label='默认值')
+    InputNumber(size='small' v-model='selectedSchema.default' placeholder='默认值')
+  template(v-else)
+    slot(name='defaultValue')
+
   FormItem(v-if='!$slots.min' label='最小值')
     InputNumber(v-model='selectedSchema.option.min' size='small')
   template(v-else)

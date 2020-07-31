@@ -105,6 +105,7 @@ export default {
       const parent = root.find(el => el.nodeKey === parentKey).node
       const index = parent.children.indexOf(data)
       parent.children.splice(index, 1)
+      this.$emit('on-remove-child')
     },
     // 校验其他类型是否能成功转 number 类型
     checkKeyType (key) {
