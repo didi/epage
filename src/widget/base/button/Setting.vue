@@ -59,7 +59,13 @@ setting-form(:store='store' :setting='setting')
     slot(name='script')
 
   slot
-
+  //- Modal(
+  //-   v-model='editor.visible'
+  //-   title='编辑脚本'
+  //- )
+  //-   div(slot='footer')
+  //-     Button(type="primary" size="large" :loading="editor.loading" @click="onEditorOK") 确定
+  //-   CodeEditor(v-model='selectedSchema.option.script')
 </template>
 <script>
 import settingExtend from '../../extends/setting'
@@ -73,8 +79,21 @@ export default {
   data () {
     return {
       MAIN_VERSION,
-      IVIEW_V3
+      IVIEW_V3,
+      // editor: {
+      //   visible: false,
+      //   loading: false
+      // }
     }
+  },
+  methods: {
+    // onEditorShow () {
+    //   this.editor.visible = true
+    // },
+    // onEditorOK () {
+    //   console.log(2, this.selectedSchema.option.script)
+    //   // this.editor.visible = false
+    // }
   }
 }
 </script>
