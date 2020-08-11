@@ -4,6 +4,8 @@ import {
   Event,
   Store,
   Logic,
+  Context,
+  Script,
   TypeBuilder,
   constant,
   helper,
@@ -18,6 +20,8 @@ Epage.Worker = Worker
 Epage.Event = Event
 Epage.Store = Store
 Epage.Logic = Logic
+Epage.Context = Context
+Epage.Script = Script
 Epage.TypeBuilder = TypeBuilder
 Epage.constant = constant
 Epage.helper = helper
