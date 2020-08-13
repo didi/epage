@@ -60,11 +60,6 @@ const defaultSetting = () => ({
   rule: true
 })
 
-const APPS = {
-  design: null,
-  preview: null
-}
-
 export default {
   components: {
     EpagePanel,
@@ -75,6 +70,10 @@ export default {
   },
   data () {
     return {
+      APPS: {
+        design: null,
+        preview: null
+      },
       settingState: {
         fold: false,
         text: '收起'
@@ -149,18 +148,18 @@ export default {
         const schema = this.store.getSchema()
         const widgets = this.store.getWidgets()
 
-        if (APPS[tab] && helper.isFunction(APPS[tab].destroy)) {
-          APPS[tab].destroy()
+        if (this.APPS[tab] && helper.isFunction(this.APPS[tab].destroy)) {
+          this.APPS[tab].destroy()
         }
         /* eslint-disable no-new */
-        APPS[tab] = new Render({ el, widgets, schema, mode: 'edit' })
-        APPS[tab].store.updateTab(tab)
-        setRender(APPS[tab])
+        this.APPS[tab] = new Render({ el, widgets, schema, mode: 'edit' })
+        this.APPS[tab].store.updateTab(tab)
+        setRender(this.APPS[tab])
       } else if (tab === 'design') {
-        if (!APPS[tab]) {
+        if (!this.APPS[tab]) {
           /* eslint-disable no-new */
-          APPS[tab] = new Render({ el, store: this.store, mode: 'edit' })
-          setRender(APPS[tab])
+          this.APPS[tab] = new Render({ el, store: this.store, mode: 'edit' })
+          setRender(this.APPS[tab])
         }
       }
     },
