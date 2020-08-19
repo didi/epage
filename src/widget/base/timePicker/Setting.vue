@@ -81,8 +81,11 @@ export default {
       }
     },
     updateDefaultValue (range) {
-      const { key } = this.selectedSchema
-      const value = range ? [] : ''
+      const { key, default: defaultValue } = this.selectedSchema
+      let value = range ? [] : ''
+      if (defaultValue === 'usetime') {
+        value = defaultValue
+      }
       this.store.updateWidgetDefault({ [key]: value })
     }
   }

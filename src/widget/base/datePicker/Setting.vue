@@ -123,8 +123,11 @@ export default {
       return dateFormat + (hasTime && timeFormat !== '无' ? ' ' + timeFormat : '')
     },
     updateDefaultValue (range) {
-      const { key } = this.selectedSchema
-      const value = range ? [] : ''
+      const { key, default: defaultValue } = this.selectedSchema
+      let value = range ? [] : ''
+      if (defaultValue === 'usedate') {
+        value = defaultValue
+      }
       this.store.updateWidgetDefault({ [key]: value })
     },
     onTypeChange (range) {
