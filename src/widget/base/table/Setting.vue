@@ -26,6 +26,7 @@ setting-form(:store='store' :setting='setting')
             Option(value='left') 左对齐
             Option(value='center') 居中对齐
             Option(value='right') 右对齐
+
     Col(span='7' offset='1').ep-setting-move-btn
       move-btn(
         :list='selectedSchema.option.columns'
@@ -35,6 +36,9 @@ setting-form(:store='store' :setting='setting')
         @on-delete='onDelete'
         @on-add='onAdd'
       )
+    Col(span='24' v-if='selectedSchema.option.columns[i].type === "html"')
+      FormItem(label='内容' :label-width='60')
+        Input(type='textarea' size='small')
   h5 分页
   FormItem(label='分页大小')
     InputNumber(v-model='selectedSchema.option.page.size' size='small' :step='1' :min='1' :max='100')
@@ -91,7 +95,12 @@ export default {
 
     onAdd (index) {
       const { key, option } = this.selectedSchema
-      const defaultValue = { type: 'html', title: `标题${index + 1}`, key: '', align: 'left' }
+      const defaultValue = {
+        type: 'html',
+        title: `标题${index + 1}`,
+        key: '',
+        align: 'left'
+      }
       option.columns.splice(index + 1, 0, defaultValue)
 
       this.store.updateWidgetOption(key, { columns: option.columns })

@@ -12,7 +12,7 @@ export default {
   rate: require('./base/rate'),
   select: require('./base/select'),
   slider: require('./base/slider'),
-  subTable: require('./base/subTable'),
+  // table: require('./base/table'),
   switch: require('./base/switch'),
   textarea: require('./base/textarea'),
   timePicker: require('./base/timePicker'),
