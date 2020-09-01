@@ -8,21 +8,21 @@ setting-form(:store='store' :setting='setting')
     slot(name='noDataText')
 
   h5 定义表头
-  Row.ep-setting-subTable-header(v-for='(column, i) in selectedSchema.option.columns' :key='i + "-"')
+  Row.ep-setting-table-header(v-for='(column, i) in selectedSchema.option.columns' :key='i + "-"')
     Col(span='16')
       Row
         Col(span='11' :offset='1')
-          Input(v-model='selectedSchema.option.columns[i].title' size='small' placeholder='标题')
+          Input(v-model='column.title' size='small' placeholder='标题')
         Col(span='11' :offset='1')
-          Input(v-model='selectedSchema.option.columns[i].key' size='small' placeholder='字段key')
+          Input(v-model='column.key' size='small' placeholder='字段key')
         Col(span='11' :offset='1')
-          Select(v-model='selectedSchema.option.columns[i].type' size='small' placeholder='类型')
+          Select(v-model='column.type' size='small' placeholder='类型')
             Option(value='html') 富文本
             Option(value='index') 索引
             Option(value='selection') selection
             Option(value='expand') expand
         Col(span='11' :offset='1')
-          Select(v-model='selectedSchema.option.columns[i].align' size='small' placeholder='对齐方式')
+          Select(v-model='column.align' size='small' placeholder='对齐方式')
             Option(value='left') 左对齐
             Option(value='center') 居中对齐
             Option(value='right') 右对齐
@@ -36,9 +36,9 @@ setting-form(:store='store' :setting='setting')
         @on-delete='onDelete'
         @on-add='onAdd'
       )
-    Col(span='24' v-if='selectedSchema.option.columns[i].type === "html"')
+    Col(span='24' v-if='column.type === "html"')
       FormItem(label='内容' :label-width='60')
-        Input(type='textarea' size='small')
+        Input(type='textarea' size='small' v-model='column.render')
   h5 分页
   FormItem(label='分页大小')
     InputNumber(v-model='selectedSchema.option.page.size' size='small' :step='1' :min='1' :max='100')
@@ -63,6 +63,12 @@ import settingExtend from '../../extends/setting'
 import DataSource from '../../components/data-source'
 import MoveBtn from '../../components/move-btn'
 
+const defaultCol = (index) => ({
+  type: 'html',
+  title: `标题${index + 1}`,
+  key: '',
+  align: 'left'
+})
 export default {
   components: {
     DataSource,
@@ -95,12 +101,7 @@ export default {
 
     onAdd (index) {
       const { key, option } = this.selectedSchema
-      const defaultValue = {
-        type: 'html',
-        title: `标题${index + 1}`,
-        key: '',
-        align: 'left'
-      }
+      const defaultValue = defaultCol(index)
       option.columns.splice(index + 1, 0, defaultValue)
 
       this.store.updateWidgetOption(key, { columns: option.columns })
