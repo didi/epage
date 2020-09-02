@@ -1,8 +1,9 @@
 <template lang="pug">
 setting-form(:store='store' :setting='setting')
   span(slot='rule')
+  span(slot='placeholder')
 
-  FormItem(v-if='!$slots.noDataText' label='空提示' slot='placeholder')
+  FormItem(v-if='!$slots.noDataText' label='空内容文案')
     Input(v-model='selectedSchema.option.noDataText' size='small')
   template(v-else)
     slot(name='noDataText')
@@ -36,9 +37,14 @@ setting-form(:store='store' :setting='setting')
         @on-delete='onDelete'
         @on-add='onAdd'
       )
-    Col(span='24' v-if='column.type === "html"')
-      FormItem(label='内容' :label-width='60')
-        Input(type='textarea' size='small' v-model='column.render')
+    Col(span='23' offset='1' v-if='column.type === "html"')
+      Input(
+        type='textarea'
+        placeholder='请输入return脚本'
+        size='small'
+        :autosize='{ minRows: 3 }'
+        v-model='column.render'
+      )
   h5 分页
   FormItem(label='分页大小')
     InputNumber(v-model='selectedSchema.option.page.size' size='small' :step='1' :min='1' :max='100')
@@ -109,10 +115,13 @@ export default {
 
     onSuccess (res) {
       // TODO: should check format about response
-      const key = this.selectedSchema.key
-      const option = { page: res.page, dynamicData: res.data }
+      const { key } = this.selectedSchema
+      const option = {
+        page: res.page,
+        dynamicData: res.data
+      }
 
-      this.store.updateWidgetOption(key, { columns: option.columns })
+      this.store.updateWidgetOption(key, option)
     }
   }
 }
