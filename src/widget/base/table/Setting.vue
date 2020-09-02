@@ -115,9 +115,10 @@ export default {
 
     onSuccess (res) {
       // TODO: should check format about response
-      const { key } = this.selectedSchema
+      const { key, option: schemaOption } = this.selectedSchema
+      const page = Object.assign({}, schemaOption.page, res.page)
       const option = {
-        page: res.page,
+        page,
         dynamicData: res.data
       }
 
