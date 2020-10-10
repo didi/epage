@@ -73,6 +73,15 @@ Form(:label-width='80')
         template(v-else)
           slot(name='help')
 
+    template(v-if='order.key === "hidden"')
+      template(v-if='setting.hidden !== false')
+        FormItem(v-if='!$slots.hidden' label='隐藏')
+          i-switch(v-model='selectedSchema.hidden')
+            span(slot='open') 是
+            span(slot='close') 否
+        template(v-else)
+          slot(name='hidden')
+
     template(v-if='order.key === "disabled"')
       template(v-if='setting.disabled !== false')
         FormItem(v-if='!$slots.disabled' label='禁用')
@@ -166,6 +175,7 @@ export default {
         { key: 'placeholder' },
         { key: 'description' },
         { key: 'help' },
+        { key: 'hidden' },
         { key: 'disabled' },
         { key: 'dynamic' },
         { key: 'rule' }
