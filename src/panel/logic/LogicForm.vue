@@ -20,39 +20,56 @@
     FormItem(label='值' v-if='curLogic.type === "value"')
       Input(v-model="curLogic.value" placeholder="请输入值")
 
-    FormItem(
-      v-for='(effect, i) in controlledWidgetEffects'
-      :key='i'
-      :label='`受控widget-${i + 1}`'
-    )
-      Row.ep-logic-controlled-border
-        Col(span='20')
-          Select(v-model="controlledWidgetEffects[i].key")
-            Option(
-              v-for='schema in getUnControlledSchemaList(curLogic)'
-              :key='schema.key'
-              :value="schema.key"
-            ) {{getSchemaText(schema.key)}}
-          Row
-            Col(v-for='prop in effect.properties' :key='prop.key' span='12')
-              FormItem(:label='map.prop[prop.key].text' :label-width='80')
-                i-switch(v-model='prop.value')
-                  span(slot='open') {{map.prop[prop.key].option.open}}
-                  span(slot='close') {{map.prop[prop.key].option.close}}
-        Col(span='4')
-          Button(
-            type='text'
-            size="small"
-            icon='plus'
-            @click='onAddEffect'
-          )
-          Button(
-            v-show="controlledWidgetEffects.length > 1"
-            type='text'
-            size="small"
-            icon='minus'
-            @click='onRemoveEffect(i)'
-          )
+    FormItem(label='变更类型')
+      RadioGroup(v-model='curLogic.trigger')
+        Radio(
+          v-for='type in effectTypes'
+          :key='type.key'
+          :label="type.key"
+        ) {{type.value}}
+
+    template(v-if='curLogic.trigger === "script"')
+      FormItem(label='脚本')
+        Input(
+          type='textarea'
+          :autosize='{ minRows: 3, maxRows: 8 }'
+          placeholder='自定义脚本，打印 ctx 看看'
+          v-model='curLogic.script'
+        )
+    template(v-else)
+      FormItem(
+        v-for='(effect, i) in controlledWidgetEffects'
+        :key='i'
+        :label='`受控widget-${i + 1}`'
+      )
+        Row.ep-logic-controlled-border
+          Col(span='20')
+            Select(v-model="controlledWidgetEffects[i].key")
+              Option(
+                v-for='schema in getUnControlledSchemaList(curLogic)'
+                :key='schema.key'
+                :value="schema.key"
+              ) {{getSchemaText(schema.key)}}
+            Row
+              Col(v-for='prop in effect.properties' :key='prop.key' span='12')
+                FormItem(:label='map.prop[prop.key].text' :label-width='80')
+                  i-switch(v-model='prop.value')
+                    span(slot='open') {{map.prop[prop.key].option.open}}
+                    span(slot='close') {{map.prop[prop.key].option.close}}
+          Col(span='4')
+            Button(
+              type='text'
+              size="small"
+              icon='plus'
+              @click='onAddEffect'
+            )
+            Button(
+              v-show="controlledWidgetEffects.length > 1"
+              type='text'
+              size="small"
+              icon='minus'
+              @click='onRemoveEffect(i)'
+            )
 </template>
 <script>
 import { helper, Logic } from 'epage-core'
@@ -88,7 +105,11 @@ export default {
   },
   data () {
     return {
-      curLogic: this.logic
+      curLogic: this.logic,
+      effectTypes: [
+        { key: 'prop', value: '属性' },
+        { key: 'script', value: '脚本' }
+      ]
     }
   },
   computed: {

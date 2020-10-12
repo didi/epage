@@ -26,11 +26,14 @@
         td {{map.logic[logic.type].map[logic.action].value}}
         td {{logic.type === "value" ? logic.value : '--'}}
         td
-          Row.ep-logic-action(v-for='(effect, i) in logic.effects' :key="i")
-            Col(span='12').ep-logic-controlled {{getSchemaText(effect.key)}}
-            Col(span='12')
-              span(v-for='(prop, j) in effect.properties' :key='j')
-                Tag(color='blue') {{map.prop[prop.key].text}}: {{map.prop[prop.key].option[prop.value ? 'open': 'close']}}
+          template(v-if='logic.trigger === "prop"')
+            Row.ep-logic-action(v-for='(effect, i) in logic.effects' :key="i")
+              Col(span='12').ep-logic-controlled {{getSchemaText(effect.key)}}
+              Col(span='12')
+                span(v-for='(prop, j) in effect.properties' :key='j')
+                  Tag(color='blue') {{map.prop[prop.key].text}}: {{map.prop[prop.key].option[prop.value ? 'open': 'close']}}
+          template(v-else)
+            pre script: {{logic.script.substr(0, 20)}} ...
         td
           Button(
             size='small'
@@ -117,6 +120,8 @@ export default {
           key: '',
           action: '',
           value: '',
+          trigger: 'prop',
+          script: '',
           effects: []
         }
       }
@@ -159,14 +164,19 @@ export default {
       this.modal.index = index
     },
     onModalOk () {
-      const { type, key, action, effects } = this.modal.logic
+      const { type, key, action, effects, trigger } = this.modal.logic
       const { index, logic } = this.modal
       function chectEffects (effects) {
         // const checkProperties = properties => properties.filter(prop => prop.value).length
         const checkProperties = properties => properties.length > 0
         return Array.isArray(effects) && effects.filter(e => e.key && checkProperties(e.properties)).length === effects.length
       }
-      if (type && key && action && chectEffects(effects)) {
+      if (type && key && action) {
+        if (
+          trigger === 'prop' &&
+          !chectEffects(effects)
+        ) return
+
         if (index > -1) {
           this.store.updateLogic(index, logic)
           // 回归默认
