@@ -1,11 +1,30 @@
 <template lang="pug">
 .ep-editor
-  .ep-tool
-    epage-tool(:widgets='widgets' @on-add='onAddWidget')
+  .ep-side-left
+
+    .ep-side-left-nav
+      .ep-side-left-nav-item(
+        v-for='item in nav.list'
+        :key='item.key'
+        :class='{"ep-side-left-nav-active": nav.active === item.key}'
+        @click='nav.active = item.key'
+      ) {{item.value}}
+
+    .ep-side-left-content
+      .ep-tool(v-show='nav.active === "widget"')
+        epage-tool(:widgets='widgets' @on-add='onAddWidget')
+      .ep-store(v-show='nav.active === "store"')
+        epage-store
 
   .ep-work(:class='{"ep-work-expand": settingState.fold}')
+    .ep-store-content(v-show='nav.active === "store"')
+      epage-store-setting
 
-    Tabs.ep-work-tabs(v-model='tab' size='small' @on-click='renderView')
+    Tabs.ep-work-tabs(
+      v-show='nav.active === "widget"'
+      v-model='tab'
+      size='small'
+      @on-click='renderView')
       TabPane(label='设计' name='design' :icon='icon.design')
         epage-panel.ep-work-design
           div(:style='viewStyle')
@@ -33,6 +52,8 @@
 import { helper } from 'epage-core'
 import EpagePanel from './components/panel'
 import {
+  EpageStore,
+  EpageStoreSetting,
   EpageTool,
   EpageSchema,
   EpageLogic,
@@ -63,6 +84,8 @@ const defaultSetting = () => ({
 export default {
   components: {
     EpagePanel,
+    EpageStore,
+    EpageStoreSetting,
     EpageTool,
     EpageLogic,
     EpageSchema,
@@ -70,6 +93,16 @@ export default {
   },
   data () {
     return {
+      nav: {
+        list: [{
+          key: 'widget',
+          value: '物料'
+        }, {
+          key: 'store',
+          value: '仓库'
+        }],
+        active: 'store' // widget | store
+      },
       APPS: {
         design: null,
         preview: null

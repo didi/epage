@@ -1,6 +1,10 @@
 <template lang="pug">
 Collapse.ivu-collapse-simple(:value='widgets[0].key' simple)
-  Panel(v-for='tool in widgets' :name='tool.key' :key='tool.key') {{tool.title}}
+  Panel(
+    v-for='tool in widgets'
+    :name='tool.key'
+    :key='tool.key'
+  ) {{tool.title}}
     template(slot='content')
       .ep-clearfix
         .ep-tool-item(

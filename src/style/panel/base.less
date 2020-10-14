@@ -19,3 +19,36 @@
     }
   }
 }
+.@{eppre}-side-left{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: @ep-tool-width;;
+  height: 100%;
+  overflow: visible;
+  background-color: @ep-panel-bg;
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
+  &-nav{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 39px;
+    text-align: center;
+    border-right: 1px solid #ddd;
+    &-item{
+      transition: .1s ease background-color;
+      cursor: default;
+      padding: 10px 0;
+      font-weight: bold;
+    }
+    &-active{
+      background-color:#dbdbdb;
+    }
+  }
+  &-content{
+    position: relative;
+    margin-left: 40px;
+    height: 100%;
+  }
+}

@@ -1,0 +1,32 @@
+.@{eppre}-store{
+  &-dicts{
+    padding: 6px 0;
+    &-btns{
+      text-align: center;
+      padding: 6px 0;
+    }
+    &-item{
+      padding: 8px 4px;
+      cursor: pointer;
+      word-break: break-all;
+      border-bottom: 1px solid #e5e5e5;
+      margin-left: 8px;
+      &:hover{
+        background-color: @ep-widget-hover;
+      }
+      &-active{
+        &, &:hover{
+          background-color: @ep-widget-active;
+        }
+      }
+    }
+  }
+  .@{eppre}-panel{
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    top: 0px;
+    overflow: auto;
+  }
+}
