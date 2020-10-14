@@ -5,9 +5,18 @@
 @ep-panel-bg: #fff;
 @ep-editor-bg: transparent;
 
-@ep-tool-width: 140px;
+@ep-tool-width: 160px;
 @ep-setting-width: 300px;
 @ep-setting-min-width: 40px;
 @ep-setting-footer-height: 30px;
 
 @primary-color: #2d8cf0;
+
+.ep-clearfix() {
+  &:after{
+    content: '';
+    height: 0;
+    display: block;
+    clear: both;
+  }
+}

@@ -4,21 +4,61 @@
   left: 0;
   width: @ep-tool-width;
   height: 100%;
-  overflow: auto;
+  overflow: visible;
   background-color: @ep-panel-bg;
   box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
   &-item{
-    padding: 5px 0 5px 16px;
+    padding: 5px 0 5px 0;
     transition: .3s ease background-color;
     cursor: pointer;
     font-size: 12px;
+    width: 50%;
+    float: left;
+    position: relative;
+    .@{eppre}-tool-item-hover{
+      position: absolute;
+      z-index: 10;
+      left: 120%;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #fff;;
+      border: 1px solid #ddd;
+      padding: 5px;
+      border-radius: 5px;
+      box-shadow: 1px 1px 10px rgba(0,0,0,.1);
+      display: none;
+      min-width: 100px;
+      font-size: 0;
+      img{
+        max-width: 120px;
+        max-height: 120px;
+      }
+      &-text{
+        font-size: 12px;
+      }
+      &:after, &:before{
+        content: '';
+        display:block;
+        position: absolute;
+        top: 50%;
+        width: 0px;
+        height: 0px;
+        border-top: 8px solid transparent;
+        border-right: 8px solid #ddd;
+        border-bottom: 8px solid transparent;
+        left: -8px;
+        transform: translateY(-50%);
+      }
+      &:after{
+        border-right-color:#fff;
+        left: -5px;
+      }
+    }
     &:hover{
       background-color: fade(@primary-color, 10%);
-    }
-    .ivu-icon{
-      font-size: 16px;
-      width: 24px;
-      display: inline-block;
+      .@{eppre}-tool-item-hover{
+        display: block;
+      }
     }
     &-inner{
       transform: scale(0.9);
