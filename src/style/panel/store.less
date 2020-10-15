@@ -13,11 +13,21 @@
       margin-left: 8px;
       &:hover{
         background-color: @ep-widget-hover;
+        &-delete{
+          display: block;
+        }
       }
       &-active{
         &, &:hover{
           background-color: @ep-widget-active;
         }
+      }
+      &-delete{
+        position: absolute;
+        right: 4px;
+        top: 50%;
+        transform: scale(0.8),translateY(-50%);
+        display: none;
       }
     }
   }

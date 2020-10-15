@@ -13,12 +13,10 @@
     .ep-side-left-content
       .ep-tool(v-show='nav.active === "widget"')
         epage-tool(:widgets='widgets' @on-add='onAddWidget')
-      .ep-store(v-show='nav.active === "store"')
-        epage-store
+      epage-store(v-show='nav.active === "store"' :store='store')
 
   .ep-work(:class='{"ep-work-expand": settingState.fold}')
-    .ep-store-content(v-show='nav.active === "store"')
-      epage-store-setting
+    epage-store-setting(v-show='nav.active === "store"' :store='store')
 
     Tabs.ep-work-tabs(
       v-show='nav.active === "widget"'

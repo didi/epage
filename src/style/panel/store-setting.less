@@ -1,3 +1,27 @@
 .@{eppre}-store-setting{
+  box-sizing: border-box;
   padding: 24px 16px;
+  height: 100%;
+  overflow: auto;
+  &-placeholder{
+    text-align: center;
+    font-size: 14px;
+    color: #888;
+    padding: 30px 16px;
+  }
+  &-create{
+    color: @primary-color;
+    cursor: pointer;
+    transition: .2s ease color;
+    &:hover{
+      color: darken(@primary-color, 10%)
+    }
+  }
+  &-preview{
+    background-color: #eee;
+    min-height: 40px;
+    pre{
+      margin: 0;
+    }
+  }
 }
