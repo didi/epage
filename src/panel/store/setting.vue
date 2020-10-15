@@ -185,7 +185,7 @@ export default {
       })
     },
     onAddDict () {
-      this.store.addDict(this.dict)
+      this.store.selectDict(defaultDict(), -1, 'create', 'static')
     }
   }
 }

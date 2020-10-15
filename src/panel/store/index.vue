@@ -41,8 +41,8 @@ export default {
       return JSON.stringify(json, null, 2)
     },
     onDictSelect (dict, index) {
-      const { data, ...others } = dict
-      const tmpDict = Object.assign(helper.jsonClone(others), { data: [] })
+      const { data, source, ...others } = dict
+      const tmpDict = Object.assign(helper.jsonClone(others), { data: [], source: [] })
       const { headers, body, query, params } = tmpDict
       tmpDict.headers = this.stringify(headers)
       tmpDict.body = this.stringify(body)

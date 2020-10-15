@@ -105,7 +105,7 @@ export default {
       this.importModal.error = false
     },
     onCopy () {
-      const str = JSON.stringify(this.value, null, 2)
+      const str = JSON.stringify(this.store.getSchema(), null, 2)
       copy(str).then(() => {
         Message.success({ content: '复制成功', duration: 2 })
       }, () => {

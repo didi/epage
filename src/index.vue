@@ -99,7 +99,7 @@ export default {
           key: 'store',
           value: '仓库'
         }],
-        active: 'store' // widget | store
+        active: 'widget' // widget | store
       },
       APPS: {
         design: null,
