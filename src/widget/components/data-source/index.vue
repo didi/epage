@@ -227,13 +227,15 @@ export default {
     onTypeChange (type) {
       const { key, option, default: defaultValue } = this.selectedSchema
       this.store.updateWidgetType(key, type)
-      const newData = option.data.map(item => {
+      const formatData = data => data.map(item => {
         const key = include(numberTypes, type) ? Number(item.key) : String(item.key)
         if (!isNaN(key)) {
           item.key = key
         }
+        item.children = formatData(item.children || [])
         return item
       })
+      const newData = formatData(option.data)
       this.store.updateWidgetOption(key, { data: newData })
       // 数组类型选项，切换类型时候，默认值情况
       this.updateDefaultValue(defaultValue)
