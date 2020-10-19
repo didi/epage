@@ -20,6 +20,11 @@
     FormItem(label='值' v-if='curLogic.type === "value"')
       Input(v-model="curLogic.value" placeholder="请输入值")
 
+    FormItem(v-if='curLogic.type === "value" && (curLogic.action === "><" || curLogic.action === "<>")' label='值类型')
+      RadioGroup(v-model='curLogic.relation')
+        Radio(label="and") 且
+        Radio(label="or") 或
+
     FormItem(label='变更类型')
       RadioGroup(v-model='curLogic.trigger')
         Radio(

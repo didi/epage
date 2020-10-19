@@ -23,7 +23,7 @@
       tr(v-for='(logic, key) in schema.logics' :key='key')
         td {{map.logic[logic.type].title}}
         td {{getSchemaText(logic.key)}}
-        td {{map.logic[logic.type].map[logic.action].value}}
+        td {{map.logic[logic.type].map[logic.action].value}} {{getRelation(logic)}}
         td {{logic.type === "value" ? logic.value : '--'}}
         td
           template(v-if='logic.trigger === "prop"')
@@ -31,7 +31,7 @@
               Col(span='12').ep-logic-controlled {{getSchemaText(effect.key)}}
               Col(span='12')
                 span(v-for='(prop, j) in effect.properties' :key='j')
-                  Tag(color='blue') {{map.prop[prop.key].text}}: {{map.prop[prop.key].option[prop.value ? 'open': 'close']}}
+                  Tag {{map.prop[prop.key].text}}: {{map.prop[prop.key].option[prop.value ? 'open': 'close']}}
           template(v-else)
             pre script: {{logic.script.substr(0, 20)}} ...
         td
@@ -121,6 +121,7 @@ export default {
           action: '',
           value: '',
           trigger: 'prop',
+          relation: 'or',
           script: '',
           effects: []
         }
@@ -142,6 +143,20 @@ export default {
     }
   },
   methods: {
+    getRelation (logic) {
+      let result = ''
+      const { action, relation } = logic
+      const multiValueActions = ['<>', '><']
+      const map = {
+        or: '或',
+        and: '且'
+      }
+
+      if (multiValueActions.indexOf(action) > -1 && relation in map) {
+        result = '(' + map[relation] + ')'
+      }
+      return result
+    },
     getSchemaText (key) {
       const schema = this.flatSchemas[key] || {}
       const label = schema.label || ''
