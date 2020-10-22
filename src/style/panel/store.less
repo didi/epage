@@ -1,34 +1,70 @@
 .@{eppre}-store{
-  &-dicts{
+  &-dict{
     padding: 6px 0;
     &-btns{
       text-align: center;
       padding: 6px 0;
     }
     &-item{
-      padding: 8px 4px;
       cursor: pointer;
       word-break: break-all;
       border-bottom: 1px solid #e5e5e5;
-      margin-left: 8px;
+    }
+    &-delete{
+      display: block;
+    }
+    &-info{
+      padding: 4px;
       &:hover{
         background-color: @ep-widget-hover;
-        &-delete{
-          display: block;
-        }
+      }
+    }
+    &-name{
+      font-weight: bold;
+      font-size: 14px;
+    }
+    &-url{
+      font-style: italic;
+    }
+    &-api{
+      font-size: 12px;
+      position: relative;
+      padding: 4px 4px 4px 16px;
+      &::before{
+        content: '·';
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 8px;
+        font-weight: bold;
+        font-size: 18px;
+      }
+      &:hover{
+        background-color: lighten(@ep-widget-hover, 1%);
       }
       &-active{
-        &, &:hover{
-          background-color: @ep-widget-active;
+        &,&:hover {
+          background-color: lighten(@ep-widget-active, 1%);
         }
       }
-      &-delete{
-        position: absolute;
-        right: 4px;
-        top: 50%;
-        transform: scale(0.8),translateY(-50%);
-        display: none;
+      &-name{
+        font-weight: bold;
       }
+      &-url{
+        font-style: italic;
+      }
+    }
+    &-active{
+      &, &:hover{
+        background-color: @ep-widget-active;
+      }
+    }
+    &-delete{
+      position: absolute;
+      right: 4px;
+      top: 50%;
+      transform: scale(0.8),translateY(-50%);
+      display: none;
     }
   }
   .@{eppre}-panel{
