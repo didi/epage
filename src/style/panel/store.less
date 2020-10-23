@@ -1,4 +1,43 @@
 .@{eppre}-store{
+  height: 100%;
+  overflow: auto;
+  &-more{
+    position: absolute;
+    right: 0;
+    width: 30px;
+    text-align: center;
+    // display: none;
+    &-title{
+      position: relative;
+      &:hover{
+        .ep-store-more-content{
+          display: block;
+        }
+      }
+    }
+    &-text{
+      font-size: 18px;
+      font-weight: bold;
+      color: #999;
+    }
+    &-content{
+      // display: block;
+      background: #fff;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+      position: absolute;
+      right: 0;
+      z-index: 1;
+      display: none;
+    }
+    &-item{
+      width: 60px;
+      height: 28px;
+      line-height: 28px;
+      &:hover{
+        background-color: @ep-widget-hover;
+      }
+    }
+  }
   &-dict{
     padding: 6px 0;
     &-btns{
@@ -14,33 +53,44 @@
       display: block;
     }
     &-info{
-      padding: 4px;
+      padding: 4px 30px 4px 4px;
+      position: relative;
       &:hover{
         background-color: @ep-widget-hover;
+        .ep-store-more-title{
+          display: block;
+        }
       }
     }
     &-name{
+      color:#666;
       font-weight: bold;
       font-size: 14px;
+      .ep-ellipsis();
     }
     &-url{
-      font-style: italic;
+      color:#999;
+      .ep-ellipsis();
     }
     &-api{
       font-size: 12px;
       position: relative;
-      padding: 4px 4px 4px 16px;
+      padding: 4px 30px 4px 16px;
       &::before{
-        content: '·';
+        content: '.';
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        left: 8px;
+        left: 4px;
         font-weight: bold;
-        font-size: 18px;
+        font-size: 14px;
+        color: #999;
       }
       &:hover{
         background-color: lighten(@ep-widget-hover, 1%);
+        .ep-store-more{
+          display: block;
+        }
       }
       &-active{
         &,&:hover {
@@ -48,10 +98,13 @@
         }
       }
       &-name{
+        color:#666;
         font-weight: bold;
+        .ep-ellipsis();
       }
       &-url{
-        font-style: italic;
+        color:#999;
+        .ep-ellipsis();
       }
     }
     &-active{

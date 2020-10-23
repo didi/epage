@@ -13,23 +13,37 @@
         :class='getDictClass(index)'
         @click='onDictSelect(index)'
       )
-        p.ep-store-dict-name 名称: {{item.name}}
-        p.ep-store-dict-url URL: {{item.url}}
+        ep-store-more
+          ep-store-more-item(@click.native='onDictToggle(index, $event)') 收展
+          ep-store-more-item(@click.native='onDictDelete(index, $event)') 删除
+          ep-store-more-item(@click.native='onDictCopy(index, $event)') 复制
+
+        p.ep-store-dict-name {{item.method}} {{item.name}}
+        p.ep-store-dict-url {{item.url}}
       .ep-store-dict-api(
         v-for='(sub, key) in item.data'
         :key='item.name + sub.name'
         :class='getAPIClass(key, index)'
         @click='onAPISelect(key, index)'
       )
-        p.ep-store-dict-api-name {{sub.name}}
+        //- ep-store-more
+        //-   ep-store-more-item(@click.native='onAPIDelete(key, index, $event)') 删除
+        //-   ep-store-more-item(@click.native='onAPICopy(key, index, $event)') 复制
+
+        p.ep-store-dict-api-name {{sub.method}} {{sub.name}}
         p.ep-store-dict-api-url {{sub.url}}
-        //- span.ep-store-dict-item-delete(@click='onAPIDelete(index)') 删除
 </template>
 <script>
 import { helper } from 'epage-core'
 import defaultDict from './defaultDict'
+import EpStoreMore from './more'
+import EpStoreMoreItem from './more-item'
 
 export default {
+  components: {
+    EpStoreMore,
+    EpStoreMoreItem
+  },
   props: {
     store: {
       type: Object,
@@ -69,6 +83,25 @@ export default {
     }
   },
   methods: {
+    onDictToggle (index, e) {
+      e.stopPropagation()
+    },
+    onDictDelete (index, e) {
+      e.stopPropagation()
+      this.store.deleteDict(index)
+    },
+    onDictCopy (index, e) {
+      e.stopPropagation()
+      this.store.copyDict(index)
+    },
+    onAPIDelete (index, dictIndex, e) {
+      e.stopPropagation()
+      this.store.deleteAPI(index, dictIndex)
+    },
+    onAPICopy (index, dictIndex, e) {
+      e.stopPropagation()
+      this.store.deleteAPI(index, dictIndex)
+    },
     getDictClass (index) {
       const { type, dict } = this.current
       return {
@@ -115,9 +148,6 @@ export default {
     },
     onNewAPI () {
       this.store.selectAPI(defaultDict(), -1, -1)
-    },
-    onAPIDelete (index) {
-      this.store.deleteDict(index)
     }
   }
 }

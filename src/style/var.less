@@ -6,7 +6,7 @@
 
 @ep-editor-bg: transparent;
 
-@ep-tool-width: 200px;
+@ep-tool-width: 240px;
 @ep-setting-width: 300px;
 @ep-setting-min-width: 40px;
 @ep-setting-footer-height: 30px;
@@ -23,4 +23,10 @@
     display: block;
     clear: both;
   }
+}
+
+.ep-ellipsis() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
