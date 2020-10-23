@@ -12,7 +12,7 @@ Form(
           type='text'
           v-model='configValue.name'
           placeholder='英文、数字、下划线、中划线'
-          :readonly='readonly'
+          :disabled='!editable'
         )
 
       FormItem(label='URL' prop='url')
@@ -20,7 +20,7 @@ Form(
           type='textarea'
           v-model='configValue.url'
           placeholder='请输入url'
-          :readonly='readonly'
+          :disabled='!editable'
         )
 
       FormItem(label='描述' prop='desc')
@@ -28,7 +28,7 @@ Form(
           type='textarea'
           v-model='configValue.desc'
           placeholder='最多40个字符'
-          :readonly='readonly'
+          :disabled='!editable'
         )
 
       FormItem(label='body' prop='body')
@@ -36,12 +36,12 @@ Form(
           type='textarea'
           v-model='configValue.body'
           placeholder='JSON格式'
-          :readonly='readonly'
+          :disabled='!editable'
         )
 
     Col(span='12')
       FormItem(label='请求方法' prop='method')
-        RadioGroup(v-model='configValue.method' :disabled='readonly')
+        RadioGroup(v-model='configValue.method' :disabled='!editable')
           Radio(
             v-for='method in methods'
             :key='method'
@@ -53,7 +53,7 @@ Form(
           type='textarea'
           v-model='configValue.headers'
           placeholder='请求头 JSON格式'
-          :readonly='readonly'
+          :disabled='!editable'
         )
 
       FormItem(label='params' prop='params')
@@ -61,7 +61,7 @@ Form(
           type='textarea'
           v-model='configValue.params'
           placeholder='请求参数 JSON格式'
-          :readonly='readonly'
+          :disabled='!editable'
         )
 
       FormItem(label='query' prop='query')
@@ -69,7 +69,7 @@ Form(
           type='textarea'
           v-model='configValue.query'
           placeholder='查询参数'
-          :readonly='readonly'
+          :disabled='!editable'
         )
 
   FormItem(label='适配脚本' prop='adapter')
@@ -77,20 +77,24 @@ Form(
       type='textarea'
       v-model='configValue.adapter'
       placeholder='请求返回转换脚本，必须return'
-      :readonly='readonly'
+      :disabled='!editable'
       :autosize='{ minRows: 6 }'
     )
-  FormItem(v-if='!readonly')
-    Button(type='primary' @click='onSave') 保 存
-    Button(style='margin-left: 20px;' @click='onTest') 测 试
-  FormItem.ep-store-setting-preview(label='格式预览')
-    pre {{format}}
+  FormItem
+    Button(v-if='editable' style='margin-right: 20px;' type='primary' @click='onSave') 保 存
+    Button(@click='onTest') 测 试
+  FormItem(label='格式预览')
+    ep-code-editor(:value='format')
 
 </template>
 <script>
 import { API, helper } from 'epage-core'
+import EpCodeEditor from '../../components/codeEditor'
 
 export default {
+  components: {
+    EpCodeEditor
+  },
   props: {
     store: {
       type: Object,
@@ -122,11 +126,10 @@ export default {
     configValue () {
       return (this.current[this.current.type] || {}).value || {}
     },
-    readonly () {
-      const type = this.current.type
-      const configType = this.current[type].type
+    editable () {
+      const { type, dict } = this.current
 
-      return type === 'api' && configType === 'dynamic'
+      return !(type === 'api' && dict.index > -1)
     }
   },
   methods: {

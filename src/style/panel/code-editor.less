@@ -1,0 +1,26 @@
+.ep-codeeditor{
+  &-bar{
+    height: 46px;
+    padding: 10px;
+    font-size: 14px;
+    background-color: #f6f8fa;
+    color:#495060;
+    position: relative;
+  }
+  &-content{
+    &>.line{
+      counter-increment: no;
+      line-height: 1.5em;
+      &:nth-child(odd) {
+        background-color:#f6f8fa;
+      }
+      &:hover,
+      &:nth-child(odd):hover{
+        background-color: darken(#f6f8fa, 5);
+      }
+      &:before{
+        content: counter(no)' ';
+      }
+    }
+  }
+}

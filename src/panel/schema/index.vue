@@ -1,23 +1,21 @@
 <template lang="pug">
 .ep-schema
-  .ep-schema-bar
-    span.ep-schema-summary
-      b {{code.lineNumber}}
-      span &nbsp;lineNumber
-    .ep-schema-btns
-      Button(
-        size='small'
-        icon='code-download'
-        title='点击导入'
-        @click.native='onImportShow'
-        style='margin-right: 10px;'
-      ) 导入
-      Button(
-        size='small'
-        icon='ios-copy'
-        title='点击复制'
-        @click.native='onCopy'
-      ) 复制
+  ep-code-editor(:value='JSON.stringify(value, null, 2)' lang='json')
+    template(slot='bar')
+      .ep-schema-btns
+        Button(
+          size='small'
+          icon='code-download'
+          title='点击导入'
+          @click.native='onImportShow'
+          style='margin-right: 10px;'
+        ) 导入
+        Button(
+          size='small'
+          icon='ios-copy'
+          title='点击复制'
+          @click.native='onCopy'
+        ) 复制
 
   Modal(
     title='导入schema'
@@ -38,15 +36,18 @@
       Button(size='small' @click='onImportHide') 取消
       Button(size='small' type='primary' @click='onImport') 导入
 
-  pre.ep-schema-content(v-html='code.content')
 </template>
 <script>
 import { Message } from 'iview'
 import { helper } from 'epage-core'
+import EpCodeEditor from '../../components/codeEditor'
 
 const { copy } = helper
 
 export default {
+  components: {
+    EpCodeEditor
+  },
   props: {
     store: {
       type: Object,
@@ -64,21 +65,6 @@ export default {
         error: false,
         schema: ''
       }
-    }
-  },
-  computed: {
-    code () {
-      let str = JSON.stringify(this.value, null, 2)
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-      // 总行数
-      let lineNumber = 1
-      str = `<div class="line">${str}</div>`
-      const content = str.replace(/\n/g, () => {
-        lineNumber++
-        return '</div><div class="line">'
-      })
-      return { lineNumber, content }
     }
   },
   methods: {
