@@ -34,6 +34,7 @@ div
   Row
     Col(span='24' style='text-align: center;')
       Button(
+        type='dashed'
         @click='onAdd(list.length - 1)'
         style='width: 100px;'
       ) + 添加
