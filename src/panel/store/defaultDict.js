@@ -2,9 +2,9 @@ export default () => ({
   name: '',
   url: '',
   method: 'GET',
-  headers: '',
-  body: '',
-  params: '',
-  query: '',
+  header: [],
+  body: {},
+  params: [],
+  query: [],
   adapter: ''
 })

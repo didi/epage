@@ -36,8 +36,8 @@
 <script>
 import { helper } from 'epage-core'
 import defaultDict from './defaultDict'
-import EpStoreMore from './more'
-import EpStoreMoreItem from './more-item'
+import EpStoreMore from './components/more'
+import EpStoreMoreItem from './components/more-item'
 
 export default {
   components: {
@@ -54,17 +54,17 @@ export default {
     return {
       dict: {
         name: '',
-        headers: '',
+        header: [],
         body: '',
-        query: '',
-        params: ''
+        query: [],
+        params: []
       },
       api: {
         name: '',
-        headers: '',
+        header: [],
         body: '',
-        query: '',
-        params: ''
+        query: [],
+        params: []
       }
     }
   },
@@ -114,18 +114,15 @@ export default {
         'ep-store-dict-api-active': type === 'api' && api.index === index && dict.index === dictIndex
       }
     },
-    stringify (json) {
-      return JSON.stringify(json, null, 2)
-    },
     onDictSelect (index) {
       const { data, source, ...others } = this.dicts[index]
       const tmp = Object.assign(helper.jsonClone(others), { data: [], source: [] })
-      const { headers, body, query, params } = tmp
+      const { header, body, query, params } = tmp
 
-      tmp.headers = this.stringify(headers)
-      tmp.body = this.stringify(body)
-      tmp.query = this.stringify(query)
-      tmp.params = this.stringify(params)
+      tmp.header = helper.jsonClone(header)
+      tmp.body = body
+      tmp.query = helper.jsonClone(query)
+      tmp.params = helper.jsonClone(params)
       this.store.selectDict(tmp, index, 'update')
     },
     onAPISelect (index, dictIndex) {
@@ -135,12 +132,12 @@ export default {
       }
       const { data, source, ...others } = api
       const tmp = Object.assign(helper.jsonClone(others), { data: [], source: [] })
-      const { headers, body, query, params } = tmp
+      const { header, body, query, params } = tmp
 
-      tmp.headers = this.stringify(headers)
-      tmp.body = this.stringify(body)
-      tmp.query = this.stringify(query)
-      tmp.params = this.stringify(params)
+      tmp.header = header || []
+      tmp.body = body
+      tmp.query = query || []
+      tmp.params = params || []
       this.store.selectAPI(tmp, index, dictIndex)
     },
     onNewDict () {

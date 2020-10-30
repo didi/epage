@@ -1,0 +1,33 @@
+.ep-tab{
+  position: relative;
+  &:after{
+    content: '';
+    display: block;
+    height: 0;
+    clear: both;
+  }
+  &-names{
+    border-bottom: 1px solid #ddd;
+  }
+  &-name{
+    display: inline-block;
+    padding: 4px 8px;
+    position: relative;
+    cursor: pointer;
+  }
+  &-active{
+    &:after{
+      content: '';
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      background-color: #f00;
+    }
+  }
+  &-pane{
+    float: left;
+    width: 100%;
+  }
+}

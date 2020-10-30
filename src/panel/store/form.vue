@@ -1,99 +1,99 @@
 <template lang="pug">
 Form(
-  :label-width="100"
   :model='configValue'
   :rules='rules'
   ref='setting'
 )
   Row
-    Col(span='12')
-      FormItem(label='名称' prop='name')
+    Col(span='24')
+      FormItem(label='名称' prop='name' :label-width='60')
         Input(
           type='text'
           v-model='configValue.name'
           placeholder='英文、数字、下划线、中划线'
           :disabled='!editable'
         )
-
-      FormItem(label='URL' prop='url')
+    Col(span='18')
+      FormItem(prop='url' :label-width='0')
         Input(
-          type='textarea'
+          type='text'
           v-model='configValue.url'
-          placeholder='请输入url'
+          placeholder='英文、数字、下划线、中划线'
           :disabled='!editable'
         )
+          Select(
+            v-model='configValue.method'
+            slot='prepend'
+            style='width: 80px'
+            :disabled='!editable'
+          )
+            Option(
+              v-for='method in methods'
+              :key='method'
+              :value='method'
+            ) {{method}}
+    Col(span='6')
+      Button(type='primary' v-if='editable' style='margin-right: 16px;' @click='onSave') 保存
+      Button(@click='onTest') 测试
 
-      FormItem(label='描述' prop='desc')
-        Input(
-          type='textarea'
-          v-model='configValue.desc'
-          placeholder='最多40个字符'
-          :disabled='!editable'
-        )
+  Tabs(size='small' value='query')
+    TabPane(label='Query' name='query')
+      EpKeyValue(
+        :list='configValue.query'
+        @on-add='headerPropAdd("query", ...arguments)'
+        @on-delete='headerPropDelete("query", ...arguments)'
+      )
 
-      FormItem(label='body' prop='body')
-        Input(
-          type='textarea'
-          v-model='configValue.body'
-          placeholder='JSON格式'
-          :disabled='!editable'
-        )
+    TabPane(label='Header' name='header')
+      EpKeyValue(
+        :list='configValue.header'
+        @on-add='headerPropAdd("header", ...arguments)'
+        @on-delete='headerPropDelete("header", ...arguments)'
+      )
 
-    Col(span='12')
-      FormItem(label='请求方法' prop='method')
-        RadioGroup(v-model='configValue.method' :disabled='!editable')
-          Radio(
-            v-for='method in methods'
-            :key='method'
-            :label='method'
-          ) {{method}}
+    TabPane(label='Body' name='body')
+      Input(
+        type='textarea'
+        v-model='configValue.body'
+        placeholder='JSON格式'
+        :disabled='!editable'
+        :autosize='{ minRows: 6 }'
+      )
 
-      FormItem(label='headers' prop='headers')
-        Input(
-          type='textarea'
-          v-model='configValue.headers'
-          placeholder='请求头 JSON格式'
-          :disabled='!editable'
-        )
+    TabPane(label='Params' name='params')
+      EpKeyValue(
+        :list='configValue.params'
+        @on-add='headerPropAdd("params", ...arguments)'
+        @on-delete='headerPropDelete("params", ...arguments)'
+      )
 
-      FormItem(label='params' prop='params')
-        Input(
-          type='textarea'
-          v-model='configValue.params'
-          placeholder='请求参数 JSON格式'
-          :disabled='!editable'
-        )
+    TabPane(label='Script' name='script')
+      Input(
+        type='textarea'
+        v-model='configValue.adapter'
+        placeholder='请求返回转换脚本，必须return'
+        :disabled='!editable'
+        :autosize='{ minRows: 6 }'
+      )
 
-      FormItem(label='query' prop='query')
-        Input(
-          type='textarea'
-          v-model='configValue.query'
-          placeholder='查询参数'
-          :disabled='!editable'
-        )
-
-  FormItem(label='适配脚本' prop='adapter')
-    Input(
-      type='textarea'
-      v-model='configValue.adapter'
-      placeholder='请求返回转换脚本，必须return'
-      :disabled='!editable'
-      :autosize='{ minRows: 6 }'
-    )
-  FormItem
-    Button(v-if='editable' style='margin-right: 20px;' type='primary' @click='onSave') 保 存
-    Button(@click='onTest') 测 试
-  FormItem(label='格式预览')
-    ep-code-editor(:value='format')
+  h4 响应
+  Tabs(size='small' value='format')
+    TabPane(label='Format' name='format')
+      ep-code-editor(v-show='format' :value='format')
+    TabPane(label='Header')
+      ep-code-editor(v-show='response.header' :value='response.header')
 
 </template>
 <script>
 import { API, helper } from 'epage-core'
 import EpCodeEditor from '../../components/codeEditor'
+import EpKeyValue from './components/key-value'
+import defaultDict from './defaultDict'
 
 export default {
   components: {
-    EpCodeEditor
+    EpCodeEditor,
+    EpKeyValue
   },
   props: {
     store: {
@@ -104,6 +104,18 @@ export default {
   data () {
     return {
       format: '',
+      type: '', // api | dict
+      dict: {
+        index: -1,
+        value: {}
+      },
+      api: {
+        index: -1,
+        value: {}
+      },
+      response: {
+        header: ''
+      },
       methods: ['GET', 'POST', 'PUT', 'DELETE'],
       rules: {
         name: [{ required: true, message: '必填' }],
@@ -111,7 +123,7 @@ export default {
           { required: true, message: '必填' }
         ],
         method: [{ required: true, message: '必填' }],
-        headers: [{ required: false, validator: this.validateJSON }],
+        header: [{ required: false, validator: this.validateJSON }],
         body: [{ required: false }],
         params: [{ required: false, validator: this.validateJSON }],
         query: [{ required: false, validator: this.validateJSON }],
@@ -124,15 +136,40 @@ export default {
       return this.store.getStore().current
     },
     configValue () {
-      return (this.current[this.current.type] || {}).value || {}
+      return (this[this.type] || {}).value || {}
     },
     editable () {
-      const { type, dict } = this.current
+      const { type, dict } = this
 
       return !(type === 'api' && dict.index > -1)
     }
   },
+  watch: {
+    current: {
+      handler (value) {
+        const { type } = value
+        if (type) {
+          this.type = type
+          this[type] = helper.jsonClone(value[type])
+        }
+      },
+      immediate: true,
+      deep: true
+    }
+  },
   methods: {
+    headerPropAdd (prop, index) {
+      const value = this[this.type].value
+      if (value) {
+        value[prop].splice(index + 1, 0, defaultDict())
+      }
+    },
+    headerPropDelete (prop, index) {
+      const value = this[this.type].value
+      if (value) {
+        value[prop].splice(index, 1)
+      }
+    },
     validateJSON (rule, value, callback) {
       if (!value) return callback()
       try {
@@ -144,10 +181,9 @@ export default {
     },
     parseForm () {
       const form = Object.assign({}, this.configValue)
-      form.headers = JSON.parse(form.headers || '{}')
-      form.body = JSON.parse(form.body || '{}')
-      form.params = JSON.parse(form.params || '{}')
-      form.query = JSON.parse(form.query || '{}')
+      form.header = helper.jsonClone(form.header || '[]')
+      form.params = helper.jsonClone(form.params || '[]')
+      form.query = helper.jsonClone(form.query || '[]')
       return form
     },
     onSave () {
@@ -156,20 +192,24 @@ export default {
           const { type } = this.current
           const { action, index } = this.current[type] || {}
           const form = this.parseForm()
-
-          if (action === 'create') {
-            if (type === 'dict') {
-              this.store.addDict(form)
-            } else if (type === 'api') {
-              this.store.addDict(form)
-            }
-          } else {
-            if (type === 'dict') {
-              this.store.updateDict(form, index)
-            } else if (type === 'api') {
-              this.store.updateAPI(form, index)
+          const methods = {
+            dict: {
+              create: ['addDict', [form]],
+              update: ['updateDict', [form, index]]
+            },
+            api: {
+              create: ['addAPI', [form]],
+              update: ['updateAPI', [form, index]]
             }
           }
+
+          if (!(type in methods)) return
+          if (!(action in methods[type])) return
+
+          const method = methods[type][action]
+
+          this.store[method[0]](...method[1])
+
           console.log('success:', this.configValue)
         } else {
           console.log('error:', this.configValue)
@@ -179,18 +219,27 @@ export default {
     onTest () {
       this.$refs.setting.validate(valid => {
         if (valid) {
-          // const Construct = this.current.type === 'dict' ? Dict : API
           const ins = new API(helper.jsonClone(this.parseForm()))
 
           ins.getData().then(res => {
             this.format = ins.format
+            this.response.header = JSON.stringify(this.array2object(ins.response.header), null, 2)
           }).catch(err => {
+            this.format = ''
+            this.response.header = ''
             console.error('fetch error:', err)
           })
         } else {
           console.error('validate error:', this.configValue)
         }
       })
+    },
+    array2object (array = []) {
+      const result = {}
+      array.forEach((item) => {
+        result[item.key] = item.value
+      })
+      return result
     }
   }
 }
