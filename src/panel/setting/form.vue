@@ -23,7 +23,7 @@ Form(:label-width='80')
 
   //- FormItem(label='最大宽度(px)')
   //-   InputNumber(:size='size' :min='200' :step='10' v-model='rootSchema.style.maxWidth')
-  ep-style(:styles='rootSchema.style')
+  ep-style(:styles='rootSchema.style' :store='store')
 
   //- FormItem(label='保存地址')
   //-   Input(:size='size' v-model='rootSchema.option.url')

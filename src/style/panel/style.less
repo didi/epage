@@ -1,0 +1,100 @@
+.ep-style{
+  &-box-top,
+  &-box-right,
+  &-box-bottom,
+  &-box-left{
+    width: 70px;
+    position: absolute;
+    div.ivu-form-item{
+      margin-bottom: 0;
+    }
+  }
+  &-box-top{
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  &-box-right{
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  &-box-bottom{
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  &-box-left{
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  &-box-margin,
+  &-box-padding{
+    background-color: #fff;
+    border: 1px dashed #ddd;
+    position: relative;
+  }
+  &-box-margin{
+    width: 70px;
+    height: 70px;
+    margin: 40px auto;
+    .ep-style-box-top{
+      top: -32px;
+    }
+    .ep-style-box-right{
+      right: -80px;
+    }
+    .ep-style-box-bottom{
+      bottom: -32px;
+    }
+    .ep-style-box-left{
+      left: -80px;
+    }
+  }
+  &-box-padding{
+    width: 240px;
+    height: 160px;
+    margin: 20px auto;
+    .ep-style-box-top{
+      top: 10px;
+    }
+    .ep-style-box-right{
+      right: 10px;
+    }
+    .ep-style-box-bottom{
+      bottom: 10px;
+    }
+    .ep-style-box-left{
+      left: 10px;
+    }
+  }
+  &-background{
+    &-item{
+      border: 1px dashed #ddd;
+      padding: 8px;
+      margin: 4px;
+      &-title{
+        position: relative
+      }
+      &-option{
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+    }
+    &-up, &-down, &-delete{
+      width: 16px;
+      height: 16px;
+      text-align: center;
+      font-size: 14px;
+      margin-left: 6px;
+      cursor: pointer;
+      &.disabled{
+        color: #bbb;
+        pointer-events: none;
+        cursor: not-allowed;
+      }
+    }
+    &-delete{
+      font-size: 12px;
+      color: #d00;
+    }
+  }
+}

@@ -25,13 +25,11 @@
       @on-click='renderView')
       TabPane(label='设计' name='design' :icon='icon.design')
         epage-panel.ep-work-design
-          div(:style='viewStyle')
-            div(ref='design')
+          div(ref='design')
 
       TabPane(v-if='panels.preview' label='预览' name='preview' :icon='icon.preview')
         epage-panel.ep-work-preview
-          div(:style='viewStyle')
-            div(ref='preview')
+          div(ref='preview')
 
       TabPane(v-if='panels.logic' label='逻辑' name='logic' :icon='icon.logic')
         epage-panel.ep-work-logic
@@ -136,14 +134,6 @@ export default {
     },
     selectedSchema () {
       return this.store.getSelectedSchema()
-    },
-    viewStyle () {
-      const rootStyle = this.store.getRootSchema().style || {}
-      const style = Object.keys(rootStyle)
-        .map(attr => `${attr}:${rootStyle[attr]};`)
-        .join('')
-
-      return style
     }
   },
   beforeMount () {
