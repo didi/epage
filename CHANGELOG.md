@@ -1,5 +1,21 @@
 # Change Log
 
+### 0.5.0（2020/11/04）
+
+- [feat] : 增加整体页面配置(背景色、间距等)
+- [feat] : 配置面板支持自定义扩展，通过`new Epage`扩展参数
+
+```js
+const settings = [
+  { key: 'style', title: '样式设置', component: VueComponent }
+]
+new Epage({..., settings })
+```
+
+- [feat] : 工具面板界面优化
+- [fix] : 字典能力优化（暂不可见）
+
+
 ### 0.4.1（2020/10/20）
 
 - [feat] : 逻辑关系中，被控组件存在多值时，增加值的 `或`、`且` 关系

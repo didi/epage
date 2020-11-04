@@ -15,6 +15,7 @@ export default class Design {
       Render,
       panels,
       setting,
+      settings,
       env,
       Rule: CustomRule
     } = option || {}
@@ -28,6 +29,8 @@ export default class Design {
     this.panels = panels || {}
     // 控制widget 属性显隐等信息
     this.setting = setting || {}
+    // 自定义设置面板
+    this.settings = settings || []
     this.env = env || 'production'
     this.$$origin = null
     if (isArray(widgets)) {
@@ -47,8 +50,24 @@ export default class Design {
   }
 
   render () {
-    const { el, store, Render, panels, setting, env } = this
-    const extension = { store, Render, env, panels, setting, setRender: this.setRender.bind(this) }
+    const {
+      el,
+      store,
+      Render,
+      panels,
+      setting,
+      settings,
+      env
+    } = this
+    const extension = {
+      store,
+      Render,
+      env,
+      panels,
+      setting,
+      settings,
+      setRender: this.setRender.bind(this)
+    }
     /* eslint-disable no-new */
     return new Vue({ extension, el, render: h => h(Editor) })
   }

@@ -2,7 +2,7 @@
 .ep-editor
   .ep-side-left
 
-    .ep-side-left-nav
+    .ep-side-left-nav(v-if='false')
       .ep-side-left-nav-item(
         v-for='item in nav.list'
         :key='item.key'
@@ -15,32 +15,68 @@
         epage-tool(:widgets='widgets' @on-add='onAddWidget')
       epage-store(v-show='nav.active === "store"' :store='store')
 
-  .ep-work(:class='{"ep-work-expand": settingState.fold}')
+  //- store配置
+  .ep-side-right(v-show='nav.active === "store"')
     epage-store-setting(v-show='nav.active === "store"' :store='store')
 
+  //- 工作区
+  .ep-work(
+    v-show='nav.active === "widget"'
+    :class='{"ep-work-expand": settingState.fold}'
+  )
+
     Tabs.ep-work-tabs(
-      v-show='nav.active === "widget"'
       v-model='tab'
       size='small'
       @on-click='renderView')
-      TabPane(label='设计' name='design' :icon='icon.design')
+      TabPane(
+        label='设计'
+        name='design'
+        :icon='icon.design'
+      )
         epage-panel.ep-work-design
           div(ref='design')
 
-      TabPane(v-if='panels.preview' label='预览' name='preview' :icon='icon.preview')
+      TabPane(
+        v-if='panels.preview'
+        label='预览'
+        name='preview'
+        :icon='icon.preview'
+      )
         epage-panel.ep-work-preview
           div(ref='preview')
 
-      TabPane(v-if='panels.logic' label='逻辑' name='logic' :icon='icon.logic')
+      TabPane(
+        v-if='panels.logic'
+        label='逻辑'
+        name='logic'
+        :icon='icon.logic'
+      )
         epage-panel.ep-work-logic
           epage-logic(v-if='tab === "logic"' :store='store')
 
-      TabPane(v-if='panels.schema' label='Schema' name='schema' :icon='icon.schema')
+      TabPane(
+        v-if='panels.schema'
+        label='Schema'
+        name='schema'
+        :icon='icon.schema'
+      )
         epage-panel.ep-work-schema
-          epage-schema(v-if='tab === "schema"' v-model='rootSchema' :store='store')
+          epage-schema(
+            v-if='tab === "schema"'
+            v-model='rootSchema'
+            :store='store'
+          )
 
-  .ep-setting(:class='{"ep-setting-fold": settingState.fold}')
-    epage-setting(:store='store' :setting='setting')
+  .ep-setting(
+    v-show='nav.active === "widget"'
+    :class='{"ep-setting-fold": settingState.fold}'
+  )
+    epage-setting(
+      :store='store'
+      :setting='setting'
+      :settings='settings'
+    )
     .ep-control-handle(@click='onUnfold') {{settingState.text}}
 
 </template>
@@ -97,7 +133,7 @@ export default {
           key: 'store',
           value: '仓库'
         }],
-        active: 'store' // widget | store
+        active: 'widget' // widget | store
       },
       APPS: {
         design: null,
@@ -111,6 +147,8 @@ export default {
       tab: 'design',
       panels: defaultPanels(),
       setting: defaultSetting(),
+      // 自定义设置面板
+      settings: [],
       icon: {
         design: 'compose',
         preview: 'eye',
@@ -137,9 +175,14 @@ export default {
     }
   },
   beforeMount () {
-    const { panels, setting } = this.$root.$options.extension
+    const {
+      panels,
+      setting,
+      settings
+    } = this.$root.$options.extension
     Object.assign(this.panels, panels)
     Object.assign(this.setting, setting)
+    this.settings = settings
     this.setIcon()
   },
   mounted () {

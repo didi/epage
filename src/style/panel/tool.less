@@ -7,6 +7,15 @@
     width: 50%;
     float: left;
     position: relative;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    &:nth-child(1),
+    &:nth-child(2){
+      border-top: 1px solid #ddd;
+    }
+    &:nth-child(odd){
+      border-right: 1px solid #ddd;
+    }
     .@{eppre}-tool-item-hover{
       position: absolute;
       z-index: 10;
@@ -54,6 +63,9 @@
     }
     &-inner{
       transform: scale(0.9);
+      width: 110%;
+      margin-left: -5%;
+      .ep-ellipsis();
     }
   }
   .@{eppre}-panel{
@@ -65,6 +77,9 @@
     overflow: auto;
   }
   .ivu-collapse{
+    &>.ivu-collapse-item{
+      border-top: none;
+    }
     &>.ivu-collapse-item>.ivu-collapse-header{
       font-weight: bold;
       padding-left: 16px;
@@ -75,8 +90,7 @@
     }
   }
   .ivu-collapse-content{
-    padding-left: 12px;
-    padding-right: 12px;
+    padding: 0;
     &>.ivu-collapse-content-box{
       padding-top: 6px;
       padding-bottom: 10px;

@@ -4,15 +4,27 @@ Tabs(:value='tab' size='small')
     Icon(type="help")
     span &nbsp;帮助
 
-  TabPane(label='属性' name='widget')
+  TabPane(label='属性' name='prop')
     epage-panel.ep-setting-prop
       template(v-if='isSelected && settingWidget')
         component(:is='settingWidget' :store='store' :setting='setting')
 
-  TabPane(label='页面配置' name='form' )
+  TabPane(
+    label='页面配置'
+    name='global'
+    v-if='isShowGlobalSetting()'
+  )
     epage-panel.ep-setting-form
       form-setting(:store='store')
 
+  TabPane(
+    v-for='(s, index) in getFilterSettings()'
+    :label='s.title'
+    :key='s.key'
+    :name='s.key'
+  )
+    epage-panel.ep-setting-form
+      div(ref='panes')
 </template>
 <script>
 import FormSetting from './form'
@@ -24,6 +36,12 @@ export default {
     EpagePanel
   },
   props: {
+    // 自定义配置面板
+    settings: {
+      type: Array,
+      // [{ title: '', key: '', component: {}}]
+      default: () => []
+    },
     setting: {
       type: Object,
       default: () => ({})
@@ -38,8 +56,9 @@ export default {
   },
   data () {
     return {
-      tab: 'widget',
-      docURL: 'http://epage.didichuxing.com'
+      tab: 'prop',
+      docURL: 'http://epage.didichuxing.com',
+      filterSettings: []
     }
   },
   computed: {
@@ -49,6 +68,33 @@ export default {
     },
     settingWidget () {
       return this.store.getSettingWidget()
+    }
+  },
+  mounted () {
+    const { Render } = this.$root.$options.extension
+    const store = this.store
+    const list = this.$refs.panes || []
+    const filterSettings = this.getFilterSettings()
+
+    list.forEach((el, index) => {
+      const setting = filterSettings[index]
+      if (setting && setting.component) {
+        /* eslint-disable no-new */
+        new Render({ el, store, component: setting.component })
+      }
+    })
+  },
+  methods: {
+    isShowGlobalSetting () {
+      return this.settings.filter(s => s.key === 'global').length === 0
+    },
+    getFilterSettings () {
+      return this.settings.filter(setting => {
+        return setting &&
+        setting.component &&
+        typeof setting.key === 'string' &&
+        !!setting.key
+      })
     }
   }
 }
