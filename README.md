@@ -73,7 +73,7 @@ new Epage({ el, Render, widgets })
 
 ## 交流群
 
-QQ群
+QQ群( 1128074461 )
 
 <img src="https://img-hxy021.didistatic.com/static/star/epage-qrcode-qq.png" width="250">
 

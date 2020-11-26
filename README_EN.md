@@ -53,7 +53,7 @@ Earlier in the development of epage, we carried out the design based on the nati
 
 ## Communication Group
 
-QQ group
+QQ group( 1128074461 )
 
 <img src="https://img-hxy021.didistatic.com/static/star/epage-qrcode-qq.png" width="250">
 
