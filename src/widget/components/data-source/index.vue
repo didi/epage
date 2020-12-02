@@ -124,11 +124,11 @@
           :key='item.name'
           :value='item.name'
         ) {{item.method}} {{item.name}}
-      Select(size='small' v-model='schemaOption.dict.url' @on-change='onDictAPIChange(item)')
+      Select(size='small' v-model='schemaOption.dict.url' @on-change='onDictAPIChange')
         Option(
           v-for='(item, index) in getDictAPIS()'
           :key='index'
-          :value='item.url'
+          :value='item.name'
         ) {{item.method}} {{item.name}}
 
   slot(name="tree")
@@ -307,32 +307,34 @@ export default {
       const dict = this.storeData.dicts.filter(item => item.name === name)[0]
       if (!dict) return
       dict.getData().then(() => {
-        const { key, option } = this.selectedSchema
+        const { option } = this.selectedSchema
         const opdict = { ...(option.dict || {}) }
         opdict.type = 'dict'
         opdict.dict = name
         opdict.dictAPI = ''
-        this.store.updateWidgetOption(key, { dynamicData: [...dict.data], dict: opdict })
       })
     },
 
-    onDictAPIChange (dict, apiName) {
-      dict.getData().then(() => {
-        const api = dict.data.filter(item => item.name === apiName)[0]
-        if (!api) return
-        api.getData().then(() => {
-          const { key } = this.selectedSchema
-          this.store.updateWidgetOption(key, { dynamicData: [...api.data] })
-        })
+    onDictAPIChange (apiName) {
+      const { key, option } = this.selectedSchema
+      const opdict = { ...(option.dict || {}) }
+      const { dict } = opdict
+
+      const dictIns = this.storeData.dicts.filter(item => item.name === dict)[0]
+      if (!dictIns) return
+      const api = dictIns.data.filter(item => item.name === apiName)[0]
+      if (!api) return
+      api.getData().then(() => {
+        this.store.updateWidgetOption(key, { dynamicData: [...api.data] })
       })
     },
 
     getDictAPIS () {
       const { option } = this.selectedSchema
       const opdict = { ...(option.dict || {}) }
-      const { type, dict, dictAPI } = opdict
+      const { type, dict } = opdict
 
-      if (type !== 'dict' || !dict || !dictAPI) return []
+      if (type !== 'dict' || !dict) return []
       const dictIns = this.storeData.dicts.filter(item => item.name === dict)[0]
       if (!dictIns) return []
 
