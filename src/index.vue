@@ -2,7 +2,7 @@
 .ep-editor
   .ep-side-left
 
-    .ep-side-left-nav(v-if='false')
+    .ep-side-left-nav
       .ep-side-left-nav-item(
         v-for='item in nav.list'
         :key='item.key'
@@ -133,7 +133,7 @@ export default {
           key: 'store',
           value: '仓库'
         }],
-        active: 'widget' // widget | store
+        active: 'store' // widget | store
       },
       APPS: {
         design: null,

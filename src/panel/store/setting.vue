@@ -28,13 +28,16 @@ export default {
     visible () {
       const { type } = this.current
       const { index, action } = this.current[type] || {}
+
       return action === 'create' || index > -1
     }
   },
 
   methods: {
     onAddDict () {
-      this.store.selectDict(defaultDict(), -1)
+      const dict = defaultDict()
+      dict.body = JSON.stringify(dict.body)
+      this.store.selectDict(dict, -1, 'create')
     }
   }
 }

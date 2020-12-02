@@ -5,7 +5,7 @@ Form(
   ref='setting'
 )
   Row
-    Col(span='24')
+    Col(span='6')
       FormItem(label='名称' prop='name' :label-width='60')
         Input(
           type='text'
@@ -13,7 +13,7 @@ Form(
           placeholder='英文、数字、下划线、中划线'
           :disabled='!editable'
         )
-    Col(span='18')
+    Col(span='12' offset='1')
       FormItem(prop='url' :label-width='0')
         Input(
           type='text'
@@ -32,11 +32,12 @@ Form(
               :key='method'
               :value='method'
             ) {{method}}
-    Col(span='6')
-      Button(type='primary' v-if='editable' style='margin-right: 16px;' @click='onSave') 保存
-      Button(@click='onTest') 测试
+    Col(span='5')
+      FormItem
+        Button(type='primary' @click='onTest' style='margin-right: 16px;') 测试
+        Button(v-if='editable' @click='onSave') 保存
 
-  Tabs(size='small' value='query')
+  Tabs(size='small' value='query' style='margin-bottom: 16px;')
     TabPane(label='Query' name='query')
       EpKeyValue(
         :list='configValue.query'
@@ -88,7 +89,6 @@ Form(
 import { API, helper } from 'epage-core'
 import EpCodeEditor from '../../components/codeEditor'
 import EpKeyValue from './components/key-value'
-import defaultDict from './defaultDict'
 
 export default {
   components: {
@@ -104,15 +104,6 @@ export default {
   data () {
     return {
       format: '',
-      type: '', // api | dict
-      dict: {
-        index: -1,
-        value: {}
-      },
-      api: {
-        index: -1,
-        value: {}
-      },
       response: {
         header: ''
       },
@@ -123,10 +114,10 @@ export default {
           { required: true, message: '必填' }
         ],
         method: [{ required: true, message: '必填' }],
-        header: [{ required: false, validator: this.validateJSON }],
-        body: [{ required: false }],
-        params: [{ required: false, validator: this.validateJSON }],
-        query: [{ required: false, validator: this.validateJSON }],
+        header: [{ required: false }],
+        body: [{ validator: this.validateJSON, trigger: 'blur' }],
+        params: [{ required: false }],
+        query: [{ required: false }],
         adapter: [{ required: false }]
       }
     }
@@ -136,36 +127,23 @@ export default {
       return this.store.getStore().current
     },
     configValue () {
-      return (this[this.type] || {}).value || {}
+      return (this.current[this.current.type] || {}).value || {}
     },
     editable () {
-      const { type, dict } = this
+      const { type, dict } = this.current
 
       return !(type === 'api' && dict.index > -1)
     }
   },
-  watch: {
-    current: {
-      handler (value) {
-        const { type } = value
-        if (type) {
-          this.type = type
-          this[type] = helper.jsonClone(value[type])
-        }
-      },
-      immediate: true,
-      deep: true
-    }
-  },
   methods: {
     headerPropAdd (prop, index) {
-      const value = this[this.type].value
+      const value = this.current[this.current.type].value
       if (value) {
-        value[prop].splice(index + 1, 0, defaultDict())
+        value[prop].splice(index + 1, 0, {})
       }
     },
     headerPropDelete (prop, index) {
-      const value = this[this.type].value
+      const value = this.current[this.current.type].value
       if (value) {
         value[prop].splice(index, 1)
       }
@@ -176,7 +154,7 @@ export default {
         JSON.parse(value)
         callback()
       } catch (e) {
-        callback(new Error('json error!'))
+        callback(new Error('format error!'))
       }
     },
     parseForm () {
@@ -209,8 +187,6 @@ export default {
           const method = methods[type][action]
 
           this.store[method[0]](...method[1])
-
-          console.log('success:', this.configValue)
         } else {
           console.log('error:', this.configValue)
         }

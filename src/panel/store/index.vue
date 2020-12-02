@@ -4,6 +4,28 @@
     .ep-store-dict-btns
       Button(type='primary' size='small' @click='onNewDict') + 添加字典
 
+    //- 自定义API
+    .ep-store-dict-item
+      .ep-store-dict-info
+        ep-store-more
+          ep-store-more-item(@click.native='onDictToggle($event)') 收展
+        p.ep-store-dict-name 自定义API
+        //- p.ep-store-dict-url
+      .ep-store-dict-api(
+        v-for='(api, key) in apis'
+        :key='api.name'
+        :class='getAPIClass(key, -1)'
+        @click='onAPISelect(key, -1)'
+      )
+        ep-store-more
+          ep-store-more-item(@click.native='onAPIDelete(key, $event)') 删除
+          ep-store-more-item(@click.native='onAPICopy(key, $event)') 复制
+        p.ep-store-dict-api-name {{api.method}} {{api.name}}
+        p.ep-store-dict-api-url {{api.url}}
+      .ep-store-dict-btns
+        Button(type='ghost' size='small' @click='onNewAPI') + 添加API
+
+    //- 自定义DICT
     .ep-store-dict-item(
       v-for='(item, index) in dicts'
       :key='item.name'
@@ -94,13 +116,13 @@ export default {
       e.stopPropagation()
       this.store.copyDict(index)
     },
-    onAPIDelete (index, dictIndex, e) {
+    onAPIDelete (index, e) {
       e.stopPropagation()
-      this.store.deleteAPI(index, dictIndex)
+      this.store.deleteAPI(index)
     },
-    onAPICopy (index, dictIndex, e) {
+    onAPICopy (index, e) {
       e.stopPropagation()
-      this.store.deleteAPI(index, dictIndex)
+      this.store.copyAPI(index)
     },
     getDictClass (index) {
       const { type, dict } = this.current
@@ -141,10 +163,14 @@ export default {
       this.store.selectAPI(tmp, index, dictIndex)
     },
     onNewDict () {
-      this.store.selectDict(defaultDict(), -1)
+      const dict = defaultDict()
+      dict.body = JSON.stringify(dict.body)
+      this.store.selectDict(dict, -1, 'create')
     },
     onNewAPI () {
-      this.store.selectAPI(defaultDict(), -1, -1)
+      const api = defaultDict()
+      api.body = JSON.stringify(api.body)
+      this.store.selectAPI(api, -1, -1)
     }
   }
 }

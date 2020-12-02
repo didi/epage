@@ -22,15 +22,16 @@ div
       Input(size='small' v-model='item.description')
     Col(span='6')
       Button(
+        type='dashed'
         size='small'
         style='margin-right: 6px;'
          @click='onAdd(key)'
-      ) 添加
+      ) +
       Button(
+        type='dashed'
         size='small'
-        :disabled='list.length <= 1'
         @click='onDelete(key)'
-      ) 删除
+      ) -
   Row
     Col(span='24' style='text-align: center;')
       Button(
