@@ -7,6 +7,8 @@ import {
   Context,
   Script,
   TypeBuilder,
+  Dict,
+  API,
   constant,
   helper,
   schema
@@ -23,6 +25,8 @@ Epage.Logic = Logic
 Epage.Context = Context
 Epage.Script = Script
 Epage.TypeBuilder = TypeBuilder
+Epage.Dict = Dict
+Epage.API = API
 Epage.constant = constant
 Epage.helper = helper
 Epage.schema = schema

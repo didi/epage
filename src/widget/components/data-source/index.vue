@@ -24,6 +24,8 @@
         span 手动
       Radio(label='dynamic')
         span 接口
+      Radio(label='dict')
+        span 字典
 
   template(v-if='schemaOption.type === "static"')
     template(v-if="hasItems && !$slots.tree")
@@ -96,6 +98,39 @@
     slot(name="dynamic")
     FormItem
       Button(@click='onFetch' size='small') 测试
+  template(v-else-if='schemaOption.type === "dict"')
+    FormItem(label='字典类型')
+      RadioGroup(
+        v-model='schemaOption.dict.type'
+        size='small'
+      )
+        Radio(label='api')
+          span 自定义API
+        Radio(label='dict')
+          span 字典
+
+    FormItem(v-if='schemaOption.dict.type === "api"' label='API')
+      Select(size='small' v-model='schemaOption.dict.api' @on-change='onAPIChange')
+        Option(
+          v-for='(item, index) in storeData.apis'
+          :key='item.name'
+          :value='item.name'
+        ) {{item.method}} {{item.name}}
+
+    FormItem(v-if='schemaOption.dict.type === "dict"' label='字典')
+      Select(size='small' v-model='schemaOption.dict.dict'  @on-change='onDictChange')
+        Option(
+          v-for='(item, index) in storeData.dicts'
+          :key='item.name'
+          :value='item.name'
+        ) {{item.method}} {{item.name}}
+      Select(size='small' v-model='schemaOption.dict.url' @on-change='onDictAPIChange(item)')
+        Option(
+          v-for='(item, index) in getDictAPIS()'
+          :key='index'
+          :value='item.url'
+        ) {{item.method}} {{item.name}}
+
   slot(name="tree")
   slot
 </template>
@@ -192,6 +227,13 @@ export default {
     hasItems () {
       const { option } = this.selectedSchema
       return option && option.data
+    },
+    storeData () {
+      const st = this.store.getStore()
+      return {
+        apis: st.apis,
+        dicts: st.dicts
+      }
     }
   },
   mounted () {
@@ -242,9 +284,59 @@ export default {
     },
 
     onOriginChange (type) {
-      const { key, default: defaultValue } = this.selectedSchema
-      this.store.updateWidgetOption(key, { type })
+      const { key, option, default: defaultValue } = this.selectedSchema
+      const dict = { ...option.dict || {} }
+      dict.dict = ''
+      dict.dictAPI = ''
+      dict.api = ''
+
+      this.store.updateWidgetOption(key, { type, dict })
       this.updateDefaultValue(defaultValue)
+    },
+
+    onAPIChange (name) {
+      const api = this.storeData.apis.filter(item => item.name === name)[0]
+      if (!api) return
+      api.getData().then(() => {
+        const { key } = this.selectedSchema
+        this.store.updateWidgetOption(key, { dynamicData: [...api.data] })
+      })
+    },
+
+    onDictChange (name) {
+      const dict = this.storeData.dicts.filter(item => item.name === name)[0]
+      if (!dict) return
+      dict.getData().then(() => {
+        const { key, option } = this.selectedSchema
+        const opdict = { ...(option.dict || {}) }
+        opdict.type = 'dict'
+        opdict.dict = name
+        opdict.dictAPI = ''
+        this.store.updateWidgetOption(key, { dynamicData: [...dict.data], dict: opdict })
+      })
+    },
+
+    onDictAPIChange (dict, apiName) {
+      dict.getData().then(() => {
+        const api = dict.data.filter(item => item.name === apiName)[0]
+        if (!api) return
+        api.getData().then(() => {
+          const { key } = this.selectedSchema
+          this.store.updateWidgetOption(key, { dynamicData: [...api.data] })
+        })
+      })
+    },
+
+    getDictAPIS () {
+      const { option } = this.selectedSchema
+      const opdict = { ...(option.dict || {}) }
+      const { type, dict, dictAPI } = opdict
+
+      if (type !== 'dict' || !dict || !dictAPI) return []
+      const dictIns = this.storeData.dicts.filter(item => item.name === dict)[0]
+      if (!dictIns) return []
+
+      return dictIns.data
     },
 
     updateDefaultValue (defaultValue) {
