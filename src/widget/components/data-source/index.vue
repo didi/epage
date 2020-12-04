@@ -124,7 +124,7 @@
           :key='item.name'
           :value='item.name'
         ) {{item.method}} {{item.name}}
-      Select(size='small' v-model='schemaOption.dict.url' @on-change='onDictAPIChange')
+      Select(size='small' v-model='schemaOption.dict.dictAPI' @on-change='onDictAPIChange')
         Option(
           v-for='(item, index) in getDictAPIS()'
           :key='index'
@@ -135,7 +135,7 @@
   slot
 </template>
 <script>
-import { helper, Worker as EpageWorker, TypeBuilder } from 'epage-core'
+import { helper, Worker as EpageWorker, TypeBuilder, API } from 'epage-core'
 import tips from './tips'
 import FieldTip from '../field-tip'
 
@@ -297,10 +297,7 @@ export default {
     onAPIChange (name) {
       const api = this.storeData.apis.filter(item => item.name === name)[0]
       if (!api) return
-      api.getData().then(() => {
-        const { key } = this.selectedSchema
-        this.store.updateWidgetOption(key, { dynamicData: [...api.data] })
-      })
+      api.getData()
     },
 
     onDictChange (name) {
@@ -309,6 +306,7 @@ export default {
       dict.getData().then(() => {
         const { option } = this.selectedSchema
         const opdict = { ...(option.dict || {}) }
+        dict.data = dict.data.map(item => new API(item))
         opdict.type = 'dict'
         opdict.dict = name
         opdict.dictAPI = ''
@@ -316,17 +314,15 @@ export default {
     },
 
     onDictAPIChange (apiName) {
-      const { key, option } = this.selectedSchema
+      const { option } = this.selectedSchema
       const opdict = { ...(option.dict || {}) }
       const { dict } = opdict
 
-      const dictIns = this.storeData.dicts.filter(item => item.name === dict)[0]
+      const dictIns = this.store.getStore().dicts.filter(item => item.name === dict)[0]
       if (!dictIns) return
       const api = dictIns.data.filter(item => item.name === apiName)[0]
       if (!api) return
-      api.getData().then(() => {
-        this.store.updateWidgetOption(key, { dynamicData: [...api.data] })
-      })
+      api.getData()
     },
 
     getDictAPIS () {
