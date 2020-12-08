@@ -322,7 +322,11 @@ export default {
       if (!dictIns) return
       const api = dictIns.data.filter(item => item.name === apiName)[0]
       if (!api) return
-      api.getData()
+      const index = dictIns.data.indexOf(api)
+      const apiIns = (api instanceof API) ? api : new API(api)
+
+      dictIns.data.splice(index, 1, apiIns)
+      apiIns.getData()
     },
 
     getDictAPIS () {
