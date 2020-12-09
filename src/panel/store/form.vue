@@ -57,7 +57,6 @@ Form(
         type='textarea'
         v-model='configValue.body'
         placeholder='JSON格式'
-        :disabled='!editable'
         :autosize='{ minRows: 6 }'
       )
 
@@ -73,7 +72,6 @@ Form(
         type='textarea'
         v-model='configValue.adapter'
         placeholder='请求返回转换脚本，必须return'
-        :disabled='!editable'
         :autosize='{ minRows: 6 }'
       )
 
