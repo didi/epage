@@ -3,67 +3,18 @@
 
   FormItem(label='宽度')
     Input( size='small' placeholder='示例: 1200px 或 90%' v-model='styles.width')
-  FormItem(label='水平居中')
-    i-switch(v-model='hrcenter' @on-change='onHrcenterChange')
-      span(slot='open') 是
-      span(slot='close') 否
-  .ep-setting-block
-    h5.ep-setting-block-title 外边距
-    .ep-style-box-margin
-      .ep-style-box-top
-        FormItem(label='上' :label-width='20')
-          Input(
-            size='small'
-            v-model='styles["margin-top"]'
-          )
-      .ep-style-box-right
-        FormItem(label='左' :label-width='20')
-          Input(
-            size='small'
-            :disabled='hrcenter'
-            v-model='styles["margin-right"]'
-          )
-      .ep-style-box-bottom
-        FormItem(label='下' :label-width='20')
-          Input(
-            size='small'
-            v-model='styles["margin-bottom"]'
-          )
-      .ep-style-box-left
-        FormItem(label='左' :label-width='20')
-          Input(
-            size='small'
-            :disabled='hrcenter'
-            v-model='styles["margin-left"]'
-          )
 
-  .ep-setting-block
-    h5.ep-setting-block-title 内边距
-    .ep-style-box-padding
-      .ep-style-box-top
-        FormItem(label='上' :label-width='20')
-          Input(
-            size='small'
-            v-model='styles["padding-top"]'
-          )
-      .ep-style-box-right
-        FormItem(label='左' :label-width='20')
-          Input(
-            size='small'
-            v-model='styles["padding-right"]'
-          )
-      .ep-style-box-bottom
-        FormItem(label='下' :label-width='20')
-          Input(
-            size='small'
-            v-model='styles["padding-bottom"]'
-          )
-      .ep-style-box-left
-        FormItem(label='左' :label-width='20')
-          Input(
-            size='small'
-            v-model='styles["padding-left"]'
-          )
+  ep-bounding(
+    title='外边距'
+    type='margin'
+    :styles='styles'
+  )
+  ep-bounding(
+    title='内边距'
+    type='padding'
+    :styles='styles'
+  )
+
   .ep-setting-block
     h5.ep-setting-block-title 页面背景
     Row(style='padding-top: 8px;' )
@@ -126,21 +77,16 @@
 </template>
 <script>
 import { style } from 'epage-core'
+import EpBounding from '../bounding'
 
 export default {
+  components: {
+    EpBounding
+  },
   props: {
     store: {
       type: Object,
       default: () => ({ state: {} })
-    }
-  },
-  data () {
-    return {
-      hrcenter: true,
-      margin: {
-        left: ''
-      },
-      style: {}
     }
   },
   computed: {
@@ -149,9 +95,6 @@ export default {
     }
   },
   methods: {
-    onHrcenterChange (value) {
-      console.log(3, value)
-    },
     onAddPageBg () {
       const bg = new style.Background()
       const _style = this.store.getRootSchema().style

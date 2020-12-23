@@ -10,9 +10,16 @@ Tabs(:value='tab' size='small')
         component(:is='settingWidget' :store='store' :setting='setting')
 
   TabPane(
-    label='页面配置'
+    label='样式'
+    name='style'
+    v-if='isShowSetting("style")'
+  )
+    epage-panel.ep-setting-form
+      style-setting(:store='store')
+  TabPane(
+    label='页面'
     name='global'
-    v-if='isShowGlobalSetting()'
+    v-if='isShowSetting("global")'
   )
     epage-panel.ep-setting-form
       form-setting(:store='store')
@@ -28,11 +35,13 @@ Tabs(:value='tab' size='small')
 </template>
 <script>
 import FormSetting from './form'
+import StyleSetting from './style'
 import EpagePanel from '../../components/panel'
 
 export default {
   components: {
     FormSetting,
+    StyleSetting,
     EpagePanel
   },
   props: {
@@ -85,8 +94,8 @@ export default {
     })
   },
   methods: {
-    isShowGlobalSetting () {
-      return this.settings.filter(s => s.key === 'global').length === 0
+    isShowSetting (name) {
+      return this.settings.filter(s => s.key === name).length === 0
     },
     getFilterSettings () {
       return this.settings.filter(setting => {
