@@ -24,8 +24,8 @@
         span 手动
       Radio(label='dynamic')
         span 接口
-      Radio(label='dict')
-        span 字典
+      //- Radio(label='dict')
+      //-   span 字典
 
   template(v-if='schemaOption.type === "static"')
     template(v-if="hasItems && !$slots.tree")
