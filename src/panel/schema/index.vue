@@ -40,7 +40,7 @@
 <script>
 import { Message } from 'iview'
 import { helper } from 'epage-core'
-import EpCodeEditor from '../../components/codeEditor'
+import EpCodeEditor from '../../components/code-editor'
 
 const { copy } = helper
 

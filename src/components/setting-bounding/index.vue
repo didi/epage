@@ -1,9 +1,10 @@
 <template lang="pug">
-.ep-setting-block
-  .ep-setting-block-title(
-    v-if='title'
-    style='margin-bottom: 6px;'
-  ) {{title}}
+ep-setting-block(:title='title')
+  //- .ep-setting-block
+  //- .ep-setting-block-title(
+  //-   v-if='title'
+  //-   style='margin-bottom: 6px;'
+  //- ) {{title}}
   slot(name='before')
   Row
     Col(span='8' offset='8' style='margin-bottom: 8px;')
@@ -23,6 +24,8 @@
 </template>
 
 <script>
+import EpSettingBlock from '../setting-block'
+
 const PREFIX_MAP = {
   margin: 'margin-',
   padding: 'padding-',
@@ -30,6 +33,9 @@ const PREFIX_MAP = {
 }
 
 export default {
+  components: {
+    EpSettingBlock
+  },
   props: {
     styles: {
       type: Object,

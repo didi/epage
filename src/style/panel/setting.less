@@ -30,6 +30,13 @@
   &-prop,
   &-form{
     padding: 10px;
+    .ep-style-color-picker{
+      &.ivu-color-picker{
+        .ivu-select-dropdown{
+         left: -53px!important;
+       }
+      }
+    }
   }
   &-block{
     background-color: #f5f5f5;
@@ -43,6 +50,9 @@
       line-height: 28px;
       text-align: center;
       border-bottom: 1px dashed #ddd;
+    }
+    &-content{
+      padding-top: 10px;
     }
     &-btns{
       text-align: center;
@@ -144,9 +154,7 @@
     max-width: 400px;
     white-space: pre-wrap;
   }
-  .ivu-color-picker .ivu-select-dropdown{
-    left: -80px!important;
-  }
+
   .ivu-input-wrapper-small{
     textarea{
       font-size: 12px;

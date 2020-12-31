@@ -1,11 +1,11 @@
 <template lang="pug">
-.ep-codeeditor
-  .ep-codeeditor-bar
-    span.ep-codeeditor-summary
+.ep-code-editor
+  .ep-code-editor-bar
+    span.ep-code-editor-summary
       b {{code.lines}}
       span &nbsp;lines
     slot(name='bar')
-  pre.ep-codeeditor-content(v-if='code.lines > 1' v-html='code.content')
+  pre.ep-code-editor-content(v-if='code.lines > 1' v-html='code.content')
 </template>
 <script>
 

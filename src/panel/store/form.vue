@@ -85,7 +85,7 @@ Form(
 </template>
 <script>
 import { API, helper } from 'epage-core'
-import EpCodeEditor from '../../components/codeEditor'
+import EpCodeEditor from '../../components/code-editor'
 import EpKeyValue from './components/key-value'
 
 export default {

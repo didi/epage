@@ -5,7 +5,7 @@ Tabs(:value='tab' size='small')
     span &nbsp;帮助
 
   TabPane(label='属性' name='prop')
-    epage-panel.ep-setting-prop
+    ep-panel.ep-setting-prop
       template(v-if='isSelected && settingWidget')
         component(:is='settingWidget' :store='store' :setting='setting')
 
@@ -14,14 +14,20 @@ Tabs(:value='tab' size='small')
     name='style'
     v-if='isShowSetting("style")'
   )
-    epage-panel.ep-setting-form
-      style-setting(:store='store')
+    ep-panel.ep-setting-form
+      ep-style-setting(
+        v-if='isSelected'
+        :store='store'
+        :schema='selectedSchema'
+        :root='false'
+      )
+
   TabPane(
     label='页面'
     name='global'
     v-if='isShowSetting("global")'
   )
-    epage-panel.ep-setting-form
+    ep-panel.ep-setting-form
       form-setting(:store='store')
 
   TabPane(
@@ -30,19 +36,19 @@ Tabs(:value='tab' size='small')
     :key='s.key'
     :name='s.key'
   )
-    epage-panel.ep-setting-form
+    ep-panel.ep-setting-form
       div(ref='panes')
 </template>
 <script>
 import FormSetting from './form'
-import StyleSetting from './style'
-import EpagePanel from '../../components/panel'
+import EpStyleSetting from './style'
+import { EpPanel } from '../../components'
 
 export default {
   components: {
     FormSetting,
-    StyleSetting,
-    EpagePanel
+    EpStyleSetting,
+    EpPanel
   },
   props: {
     // 自定义配置面板
@@ -77,6 +83,9 @@ export default {
     },
     settingWidget () {
       return this.store.getSettingWidget()
+    },
+    selectedSchema () {
+      return this.store.getSelectedSchema()
     }
   },
   mounted () {

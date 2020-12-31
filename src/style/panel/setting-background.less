@@ -1,0 +1,48 @@
+.ep-style-background{
+  &-position{
+    .ivu-radio-group{
+      .ivu-radio-group-item{
+        width: 46px;
+        text-align: center;
+        &.ivu-radio-wrapper-checked{
+          background-color: #2d8cf0;
+          color:#fff;
+        }
+      }
+      &:nth-child(1) {
+        .ivu-radio-group-item{
+          border-bottom: none;
+          &:nth-child(1){
+            border-bottom-left-radius: 0;
+          }
+          &:nth-child(3){
+            border-bottom-right-radius: 0;
+          }
+        }
+      }
+      &:nth-child(2) {
+        .ivu-radio-group-item{
+          &:nth-child(1){
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+          }
+          &:nth-child(3){
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+          }
+        }
+      }
+      &:nth-child(3) {
+        .ivu-radio-group-item{
+          border-top: none;
+          &:nth-child(1){
+            border-top-left-radius: 0;
+          }
+          &:nth-child(3){
+            border-top-right-radius: 0;
+          }
+        }
+      }
+    }
+  }
+}
