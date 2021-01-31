@@ -1,8 +1,5 @@
 <template lang="pug">
 Tabs(:value='tab' size='small')
-  a.ep-setting-help-link(slot="extra" :href='docURL' target='_blank')
-    Icon(type="help")
-    span &nbsp;帮助
 
   TabPane(label='属性' name='prop')
     ep-panel.ep-setting-prop
@@ -72,7 +69,6 @@ export default {
   data () {
     return {
       tab: 'prop',
-      docURL: 'http://epage.didichuxing.com',
       filterSettings: []
     }
   },

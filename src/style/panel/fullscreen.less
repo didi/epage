@@ -1,0 +1,51 @@
+.@{eppre}-fullscreen{
+  position: fixed;
+  z-index: @ep-fullscreen-zindex;
+  top: 0;
+  bottom: 0;
+  left:0;
+  right: 0;
+  background-color: #fff;
+  transition: .3s ease right;
+  &-header{
+    padding-left: 16px;
+    padding-right: 16px;
+    position: absolute;
+    width: 100%;
+    height: @ep-header-height;
+    line-height: @ep-header-height;
+    border: 1px solid #ddd;
+    font-weight: bold;
+    font-size: 14px;
+    &-view{
+    }
+  }
+  &-close{
+    position: absolute;
+    z-index: @ep-fullscreen-zindex + 1;
+    top: 0;
+    right: 0;
+    text-align: center;
+    height: @ep-header-height;
+    line-height: @ep-header-height;
+    width: @ep-header-height;
+    font-size: 18px;
+    font-weight: 200;
+    // background-color:rgba(0,0,0,.1);
+    transition: .2s ease all;
+    color:#666;
+    cursor: pointer;
+    &:hover{
+      color:#000;
+      // background-color:rgba(0,0,0,.2);
+    }
+  }
+  &-body{
+    padding: 16px;
+    position: absolute;
+    width: 100%;
+    overflow: auto;
+    top: @ep-header-height;
+    bottom: 0;
+  }
+}

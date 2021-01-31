@@ -1,9 +1,9 @@
 
 .@{eppre}-setting{
   position: absolute;
-  top: 0;
+  top: @ep-header-height;
   right: 0;
-  height: 100%;
+  bottom: 0;
   width: @ep-setting-width;
   background-color: @ep-panel-bg;
   box-shadow: -2px 4px 6px rgba(0, 0, 0, 0.1);;
@@ -22,10 +22,6 @@
     cursor: pointer;
     background-color: @ep-panel-bg;
     user-select: none;
-  }
-  &-help-link{
-    display: block;
-    margin: 7px 10px 0 0;
   }
   &-prop,
   &-form{

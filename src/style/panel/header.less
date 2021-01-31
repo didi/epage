@@ -1,0 +1,24 @@
+.@{eppre}-header{
+  height: @ep-header-height;
+  line-height: @ep-header-height;
+  border-bottom: 1px solid #ddd;
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  &-left{
+    font-weight: bold;
+    font-size: 14px;
+    flex: 1;
+  }
+  &-center{
+    text-align: center;
+    flex: 1;
+  }
+  &-right{
+    text-align: right;
+    flex: 1;
+    &-item{
+      margin-left: 10px;
+    }
+  }
+}

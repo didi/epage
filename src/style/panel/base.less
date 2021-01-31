@@ -19,12 +19,13 @@
     }
   }
 }
+
 .@{eppre}-side-left{
   position: absolute;
-  top: 0;
+  top: @ep-header-height;
   left: 0;
+  bottom: 0;
   width: @ep-tool-width;
-  height: 100%;
   overflow: visible;
   background-color: @ep-panel-bg;
   box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
@@ -54,10 +55,10 @@
 }
 .@{eppre}-side-right{
   position: absolute;
-  top: 0;
+  top: @ep-header-height;
   right: 0;
+  bottom: 0;
   left: @ep-tool-width + @ep-panel-margin;
-  height: 100%;
   overflow: visible;
   background-color: @ep-panel-bg;
 }

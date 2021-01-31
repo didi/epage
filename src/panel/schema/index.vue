@@ -91,8 +91,10 @@ export default {
       this.importModal.error = false
     },
     onCopy () {
-      const str = JSON.stringify(this.store.getSchema(), null, 2)
-      copy(str).then(() => {
+      let schema = JSON.stringify(this.store.getSchema(), null, 2)
+      schema = this.$root.$options.extension.callPlugin('schema', 'copy', schema) || schema
+
+      copy(schema).then(() => {
         Message.success({ content: '复制成功', duration: 2 })
       }, () => {
         Message.error({ content: '复制失败', duration: 2 })

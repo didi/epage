@@ -1,11 +1,12 @@
 .@{eppre}-work{
   position: absolute;
-  top: 0;
+  top: @ep-header-height;
   bottom: 0;
   left: @ep-tool-width + @ep-panel-margin;
   right: @ep-setting-width + @ep-panel-margin;
   background-color: #fff;
   transition: .3s ease right;
+  overflow: auto;
   &-expand{
     right: @ep-setting-min-width;
   }
