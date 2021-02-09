@@ -11,7 +11,10 @@ import {
   API,
   constant,
   helper,
-  schema
+  schema,
+  hook,
+  render,
+  drag
 } from 'epage-core'
 import Epage from './Design.js'
 import * as setting from './widget/setting'
@@ -32,5 +35,8 @@ Epage.helper = helper
 Epage.schema = schema
 Epage.setting = setting
 Epage.widget = widget
+Epage.hook = hook
+Epage.render = render
+Epage.drag = drag
 
 export default Epage
