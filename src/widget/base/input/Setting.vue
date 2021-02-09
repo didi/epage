@@ -1,5 +1,5 @@
 <template lang="pug">
-setting-form(:store='store' :setting='setting')
+setting-form(:store='store')
   FormItem(v-if='!$slots.defaultValue' label='默认值')
     Input(size='small' v-model='selectedSchema.default' placeholder='请输入默认值')
   template(v-else)

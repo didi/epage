@@ -1,5 +1,5 @@
 <template lang="pug">
-setting-form(:store='store' :setting='setting')
+setting-form(:store='store')
   data-source(:store='store' @success='onSuccess')
 
   template(v-if='!$slots.defaultValue')

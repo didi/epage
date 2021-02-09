@@ -1,5 +1,5 @@
 <template lang="pug">
-setting-form(:store='store' :setting='setting')
+setting-form(:store='store')
   span(slot="rule")
     FormItem(v-if='!$slots.rule' label='必填')
       i-switch(v-model='selectedSchema.rules[0].required' @on-change="switchChange")

@@ -1,5 +1,5 @@
 <template lang="pug">
-setting-form(:store='store' :setting='setting')
+setting-form(:store='store')
   span(slot='disabled')
 
   FormItem(v-if='!$slots.action' label='上传地址')

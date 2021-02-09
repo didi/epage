@@ -5,6 +5,8 @@ import EpCodeEditor from './code-editor'
 import EpMobileEmulator from './mobile-emulator'
 import EpFullscreen from './fullscreen'
 import EpPanel from './panel'
+import EpTabs from './tabs'
+import EpTabsPane from './tabs-pane'
 
 export {
   EpSettingBounding,
@@ -13,5 +15,7 @@ export {
   EpCodeEditor,
   EpMobileEmulator,
   EpFullscreen,
-  EpPanel
+  EpPanel,
+  EpTabs,
+  EpTabsPane
 }

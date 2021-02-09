@@ -5,10 +5,6 @@ export default {
     SettingForm
   },
   props: {
-    setting: {
-      type: Object,
-      default: () => ({})
-    },
     store: {
       type: Object,
       default: () => ({})

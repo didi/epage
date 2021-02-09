@@ -1,5 +1,5 @@
 <template lang="pug">
-setting-form(:store='store' :setting='setting')
+setting-form(:store='store')
   data-source(:store='store' @success='onSuccess' @tree-data:append="onAddTreeOpton")
     //- Row(slot="dynamic")
       Col(span="12")

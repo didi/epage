@@ -1,51 +1,52 @@
 <template lang="pug">
-Tabs(:value='tab' size='small')
-
-  TabPane(label='属性' name='prop')
-    ep-panel.ep-setting-prop
-      template(v-if='isSelected && settingWidget')
-        component(:is='settingWidget' :store='store' :setting='setting')
-
-  TabPane(
-    label='样式'
-    name='style'
-    v-if='isShowSetting("style")'
+ep-tabs(
+  :value='tab'
+  :tabs='widgetSettings'
+  @on-click='onChangeTab'
+)
+  ep-tabs-pane(
+    v-for='(item, index) in widgetSettings'
+    :key='index'
+    v-show='item.key === tab'
   )
-    ep-panel.ep-setting-form
-      ep-style-setting(
-        v-if='isSelected'
+    .ep-setting-prop
+      component(
+        v-if='isVue(item)'
+        :is='item.component'
         :store='store'
         :schema='selectedSchema'
-        :root='false'
+        :root='item.key === "global"'
       )
+      div(v-show='!isVue(item)' ref='settings')
 
-  TabPane(
-    label='页面'
-    name='global'
-    v-if='isShowSetting("global")'
-  )
-    ep-panel.ep-setting-form
-      form-setting(:store='store')
-
-  TabPane(
-    v-for='(s, index) in getFilterSettings()'
-    :label='s.title'
-    :key='s.key'
-    :name='s.key'
-  )
-    ep-panel.ep-setting-form
-      div(ref='panes')
 </template>
 <script>
+import { helper, render } from 'epage-core'
 import FormSetting from './form'
 import EpStyleSetting from './style'
-import { EpPanel } from '../../components'
+import { EpPanel, EpTabs, EpTabsPane } from '../../components'
+
+const { isArray, isFunction, isPlainObject, isString } = helper
+const globalDefaultSettings = [
+  {
+    key: 'style',
+    name: '样式',
+    framework: 'vue',
+    component: EpStyleSetting
+  }, {
+    key: 'global',
+    name: '页面',
+    framework: 'vue',
+    component: FormSetting
+  }
+]
 
 export default {
   components: {
     FormSetting,
-    EpStyleSetting,
-    EpPanel
+    EpPanel,
+    EpTabs,
+    EpTabsPane
   },
   props: {
     // 自定义配置面板
@@ -53,10 +54,6 @@ export default {
       type: Array,
       // [{ title: '', key: '', component: {}}]
       default: () => []
-    },
-    setting: {
-      type: Object,
-      default: () => ({})
     },
     store: {
       type: Object,
@@ -68,8 +65,9 @@ export default {
   },
   data () {
     return {
-      tab: 'prop',
-      filterSettings: []
+      tab: 'global',
+      filterSettings: [],
+      defaultSettings: [...globalDefaultSettings]
     }
   },
   computed: {
@@ -82,32 +80,114 @@ export default {
     },
     selectedSchema () {
       return this.store.getSelectedSchema()
+    },
+    widgetSettings () {
+      return this.isSelected ? this.filterSettings : this.defaultSettings
+    }
+  },
+  watch: {
+    selectedSchema () {
+      this.selectedSettings()
     }
   },
   mounted () {
-    const { Render } = this.$root.$options.extension
-    const store = this.store
-    const list = this.$refs.panes || []
-    const filterSettings = this.getFilterSettings()
-
-    list.forEach((el, index) => {
-      const setting = filterSettings[index]
-      if (setting && setting.component) {
-        /* eslint-disable no-new */
-        new Render({ el, store, component: setting.component })
-      }
-    })
+    this.selectedSettings()
   },
   methods: {
-    isShowSetting (name) {
-      return this.settings.filter(s => s.key === name).length === 0
+    isVue (setting) {
+      return setting &&
+      (
+        setting.framework === 'vue' ||
+        isPlainObject(setting.component))
     },
-    getFilterSettings () {
-      return this.settings.filter(setting => {
-        return setting &&
-        setting.component &&
-        typeof setting.key === 'string' &&
-        !!setting.key
+    isReact (setting) {
+      return setting && setting.framework === 'react'
+    },
+    onChangeTab (key, index) {
+      if (!key || key === this.tab) return
+      this.tab = key
+      this.renderCurrentSetting(index)
+    },
+    selectedSettings () {
+      const defaultSettings = [...globalDefaultSettings]
+      const globalSettings = [...this.settings]
+      let settings = []
+
+      if (isArray(this.settingWidget)) {
+        settings = settings.concat(this.settingWidget)
+
+      // function ({ el, store }) {}
+      } else if (isFunction(this.settingWidget)) {
+        settings.unshift({
+          key: 'prop',
+          name: '属性',
+          component: this.settingWidget
+        })
+
+      // default vue component
+      // { el, data, render, ... }
+      } else if (isPlainObject(this.settingWidget)) {
+        settings.unshift({
+          key: 'prop',
+          name: '属性',
+          framework: 'vue',
+          component: this.settingWidget
+        })
+      }
+      let result = []
+      result = [].concat(settings, globalSettings, defaultSettings)
+      result = this.unique(result)
+
+      if (this.isSelected) {
+        this.filterSettings = [...result]
+      } else {
+        this.defaultSettings = [...result]
+      }
+      this.renderSettings()
+    },
+    renderCurrentSetting (index) {
+      this.$nextTick(() => {
+        const els = this.$refs.settings
+        if (!els || els.length <= 0) return
+
+        const el = els[index]
+        const setting = this.widgetSettings[index]
+        if (isFunction(setting.component)) {
+          setting.component({ el, store: this.store })
+        }
+      })
+    },
+    renderSettings () {
+      this.$nextTick(() => {
+        const els = this.$refs.settings
+        if (
+          !els ||
+          els.length <= 0 ||
+          els.length !== this.widgetSettings.length
+        ) return
+
+        this.widgetSettings.forEach((setting, index) => {
+          const el = els[index]
+          const { component } = setting
+
+          if (this.isReact(setting)) {
+            /* eslint-disable no-new */
+            new render.ReactRender({ el, store: this.store, component })
+          } else if (isFunction(component)) {
+            component({ el, store: this.store })
+          }
+        })
+      })
+    },
+
+    unique (settings = []) {
+      const keys = {}
+      return settings.filter(setting => {
+        if (!setting || !setting.component) return false
+        if (!setting.key || !isString(setting.key)) return false
+        if (setting.key in keys) return false
+        keys[setting.key] = true
+        return true
       })
     }
   }

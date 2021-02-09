@@ -7,8 +7,8 @@
     :ready='ready'
     @change-view='renderDesignView'
     @preview='onPreview'
-    @show-schema='onShowSchemaPanel'
-    @show-logic='onShowLogicPanel'
+    @show-schema='showSchemaPanel'
+    @show-logic='showLogicPanel'
   )
 
   .ep-side-left
@@ -41,48 +41,6 @@
       div(v-show='design.view === "mobile"')
         ep-mobile-emulator
           div(class='design-mobile' ref='design-mobile')
-    //- Tabs.ep-work-tabs(
-      v-model='tab'
-      size='small'
-      @on-click='renderView')
-      TabPane(
-        label='设计'
-        name='design'
-        :icon='icon.design'
-      )
-        ep-panel.ep-work-design
-          div(ref='design')
-
-      TabPane(
-        v-if='panels.preview'
-        label='预览'
-        name='preview'
-        :icon='icon.preview'
-      )
-        ep-panel.ep-work-preview
-          div(ref='preview')
-
-      TabPane(
-        v-if='panels.logic'
-        label='逻辑'
-        name='logic'
-        :icon='icon.logic'
-      )
-        ep-panel.ep-work-logic
-          ep-logic(v-if='tab === "logic"' :store='store')
-
-      TabPane(
-        v-if='panels.schema'
-        label='Schema'
-        name='schema'
-        :icon='icon.schema'
-      )
-        ep-panel.ep-work-schema
-          ep-schema(
-            v-if='tab === "schema"'
-            v-model='rootSchema'
-            :store='store'
-          )
 
   .ep-setting(
     v-show='nav.active === "widget"'
@@ -90,19 +48,18 @@
   )
     ep-setting(
       :store='store'
-      :setting='setting'
       :settings='settings'
     )
     .ep-control-handle(@click='onUnfold') {{settingState.text}}
 
-  ep-fullscreen(:visible='!!preview.view' @on-close='onPreviewClose')
+  ep-fullscreen(:visible='!!preview.view' @on-close='closePreview')
     div(slot='header' style='font-size: 12px;font-weight: normal;text-align: center;')
       RadioGroup.ep-preview-header-view(
         v-if='ready.pc && ready.mobile'
         v-model='preview.view'
         type='button'
         size='small'
-        @on-change='onPreviewChange'
+        @on-change='changePreview'
       )
         Radio(label='pc') PC
         Radio(label='mobile') H5
@@ -113,7 +70,7 @@
       ep-mobile-emulator
         div(ref='preview-mobile')
 
-  ep-fullscreen(:visible='!!schemaPanel.visible' @on-close='onSchemaPanelClose')
+  ep-fullscreen(:visible='!!schemaPanel.visible' @on-close='closeSchemaPanel')
     div(slot='header')
       span Schema
     ep-schema(
@@ -121,7 +78,7 @@
       v-model='rootSchema'
       :store='store'
     )
-  ep-fullscreen(:visible='!!logicPanel.visible' @on-close='onLogicPanelClose')
+  ep-fullscreen(:visible='!!logicPanel.visible' @on-close='closeLogicPanel')
     div(slot='header')
       span Logic
     ep-logic(v-if='logicPanel.visible' :store='store')
@@ -130,7 +87,6 @@
 
 <script>
 import { helper } from 'epage-core'
-
 import {
   EpPanel,
   EpMobileEmulator,
@@ -162,16 +118,6 @@ const defaultPanels = () => ({
   schema: true,
   header: defaultHeader()
 })
-const defaultSetting = () => ({
-  name: true,
-  title: true,
-  placeholder: true,
-  description: true,
-  help: true,
-  hidden: true,
-  disabled: true,
-  rule: true
-})
 
 export default {
   components: {
@@ -186,6 +132,7 @@ export default {
     EpMobileEmulator,
     EpFullscreen
   },
+
   data () {
     return {
       // 预览视图渲染缓存
@@ -196,7 +143,7 @@ export default {
       },
       // 设计视图渲染缓存
       design: {
-        view: 'pc',
+        view: 'pc', // pc | mobile
         pc: null,
         mobile: null
       },
@@ -214,7 +161,6 @@ export default {
       env: process.env.NODE_ENV,
       // 展示模式，不同于设计还是预览
       panels: defaultPanels(),
-      setting: defaultSetting(),
       // 自定义设置面板
       settings: [],
       nav: {
@@ -239,6 +185,7 @@ export default {
       }
     }
   },
+
   computed: {
     store () {
       return this.$root.$options.extension.store
@@ -256,19 +203,22 @@ export default {
       return this.store.getSelectedSchema()
     }
   },
+
   beforeMount () {
     const ext = this.$root.$options.extension || {}
     Object.assign(this.panels, ext.panels)
-    Object.assign(this.setting, ext.setting)
     this.settings = ext.settings
     this.design.view = ext.view || 'pc'
     this.setReady()
     this.setIcon()
   },
+
   mounted () {
     this.renderDesignView(this.design.view)
+    // 切换到设计模式
     this.store.updateTab('design')
   },
+
   methods: {
     setReady () {
       const ext = this.$root.$options.extension || {}
@@ -286,33 +236,35 @@ export default {
     onPreview () {
       this.renderPreview(this.design.view)
     },
-    onShowSchemaPanel () {
+    showSchemaPanel () {
       this.schemaPanel.visible = true
     },
-    onSchemaPanelClose () {
+    closeSchemaPanel () {
       this.schemaPanel.visible = false
     },
-    onShowLogicPanel () {
+    showLogicPanel () {
       this.logicPanel.visible = true
     },
-    onLogicPanelClose () {
+    closeLogicPanel () {
       this.logicPanel.visible = false
     },
-    onPreviewChange (view) {
+    changePreview (view) {
       this.renderPreview(view)
     },
-    onPreviewClose () {
+    closePreview () {
       this.preview.view = ''
       const { mobile, pc } = this.preview
-      this.destoryView(mobile)
-      this.destoryView(pc)
+      this.destoryRender(mobile)
+      this.destoryRender(pc)
     },
-    destoryView (view) {
-      if (!view) return
-      if (!helper.isFunction(view.destroy)) return
-      view.destroy()
+    // 销毁指定渲染器实例
+    destoryRender (render) {
+      if (!render) return
+      if (!helper.isFunction(render.destroy)) return
+      render.destroy()
     },
     /**
+     * 设计器内渲染器及预览时的创建渲染器
      * view: pc | mobile
      * mode: design | preview
      */
@@ -323,40 +275,50 @@ export default {
       const schema = this.store.getSchema()
       const { pc, mobile } = this[mode]
       const ext = this.$root.$options.extension
-      const { setRender, callPlugin, Render, widgets, main } = ext
+      const { setRender, callPlugin, Render, widgets, component } = ext
 
       this[mode].view = view
       if (!helper.include(VIEWS, view)) return
       const ins = this.getIns(view)
 
       if (!ins) return
+
+      // 这里为了兼容直接传参而非pc|mobile对象
       const _Render = Render || ext[view].Render
       const _widgets = widgets || ext[view].widgets
-      const _main = main || ext[view].main
+      const _component = component || ext[view].component
 
-      if (!_Render || !_widgets || !_widgets.length || !_main) return
+      if (!_Render || !_widgets || !_widgets.length || !_component) return
 
       const args = { el, mode: 'edit' }
+
+      // 设计模式
       if (mode === 'design') {
         this.store.initWidgets(_widgets)
         args.store = this.store
+
+      // 预览模式
       } else {
         args.schema = schema
         args.widgets = _widgets
       }
-      args.component = _main
+      args.component = _component
       args.callPlugin = callPlugin
 
       this[mode][view] = new _Render(args)
+
+      // 设计模式下，把当前设计视图的渲染器实例告诉设计器实例
       if (mode === 'design') {
         setRender(this.design[view])
       }
-      if (view === 'pc') this.destoryView(mobile)
-      if (view === 'mobile') this.destoryView(pc)
+      if (view === 'pc') this.destoryRender(mobile)
+      if (view === 'mobile') this.destoryRender(pc)
     },
+    // 预览时创建一个渲染器
     renderPreview (view) {
       this.renderView(view, 'preview')
     },
+    // 创建设计器内一个渲染器
     renderDesignView (view) {
       this.renderView(view, 'design')
     },

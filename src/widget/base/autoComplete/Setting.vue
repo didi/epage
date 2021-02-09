@@ -1,5 +1,5 @@
 <template lang="pug">
-setting-form(:store='store' :setting='setting')
+setting-form(:store='store')
 
   FormItem(v-if='!$slots.clearable' label='允许清空')
     i-switch(v-model='selectedSchema.option.clearable')

@@ -7,29 +7,39 @@ const Vuex = require('vuex')
 const {
   isArray,
   isFunction,
-  usePlugins
+  usePlugins,
+  isPlainObject
 } = helper
 
-const terminal = t => Object.assign({
-  main: null,
+const defaultView = t => Object.assign({
+  component: null,
   widgets: [],
   Render: null
 }, t || {})
 export default class Design {
   constructor (opt = {}) {
+    // 设计器挂载节点
     this.el = opt.el
+    // 自定义面板配置
     this.panels = opt.panels || {}
+    // 扩展的全局配置面板 array<object{key, name, component, framework}>
     this.settings = opt.settings || []
-    this.setting = opt.setting || {}
+    // 插件集合，通过$initPlugins初始
     this.plugins = opt.plugins || []
-    this.pc = terminal(opt.pc)
-    this.mobile = terminal(opt.mobile)
+    // PC端设计时，默认配置
+    this.pc = defaultView(opt.pc)
+    // 移动端设计时，默认配置
+    this.mobile = defaultView(opt.mobile)
+    // 当前环境，暂无特别用途
     this.env = opt.env || 'production'
+    // 默认设计视图
     this.view = opt.view || 'pc'
     // 以下3个属性将移动到 pc | mobile属性中，目前为了兼容老版本
-    this.Render = opt.Render || (opt[this.view] || {}).Render
-    this.widgets = opt.widgets || (opt[this.view] || {}).widgets
-    this.main = opt.main || (opt[this.view] || {}).main
+    this.Render = opt.Render
+    // 待注册的widgets
+    this.widgets = opt.widgets
+    // 渲染器入口文件，react对应.jsx文件，vue对应.vue文件
+    this.component = opt.component
 
     // default schema
     this.schema = opt.schema
@@ -38,22 +48,6 @@ export default class Design {
     // 设计及预览面板渲染器实例
     this.$render = null
 
-    // this.panels = panels || {}
-
-    // this.setting = setting || {}
-
-    // this.settings = settings || []
-    // 设计器自定义配置，未来会统一settings、panels、setting、env等信息
-    // const _config = config || {}
-    // // 设计器不同面板显示信息，设计(design)面板不可隐藏
-    // _config.panels = _config.panels || panels
-    // // 自定义设置面板
-    // _config.settings = _config.settings || settings
-    // // 控制widget 属性显隐等信息
-    // _config.setting = _config.setting || setting
-    // _config.env = _config.env || env || 'production'
-
-    // this.config = _config
     // 定义钩子函数
     this.$hooks = {
       // 设计器生命周期
@@ -83,10 +77,16 @@ export default class Design {
     // 调用设计器初始化生命周期
     this.callPlugin('life', 'init')
     this.store = new Store({ Rule: opt.Rule || Rule })
+    const widgets = this.widgets || (
+      this[this.view]
+        ? (this[this.view].widgets || [])
+        : []
+    )
 
-    if (isArray(this.widgets)) {
-      this.store.initWidgets(this.widgets)
-      if (typeof this.schema === 'object') {
+    if (isArray(widgets)) {
+      this.store.initWidgets(widgets)
+
+      if (isPlainObject(this.schema)) {
         this.store.initRootSchema(this.schema)
       }
 
@@ -96,6 +96,7 @@ export default class Design {
     }
   }
 
+  // 当前设计器内渲染器实例
   setRender (instance) {
     this.$render = instance
   }
@@ -121,27 +122,25 @@ export default class Design {
       store,
       panels,
       settings,
-      setting,
       env,
       view,
       pc,
       mobile,
       Render,
       widgets,
-      main
+      component
     } = this
     const extension = {
       store,
       panels,
       settings,
-      setting,
       env,
       view,
       pc,
       mobile,
       Render,
       widgets,
-      main,
+      component,
       setRender: this.setRender.bind(this),
       callPlugin: this.callPlugin.bind(this)
     }
@@ -155,11 +154,11 @@ export default class Design {
   destroy () {
     this.$render = null
     if (this.$$origin && isFunction(this.$$origin.$destroy)) {
-      this.callPlugin('life', 'beforeDestroy', this)
+      this.callPlugin('life', 'beforeDestroy', { ctx: this })
       this.$$origin.$destroy()
       this.$$origin.$off()
       this.store.$$store = null
-      this.callPlugin('life', 'destroyed', this)
+      this.callPlugin('life', 'destroyed', { ctx: this })
       this.$hooks = {}
     }
   }

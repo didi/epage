@@ -1,5 +1,5 @@
 <template lang="pug">
-Collapse.ivu-collapse-simple(:value='widgets[0].key' simple)
+Collapse.ivu-collapse-simple(:value='widgets[0] && widgets[0].key' simple)
   Panel(
     v-for='tool in widgets'
     :name='tool.key'

@@ -52,16 +52,19 @@
       Button.ep-header-right-item(
         v-if='testProp("right", "logic")'
         size='small'
+        type='ghost'
         @click='onShowLogic'
       ) logic
       Button.ep-header-right-item(
         v-if='testProp("right", "schema")'
         size='small'
+        type='ghost'
         @click='onShowSchema'
       ) schema
       Button.ep-header-right-item(
         v-if='testProp("right", "preview")'
         size='small'
+        type='ghost'
         @click='onPreview'
       ) 预览
       a.ep-header-right-item(
