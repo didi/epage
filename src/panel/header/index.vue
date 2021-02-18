@@ -72,7 +72,7 @@
         href='http://epage.didichuxing.com'
         target='_blank'
       )
-        Icon(type="help")
+        i.ep-icon.ep-icon-help
         span &nbsp;帮助
 
 </template>

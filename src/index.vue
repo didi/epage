@@ -101,11 +101,6 @@ import {
   EpSetting,
   EpHeader
 } from './panel'
-import {
-  getIcon,
-  IVIEW_V3,
-  MAIN_VERSION
-} from './util/iview-patch'
 
 const defaultHeader = () => ({
   left: {},
@@ -176,12 +171,6 @@ export default {
       settingState: {
         fold: false,
         text: '收起'
-      },
-      icon: {
-        design: 'compose',
-        preview: 'eye',
-        logic: 'network',
-        schema: 'code-working'
       }
     }
   },
@@ -210,7 +199,6 @@ export default {
     this.settings = ext.settings
     this.design.view = ext.view || 'pc'
     this.setReady()
-    this.setIcon()
   },
 
   mounted () {
@@ -328,12 +316,6 @@ export default {
         this.settingState = { fold: false, text: '收起' }
       } else {
         this.settingState = { fold: true, text: '展开' }
-      }
-    },
-    setIcon () {
-      // 兼容iview@3+ 新icon方案
-      if (MAIN_VERSION >= IVIEW_V3) {
-        Object.assign(this.icon, getIcon(2, this.icon))
       }
     },
     onAddWidget (widget) {

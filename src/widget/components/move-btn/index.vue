@@ -1,35 +1,26 @@
 <template lang="pug">
 .ep-setting-move-btn
-  Icon(
+  i.ep-icon.ep-icon-up-o(
     title='上移'
-    :type='icon.moveUp'
-    @click.native='onMoveUp(index)'
+    @click='onMoveUp(index)'
     :class='{"ep-setting-move-btn-disabled": index === 0 }'
   )
-  Icon(
+  i.ep-icon.ep-icon-down-o(
     title='下移'
-    :type='icon.moveDown'
-    @click.native='onMoveDown(index)'
+    @click='onMoveDown(index)'
     :class='{"ep-setting-move-btn-disabled": index === list.length - 1 }'
   )
-  Icon(
+  i.ep-icon.ep-icon-minus-o(
     title='删除'
-    :type='icon.remove'
-    @click.native='onDelete(index)'
+    @click='onDelete(index)'
     :class='{"ep-setting-move-btn-disabled": list.length === 1 }'
   )
-  Icon(
+  i.ep-icon.ep-icon-plus-o(
     title='添加'
-    :type='icon.add'
-    @click.native='onAdd(index)'
+    @click='onAdd(index)'
   )
 </template>
 <script>
-import {
-  getIcon,
-  IVIEW_V3,
-  MAIN_VERSION
-} from '../../../util/iview-patch'
 
 export default {
   props: {
@@ -43,25 +34,9 @@ export default {
     }
   },
   data () {
-    return {
-      icon: {
-        moveUp: 'android-arrow-up',
-        moveDown: 'android-arrow-down',
-        remove: 'ios-minus-outline',
-        add: 'ios-plus-outline'
-      }
-    }
-  },
-  beforeMount () {
-    this.setIcon()
+    return {}
   },
   methods: {
-    setIcon () {
-      // 兼容iview@3+ 新icon方案
-      if (MAIN_VERSION >= IVIEW_V3) {
-        Object.assign(this.icon, getIcon(2, this.icon))
-      }
-    },
     onMoveUp (index) {
       this.$emit('on-move-up', index)
     },

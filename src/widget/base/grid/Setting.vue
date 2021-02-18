@@ -46,7 +46,7 @@ setting-form(:store='store')
 
   FormItem(v-if='!$slots.children' label='列')
     Row(v-for='(item, k) in selectedSchema.children' :key='k')
-      Col(span='8')
+      Col(span='10')
         InputNumber(
           v-model='selectedSchema.children[k].span'
           size='small'

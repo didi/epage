@@ -2,7 +2,7 @@
 .ep-fullscreen(v-show='visible')
   .ep-fullscreen-header(v-if='$slots.header')
     slot(name='header')
-    span.ep-fullscreen-close(@click='onClose') X
+    span.ep-fullscreen-close.ep-icon.ep-icon-close(@click='onClose')
   .ep-fullscreen-body
     slot
 </template>

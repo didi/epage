@@ -5,17 +5,19 @@
       .ep-schema-btns
         Button(
           size='small'
-          icon='code-download'
           title='点击导入'
           @click.native='onImportShow'
           style='margin-right: 10px;'
-        ) 导入
+        )
+          i.ep-icon.ep-icon-code &nbsp;
+          span 导入
         Button(
           size='small'
-          icon='ios-copy'
           title='点击复制'
           @click.native='onCopy'
-        ) 复制
+        )
+          i.ep-icon.ep-icon-copy &nbsp;
+          span 复制
 
   Modal(
     title='导入schema'

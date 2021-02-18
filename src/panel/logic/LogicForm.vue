@@ -65,16 +65,16 @@
             Button(
               type='text'
               size="small"
-              icon='plus'
               @click='onAddEffect'
             )
+              i.ep-icon.ep-icon-plus
             Button(
               v-show="controlledWidgetEffects.length > 1"
               type='text'
               size="small"
-              icon='minus'
               @click='onRemoveEffect(i)'
             )
+              i.ep-icon.ep-icon-minus
 </template>
 <script>
 import { helper, Logic } from 'epage-core'

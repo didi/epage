@@ -39,17 +39,17 @@
             size='small'
             type='ghost'
             @click='onEdit(logic, key)'
-            icon="edit"
-            title='编辑'
             style='margin-right: 6px;'
           )
+            i.ep-icon.ep-icon-edit &nbsp;
+            span 编辑
           Button(
             size='small'
             type='ghost'
             @click='onDelete(key)'
-            icon="trash-a"
-            title='删除'
           )
+            i.ep-icon.ep-icon-trash &nbsp;
+            span 删除
 
   .ep-logic-table-empty(v-if='!schema.logics || schema.logics.length === 0') 暂无逻辑配置
 

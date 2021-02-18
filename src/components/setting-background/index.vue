@@ -21,22 +21,19 @@ ep-setting-block(:title='title')
     h4.ep-style-background-item-title
       span 背景-{{index + 1}}
       .ep-style-background-item-option
-        Icon.ep-style-background-up(
-          type='arrow-up-c'
+        i.ep-style-background-up.ep-icon.ep-icon-up(
           title='上移'
           :class='{ disabled: index === 0 }'
-          @click.native='moveBackground(index - 1)'
+          @click='moveBackground(index - 1)'
         )
-        Icon.ep-style-background-down(
-          type='arrow-down-c'
+        i.ep-style-background-down.ep-icon.ep-icon-down(
           title='下移'
           :class='{ disabled: index + 1 === schema.style.container.background.length }'
-          @click.native='moveBackground(index)'
+          @click='moveBackground(index)'
         )
-        Icon.ep-style-background-delete(
-          type='close-round'
+        i.ep-style-background-delete.ep-icon.ep-icon-close(
           title='删除'
-          @click.native='deleteBackground(index)'
+          @click='deleteBackground(index)'
         )
 
     Row(style='padding-top: 8px;' )
