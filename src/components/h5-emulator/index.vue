@@ -1,8 +1,8 @@
 <template lang="pug">
-.ep-mobile-emulator
-  .ep-mobile-emulator-bar
-  .ep-mobile-emulator-device
-    .ep-mobile-emulator-body
+.ep-h5-emulator
+  .ep-h5-emulator-bar
+  .ep-h5-emulator-device
+    .ep-h5-emulator-body
       slot
 </template>
 <script>

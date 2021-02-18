@@ -38,9 +38,9 @@
     ep-panel.ep-work-design
       div(v-show='design.view === "pc"')
         div(class='design-pc' ref='design-pc')
-      div(v-show='design.view === "mobile"')
-        ep-mobile-emulator
-          div(class='design-mobile' ref='design-mobile')
+      div(v-show='design.view === "h5"')
+        ep-h5-emulator
+          div(class='design-h5' ref='design-h5')
 
   .ep-setting(
     v-show='nav.active === "widget"'
@@ -55,20 +55,20 @@
   ep-fullscreen(:visible='!!preview.view' @on-close='closePreview')
     div(slot='header' style='font-size: 12px;font-weight: normal;text-align: center;')
       RadioGroup.ep-preview-header-view(
-        v-if='ready.pc && ready.mobile'
+        v-if='ready.pc && ready.h5'
         v-model='preview.view'
         type='button'
         size='small'
         @on-change='changePreview'
       )
         Radio(label='pc') PC
-        Radio(label='mobile') H5
+        Radio(label='h5') H5
     template(v-show='preview.view === "pc"')
       .ep-preview-pc(ref='preview-pc')
 
-    div(v-show='preview.view === "mobile"')
-      ep-mobile-emulator
-        div(ref='preview-mobile')
+    div(v-show='preview.view === "h5"')
+      ep-h5-emulator
+        div(ref='preview-h5')
 
   ep-fullscreen(:visible='!!schemaPanel.visible' @on-close='closeSchemaPanel')
     div(slot='header')
@@ -89,7 +89,7 @@
 import { helper } from 'epage-core'
 import {
   EpPanel,
-  EpMobileEmulator,
+  EpH5Emulator,
   EpFullscreen
 } from './components'
 import {
@@ -124,7 +124,7 @@ export default {
     EpSchema,
     EpSetting,
     EpHeader,
-    EpMobileEmulator,
+    EpH5Emulator,
     EpFullscreen
   },
 
@@ -132,20 +132,20 @@ export default {
     return {
       // 预览视图渲染缓存
       preview: {
-        view: '', // pc | mobile
+        view: '', // pc | h5
         pc: null,
-        mobile: null
+        h5: null
       },
       // 设计视图渲染缓存
       design: {
-        view: 'pc', // pc | mobile
+        view: 'pc', // pc | h5
         pc: null,
-        mobile: null
+        h5: null
       },
-      // pc 及 mobile 组件、Render等是否ready
+      // pc 及 h5 组件、Render等是否ready
       ready: {
         pc: false,
-        mobile: false
+        h5: false
       },
       schemaPanel: {
         visible: false
@@ -210,12 +210,12 @@ export default {
   methods: {
     setReady () {
       const ext = this.$root.$options.extension || {}
-      const { pc, mobile } = ext
+      const { pc, h5 } = ext
       const hasPC = pc && pc.widgets && pc.Render
-      const hasMobile = mobile && mobile.widgets && mobile.Render
+      const hasH5 = h5 && h5.widgets && h5.Render
 
       this.ready.pc = !!hasPC
-      this.ready.mobile = !!hasMobile
+      this.ready.h5 = !!hasH5
     },
     getIns (view) {
       const ext = this.$root.$options.extension || {}
@@ -241,8 +241,8 @@ export default {
     },
     closePreview () {
       this.preview.view = ''
-      const { mobile, pc } = this.preview
-      this.destoryRender(mobile)
+      const { h5, pc } = this.preview
+      this.destoryRender(h5)
       this.destoryRender(pc)
     },
     // 销毁指定渲染器实例
@@ -253,15 +253,15 @@ export default {
     },
     /**
      * 设计器内渲染器及预览时的创建渲染器
-     * view: pc | mobile
+     * view: pc | h5
      * mode: design | preview
      */
     renderView (view, mode) {
       if (!view || !mode) return
-      const VIEWS = ['pc', 'mobile']
+      const VIEWS = ['pc', 'h5']
       const el = this.$refs[mode + '-' + view]
       const schema = this.store.getSchema()
-      const { pc, mobile } = this[mode]
+      const { pc, h5 } = this[mode]
       const ext = this.$root.$options.extension
       const { setRender, callPlugin, Render, widgets, component } = ext
 
@@ -271,7 +271,7 @@ export default {
 
       if (!ins) return
 
-      // 这里为了兼容直接传参而非pc|mobile对象
+      // 这里为了兼容直接传参而非pc|h5对象
       const _Render = Render || ext[view].Render
       const _widgets = widgets || ext[view].widgets
       const _component = component || ext[view].component
@@ -299,8 +299,8 @@ export default {
       if (mode === 'design') {
         setRender(this.design[view])
       }
-      if (view === 'pc') this.destoryRender(mobile)
-      if (view === 'mobile') this.destoryRender(pc)
+      if (view === 'pc') this.destoryRender(h5)
+      if (view === 'h5') this.destoryRender(pc)
     },
     // 预览时创建一个渲染器
     renderPreview (view) {

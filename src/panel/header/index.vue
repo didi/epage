@@ -32,14 +32,14 @@
 
     .ep-header-center(v-else :style='(header.center || {}).style || ""')
       RadioGroup(
-        v-if='ready.pc && ready.mobile'
+        v-if='ready.pc && ready.h5'
         v-model='designView.view'
         type='button'
         size='small'
         @on-change='onChangeView'
       )
         Radio(label='pc') PC
-        Radio(label='mobile') H5
+        Radio(label='h5') H5
 
     //- right
     .ep-header-right(
@@ -97,7 +97,7 @@ export default {
       type: Object,
       default: () => ({
         pc: false,
-        mobile: false
+        h5: false
       })
     }
   },

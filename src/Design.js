@@ -16,6 +16,7 @@ const defaultView = t => Object.assign({
   widgets: [],
   Render: null
 }, t || {})
+
 export default class Design {
   constructor (opt = {}) {
     // 设计器挂载节点
@@ -29,12 +30,12 @@ export default class Design {
     // PC端设计时，默认配置
     this.pc = defaultView(opt.pc)
     // 移动端设计时，默认配置
-    this.mobile = defaultView(opt.mobile)
+    this.h5 = defaultView(opt.h5)
     // 当前环境，暂无特别用途
     this.env = opt.env || 'production'
     // 默认设计视图
     this.view = opt.view || 'pc'
-    // 以下3个属性将移动到 pc | mobile属性中，目前为了兼容老版本
+    // 以下3个属性将移动到 pc | h5属性中，目前为了兼容老版本
     this.Render = opt.Render
     // 待注册的widgets
     this.widgets = opt.widgets
@@ -125,7 +126,7 @@ export default class Design {
       env,
       view,
       pc,
-      mobile,
+      h5,
       Render,
       widgets,
       component
@@ -137,7 +138,7 @@ export default class Design {
       env,
       view,
       pc,
-      mobile,
+      h5,
       Render,
       widgets,
       component,
