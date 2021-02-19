@@ -1,12 +1,15 @@
-.@{eppre}-widget-cascader-modal{
-  max-height: 420px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  &-msg{
-    color:#999;
-    padding: 20px 0 0;
+.@{eppre}-widget-cascader{
+
+  &-modal{
+    max-height: 420px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    &-msg{
+      color:#999;
+      padding: 20px 0 0;
+    }
   }
-  .data-tree {
+  &-datatree {
     position: relative;
     .ivu-form-item-content{
       margin-left: 0 !important;
@@ -18,7 +21,8 @@
     .mr5{
       margin-right: 5px;
     }
-    .leaf-root{
+    
+    &-root{
       .leaf_common;
       button{
         width: 48px;
@@ -26,25 +30,25 @@
         right: 0;
       }
     }
-    .leaf-item{
+    &-item{
       .leaf_common;
       position: relative;
       vertical-align: middle;
-      .leaf-content-wrapper{
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        &-input{
-          width: 100px;
-          margin-right: 10px;
-        }
+    }
+    &-content{
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      &-input{
+        width: 100px;
+        margin-right: 10px;
       }
-      .leaf-operat-wrapper{
-        display: inline-block;
-        position: absolute;
-        top: 4px;
-        right: 15px;
-      }
+    }
+    &-operat{
+      display: inline-block;
+      position: absolute;
+      top: 4px;
+      right: 15px;
     }
   }
 }

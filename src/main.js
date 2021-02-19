@@ -16,7 +16,7 @@ import {
   render,
   drag
 } from 'epage-core'
-import Epage from './Design.js'
+import Epage from './Epage.js'
 import * as setting from './widget/setting'
 import widget from './widget'
 
