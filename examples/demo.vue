@@ -18,9 +18,6 @@ import Epage from '../src/main.js'
 // import styleSetting from './settings/style-etting'
 import config from './epage.config.js'
 
-
-const { render } = Epage
-
 // 扩展自定义rule
 // Rule.set(myRules)
 // 自定义widget 的validators
