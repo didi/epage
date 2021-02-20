@@ -52,14 +52,37 @@ npm install epage -S
 ## 设计器及渲染器示例
 
 ```js
-import widgets, { Epage, Render } from 'epage-iview'
+import { render } from 'epage-core'
+import Epage from 'epage'
+import pcWidgets, { entry as PCEntry } from 'epage-iview'
+import h5Widgets, { entry as H5Entry } from 'epage-vant'
+import 'iview/src/styles/index.less';
+import 'vant/lib/index.less' /* 双端设计才需要 */
+import 'epage/src/style/main.less'
 import 'epage-iview/src/style/main.less'
+import 'epage-vant/src/style/main.less' /* 双端设计才需要 */
 
 const el = document.getElementById('root')
 // 实例化设计器，Render为渲染器，widgets为待注册的页面部件
 // 关于 Render 和 widgets，可以访问 https://github.com/epage-team/epage-iview
-new Epage({ el, Render, widgets })
+const config = {
+  el,
+  pc: {
+    widgets: pcWidgets,
+    Render: render.VueRender,
+    component: PCEntry
+  },
+  // 移动端同时设计时才需要
+  h5: {
+    widgets: h5Widgets,
+    Render: render.VueRender,
+    component: H5Entry
+  }
+}
+new Epage(config)
 ```
+
+更多用法参考[CHANGELOG#v0.7.0](./CHANGELOG.md)
 
 **epage-iview** 为基于 **iview** 组件库的 epage 渲染器实现
 

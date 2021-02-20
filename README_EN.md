@@ -34,14 +34,38 @@ This repository is the core dependency of the designer and renderer. To view the
 ## Usage
 
 ```js
+import { render } from 'epage-core'
 import Epage from 'epage'
+import pcWidgets, { entry as PCEntry } from 'epage-iview'
+import h5Widgets, { entry as H5Entry } from 'epage-vant'
+import 'iview/src/styles/index.less';
+import 'vant/lib/index.less'
 import 'epage/src/style/main.less'
+import 'epage-iview/src/style/main.less'
+import 'epage-vant/src/style/main.less'
+
 
 const el = document.getElementById('root')
 // Instantiate Designer. Render is the renderer. widgets is the widget to be registered
 // About Render and widgets can visit https://github.com/epage-team/epage-iview
-new Epage({ el, Render, widgets })
+const config = {
+  el,
+  pc: {
+    widgets: pcWidgets,
+    Render: render.VueRender,
+    component: PCEntry
+  },
+  // Only needed when the mobile terminal is designed at the same time
+  h5: {
+    widgets: h5Widgets,
+    Render: render.VueRender,
+    component: H5Entry
+  }
+}
+new Epage(config)
 ```
+
+more usage [CHANGELOG#v0.7.0](./CHANGELOG.md)
 
 ## Design Concepts
 

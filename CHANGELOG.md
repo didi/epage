@@ -1,5 +1,176 @@
 # Change Log
 
+### 0.7.0（2021/2/19）
+
+- [feat] : 设计器界面升级
+  - 增加`header`面板，分`left`、`center`、`right`三部分
+  - `logic`、`preview`、`schema`视图改外全屏方式
+  - 增加`pc`、`h5`双端同时配置能力
+- [feat] : 设计器支持**插件**、**面板**定制能力
+
+```js
+import { render } from 'epage-core'
+import iviewWidgets, { entry as PCEntry } from 'epage-iview'
+import vantWidgets, { entry as H5Entry } from 'epage-vant'
+
+class EpageCustomPlugin {
+  apply(hooks, epage) {
+    // 生命周期参考下方 生命周期钩子 说明
+    hooks.life.beforeCreate.tap(function ({ ctx })  {
+      console.log(11, ctx)
+    })
+     // hooks.life及hooks.schema的钩子，ctx为设计器实例
+     // hooks.render的钩子，ctx为渲染器实例
+  }
+}
+
+const config = {
+  // 必填
+  el,
+  // 非必填
+  schema,
+  // 旧用法，未来会替换，不止双端设计器，建议使用新用法
+  widgets: iviewWidgets,
+  // 旧用法，未来会替换，不止双端设计器，建议使用新用法
+  Render: render.VueRender,
+  // 下方均为新用法
+  view: 'pc', // 非必填，默认pc，设计器默认渲染视图
+  // 新用法中pc 与h5其一必填，或两个都有
+  pc: {
+    widgets: iviewWidgets,
+    component: PCEntry, // 渲染入口
+    Render: render.VueRender
+  },
+  h5: {
+    widgets: vantWidgets,
+    component: H5Entry, // 渲染入口
+    Render: render.VueRender
+  },
+  // 非必填，全局扩展配置面板：所有widget都会有此配置
+  // 一般替换或增强内置全局配置，只要没志向key 为
+  // prop | style | global 即可替换内置
+  // 属性 | 样式 | 页面配置
+  // 用法与下方 `widget.Setting` 椅子
+  settings: [{
+    key: 'prop',
+    name: '自定义属性',
+    // 用此属性将使用内置渲染器，
+    // framework: 'vue',
+    component: function ({ el, store }) {},
+  }],
+  // 非必填，定制面板
+  panels: {
+    header: {
+      // 有render属性，left、center、right属性失效
+      // style属性继续生效
+      render: function({ el, store }) {
+        el.innerHTML = 'Epage Header'
+      },
+      // 非必填
+      style: 'font-size: 20px;',
+      // 左侧标题
+      left: {
+        render: function({ el, store }) {
+          el.innerHTML = 'Epage Title'
+        },
+        style: 'font-size: 20px;',
+      },
+      center, // 同 left
+      right: {
+        logic: false,
+        schema: false,
+        preview: false,
+        help: false,
+        style, // 同 left
+        render, // 同 left
+      }
+    }
+  },
+  // 非必填
+  plugins: [
+    new EpageCustomPlugin()
+  ]
+}
+
+new Epage(config)
+```
+
+- [feat] : 设计器增加**生命周期钩子**
+```js
+{
+  // 设计器生命周期
+  life: {
+    init, // 初始化，store、render等尚未进行
+    beforeCreate, // 设计器创建之前，可获取store
+    created, // 设计器创建之后，可获取内部渲染器$render
+    beforeDestroy, // 设计器销毁前
+    destroyed // 设计器销毁后，注销事件等
+  },
+  // schema 相关hook
+  schema: {
+    copy, // schema执行copy时调用，复制到剪切板以前对schema做自定义修改
+  },
+  // 同设计器生命周期，只是针对内置渲染器
+  render: {
+    init,
+    beforeCreate,
+    created,
+    beforeDestroy,
+    destroyed,
+  }
+}
+```
+
+- [feat] : 单个`widget.Setting`支持数组形式，并保留原来单一`vue`组件能力
+```js
+// widget/Setting.js
+// 原来单个vue组件也支持，也可以为下方数组形式
+export default [{
+  // 必填参数，其中prop | style | global为内置设置面板key
+  // 为这三个值将替换对应内置配置表单，否则将在此基础扩展面板
+  key: 'prop', 
+  // 面板标题
+  name: '自定义属性',
+  // 可选参数，如果值为vue或react，将使用epage-core的render模块
+  // 的 VueRender或ReactRender渲染，下方component属性值
+  // 应为对应框架的组件
+  fragment: 'vue',
+  // 不指定 fragment字段，且component为函数，将执行component
+  // 参数 { el, store } 
+  // el为当前配置面板内dom容器
+  // store为当前设计器store，可获取、修改设计器内所有状态
+  component: funtion ({ el, store }) {
+    el.innerHTML = '自定义配置'
+    // 这里可通过 new ReactRender({ el, store, component })
+    // 实现react组件的配置表单能力
+  }
+}]
+```
+
+⚠️⚠️⚠️ **不兼容更新** ⚠️⚠️⚠️
+
+- `src/Design.js`重命名为 `src/Epage.js`
+- 原内置widget的 `Setting.vue`，移动到`epage-iview`包中
+- 去掉 `widget` 模块导出，响应能力如下改动：
+  - `Epage.widget.input.Setting`等`Setting`表单 改为 `epage-iview`包的`inputWidget.Setting`
+  - `Epage.setting`对应`epage-iview`包的`setting`模块
+- 原从`epage-iview`包内引入的样式，做如下修改：
+
+```less
+/* 原epage-iview项目，直接依赖epage */
+@import '~iview/src/styles/index.less';
+@import '~epage/src/style/main.less';
+
+/* 修改后，epage-iview与epage相互独立 */
+@import '~iview/src/styles/index.less';
+@import '~vant/lib/index.less'; /* 双端设计才需要 */
+@import '.~epage/src/style/main.less';
+@import '~epage-iview/src/style/main.less';
+@import '~epage-vant/src/style/main.less'; /* 双端设计才需要 */
+```
+
+- 原`epage-iview`（**渲染组件** + **渲染器**）直接依赖`epage`（设计器），改造后`epage-iview`（渲染组件）与`epage`相互独立，**渲染器** 移动到`epage-core`的render模块（`EpageCore.render.VueRender`）
+
 ### 0.6.1（2021/1/18）
 
 - [fix] : 修复widget被二次添加时，widget.Setting生命周期没有再次使用问题

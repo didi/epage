@@ -2,8 +2,14 @@ const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
+const resolve = name => path.resolve(__dirname, `../node_modules/${name}/src`)
+
 const scirptPath = [
-  path.resolve(__dirname, '../src')
+  path.resolve(__dirname, '../src'),
+  path.resolve(__dirname, '../examples'),
+  resolve('epage-core'),
+  resolve('epage-iview'),
+  resolve('epage-vant'),
 ]
 
 module.exports = {
@@ -19,7 +25,17 @@ module.exports = {
       }, {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: scirptPath
+        include: scirptPath,
+        options: {
+          presets: [
+            ['@babel/preset-env', {
+              targets: {
+                esmodules: true
+              }
+            }],
+            '@vue/babel-preset-jsx'
+          ]
+        }
       }, {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
@@ -28,7 +44,13 @@ module.exports = {
       }, {
         test: /\.less$/,
         use: ExtractTextPlugin.extract({
-          use: ['css-loader', 'less-loader']
+          use: [
+            'css-loader',
+            {
+              loader: 'less-loader',
+              options: { javascriptEnabled: true }
+            }
+          ]
         })
       }, {
         test: /\.(gif|jpg|png)\??.*$/,
@@ -51,9 +73,13 @@ module.exports = {
     new VueLoaderPlugin()
   ],
   resolve: {
-    extensions: ['.js', '.vue'],
+    symlinks: false,
+    modules: [path.resolve(__dirname, '../node_modules')],
+    extensions: ['.js', '.vue', '.jsx'],
     alias: {
-      '@': path.resolve(__dirname, '../src')
+      '@': path.resolve(__dirname, '../src'),
+      'vue': 'vue/dist/vue.esm.js',
+      'epage': path.resolve(__dirname, '../src/main.js')
     }
   },
   stats: { children: false }

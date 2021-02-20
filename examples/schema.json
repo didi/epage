@@ -1,0 +1,182 @@
+{
+  "key": "kuLlthRrI",
+  "widget": "grid",
+  "hidden": false,
+  "option": {
+    "gutter": 0,
+    "align": "top",
+    "justify": "start"
+  },
+  "label": {
+    "width": 80,
+    "position": "right",
+    "colon": false
+  },
+  "container": true,
+  "children": [
+    {
+      "span": 24,
+      "list": [
+        {
+          "key": "kB1mKTnek",
+          "widget": "radio",
+          "hidden": false,
+          "option": {
+            "type": "static",
+            "dict": {
+              "type": "api",
+              "dict": "",
+              "dictAPI": "",
+              "api": ""
+            },
+            "direction": "horizontal",
+            "url": "",
+            "adapter": "return data",
+            "data": [
+              {
+                "key": "show",
+                "value": "show"
+              },
+              {
+                "key": "show2",
+                "value": "show2"
+              },
+              {
+                "key": "unknow",
+                "value": "unknow"
+              }
+            ],
+            "dynamicData": []
+          },
+          "name": "kB1mKTnek",
+          "type": "string",
+          "label": "显隐",
+          "description": "",
+          "help": "",
+          "disabled": false,
+          "rules": [
+            {
+              "required": false,
+              "message": "必填",
+              "type": "string",
+              "trigger": "change"
+            }
+          ],
+          "placeholder": "请选择"
+        },
+        {
+          "key": "kASJAJwRB",
+          "widget": "input",
+          "hidden": true,
+          "option": {
+            "password": false,
+            "prefix": "",
+            "suffix": ""
+          },
+          "name": "kASJAJwRB",
+          "type": "string",
+          "label": "输入框",
+          "description": "",
+          "help": "",
+          "disabled": false,
+          "rules": [
+            {
+              "required": false,
+              "message": "必填",
+              "type": "string",
+              "trigger": "blur"
+            }
+          ],
+          "placeholder": "请输入",
+          "default": ""
+        },
+        {
+          "key": "kI4g2SDED",
+          "widget": "button",
+          "hidden": false,
+          "option": {
+            "text": "提交",
+            "type": "primary",
+            "icon": "",
+            "long": false,
+            "ghost": false,
+            "shape": "square",
+            "script": ""
+          },
+          "disabled": false
+        }
+      ]
+    }
+  ],
+  "title": "测试",
+  "description": "",
+  "size": "default",
+  "logics": [
+    {
+      "type": "value",
+      "key": "kB1mKTnek",
+      "action": "=",
+      "value": "show",
+      "effects": [
+        {
+          "key": "kASJAJwRB",
+          "properties": [
+            {
+              "key": "hidden",
+              "value": false
+            },
+            {
+              "key": "disabled",
+              "value": false
+            }
+          ]
+        }
+      ],
+      "trigger": "prop",
+      "script": "",
+      "relation": "or"
+    },
+    {
+      "type": "value",
+      "key": "kASJAJwRB",
+      "action": "=",
+      "value": "1",
+      "relation": "or",
+      "trigger": "prop",
+      "script": "",
+      "effects": [
+        {
+          "key": "kI4g2SDED",
+          "properties": [
+            {
+              "key": "hidden",
+              "value": true
+            },
+            {
+              "key": "disabled",
+              "value": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "style": {
+    "margin-right": "auto",
+    "margin-left": "auto",
+    "background": [],
+    "container": {
+      "background-color": "",
+      "background": []
+    },
+    "background-color": "",
+    "background-image": "",
+    "background-size": "",
+    "background-repeat": "",
+    "background-position": ""
+  },
+  "store": {
+    "dicts": [],
+    "apis": []
+  }
+}

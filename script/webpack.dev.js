@@ -23,7 +23,15 @@ const webpackConfig = merge(webpackBaseConfig, {
     new ExtractTextPlugin({
       filename: '[name].css'
     })
-  ]
+  ],
+  devServer: {
+    port: 8087,
+    host: '0.0.0.0'
+    // open: true
+  },
+  resolve: {
+    mainFields: ['main:epage', 'main']
+  }
 })
 
 module.exports = webpackConfig

@@ -17,8 +17,6 @@ import {
   drag
 } from 'epage-core'
 import Epage from './Epage.js'
-import * as setting from './widget/setting'
-import widget from './widget'
 
 Epage.Rule = Rule
 Epage.Worker = Worker
@@ -33,8 +31,6 @@ Epage.API = API
 Epage.constant = constant
 Epage.helper = helper
 Epage.schema = schema
-Epage.setting = setting
-Epage.widget = widget
 Epage.hook = hook
 Epage.render = render
 Epage.drag = drag

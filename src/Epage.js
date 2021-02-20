@@ -17,7 +17,7 @@ const defaultView = t => Object.assign({
   Render: null
 }, t || {})
 
-export default class Design {
+export default class Epage {
   constructor (opt = {}) {
     // 设计器挂载节点
     this.el = opt.el
@@ -76,7 +76,7 @@ export default class Design {
     // 注册插件
     this.$initPlugins()
     // 调用设计器初始化生命周期
-    this.callPlugin('life', 'init')
+    this.callPlugin('life', 'init', { ctx: this })
     this.store = new Store({ Rule: opt.Rule || Rule })
     const widgets = this.widgets || (
       this[this.view]

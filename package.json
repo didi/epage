@@ -1,6 +1,6 @@
 {
   "name": "epage",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "Epage 一款基于schema的可视化页面配置工具",
   "author": "Chengzi <ttghost@126.com>",
   "main": "./dist/epage.min.js",
@@ -36,12 +36,12 @@
     }
   },
   "peerDependencies": {
-    "vue": ">=2.5",
     "iview": ">=2.13",
+    "vue": ">=2.5",
     "vuex": ">=3.1"
   },
   "dependencies": {
-    "epage-core": "^0.4.1"
+    "epage-core": "^0.5.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
@@ -52,11 +52,13 @@
     "babel-loader": "^8.0.6",
     "babel-plugin-syntax-jsx": "^6.18.0",
     "babel-plugin-transform-runtime": "^6.23.0",
+    "@vue/babel-plugin-transform-vue-jsx": "^1.1.2",
     "babel-plugin-transform-vue-jsx": "^3.7.0",
     "clean-webpack-plugin": "^2.0.2",
-    "codemirror": "^5.56.0",
     "cross-env": "^5.2.0",
     "css-loader": "^2.1.1",
+    "epage-iview": "^0.6.1",
+    "epage-vant": "^0.5.2",
     "eslint": "^6.6.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.18.2",
@@ -66,6 +68,7 @@
     "eslint-plugin-vue": "^6.0.1",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^3.0.1",
+    "html-webpack-plugin": "^3.2.0",
     "husky": "^4.2.3",
     "iview": "^2.13.0",
     "less": "^3.11.1",
@@ -78,7 +81,9 @@
     "url-loader": "^1.1.2",
     "vue": "^2.5.16",
     "vue-loader": "15.7.0",
+    "vue-router": "^3.4.3",
     "vue-template-compiler": "^2.5.16",
+    "vuedraggable": "^2.24.3",
     "vuex": "^3.1.1",
     "webpack": "^4.35.2",
     "webpack-bundle-analyzer": "^3.3.2",
