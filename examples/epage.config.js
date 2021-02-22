@@ -1,17 +1,18 @@
 import { render, helper } from 'epage-core'
-import h5Widgets, { entry as h5Entry } from 'epage-vant'
+import vantWidgets, { entry as h5Entry } from 'epage-vant'
 import pcWidgets, { entry as pcEntry } from 'epage-iview'
 // import StyleSetting from './settings/style-etting.vue'
 import vant from 'vant'
 import schema from './schema.json'
 
-// h5Widgets = h5Widgets.map((g, index) => {
-//   return g.widgets.map((w, key) => {
-//     w.Setting = pcWidgets[index].widgets[key].Setting
-//     return w
-//   })
-// })
-// import Vue from 'vue'
+const h5Widgets = vantWidgets.map((group, index) => {
+  group.widgets.map((widget, key) => {
+    widget.Setting = pcWidgets[index].widgets[key].Setting
+    return widget
+  })
+  return group
+})
+
 class EpagePlugin{
   constructor(option) {
   }
