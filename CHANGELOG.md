@@ -1,5 +1,30 @@
 # Change Log
 
+### 0.7.2（2021/3/1）
+
+- [feat] : 设计器支持`tool`、`setting`面板自定义
+```js
+new Epage({
+  panels: {
+    tool: false, // 隐藏工具面板，以下自定义
+    // tool: {
+    //   render: function ({ el, store,  ctx}) {
+    //     el.innerHTML ='tool'
+    //   },
+    //   style: ''
+    // },
+    setting: false,  // 隐藏配置面板，以下自定义
+    // setting: {
+    //   render: function ({ el, store,  ctx}) {
+    //     el.innerHTML ='tool'
+    //   },
+    //   style: ''
+    // },
+    // ...
+  }
+})
+```
+
 ### 0.7.1（2021/2/21）
 
 - [fix] : 更新`epage-core@0.5.1`
