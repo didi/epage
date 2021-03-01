@@ -2,6 +2,10 @@
   background-color: @ep-editor-bg;
   position: relative;
   height: 100%;
+  /* for other panel when header display none */
+  .@{eppre}-panel-top0{
+    top: 0;
+  }
 }
 .@{eppre}-panel{
   &-title{
@@ -19,21 +23,43 @@
     }
   }
 }
+.@{eppre}-layout{
+  display: flex;
+  flex-flow: column;
+  &-header{
+    height: 40px;
+  }
+  &-body{
+    display: flex;
+    flex:1;
+    overflow: auto;
+  }
+  &-left{
+    position: relative;
+    z-index: 1;
+    width: @ep-tool-width;
+  }
+  &-center{
+    flex: 1;
+  }
+  &-right{
+    position: relative;
+    width: @ep-setting-width;
+  }
+  &-footer{
+    border-top: 1px solid #ddd;
+    height: 20px;
+  }
+}
 
-.@{eppre}-side-left{
-  position: absolute;
-  top: @ep-header-height;
-  left: 0;
-  bottom: 0;
+.@{eppre}-layout-left{
+  display: flex;
   width: @ep-tool-width;
   overflow: visible;
   background-color: @ep-panel-bg;
   box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
   &-nav{
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
+    position: relative;
     width: 39px;
     text-align: center;
     border-right: 1px solid #ddd;
@@ -48,17 +74,15 @@
     }
   }
   &-content{
+    flex: 1;
     position: relative;
     // margin-left: 40px;
     height: 100%;
+    overflow: auto;
   }
 }
 .@{eppre}-side-right{
-  position: absolute;
-  top: @ep-header-height;
-  right: 0;
-  bottom: 0;
-  left: @ep-tool-width + @ep-panel-margin;
+  flex: 1;
   overflow: visible;
   background-color: @ep-panel-bg;
 }

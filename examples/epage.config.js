@@ -67,6 +67,26 @@ export default {
     // new EpagePlugin()
   ],
   panels: {
+    footer: {
+      // render: function ({ el, store, ctx }) {
+      //   el.innerHTML = 'footer'
+      // },
+      // style: 'font-size: 20px;'
+    },
+    // tool: false,
+    tool: {
+      // render: function({ el, store, ctx }) {
+      //   el.innerHTML ='tool'
+      // },
+      // style: 'font-size: 40px;'
+    },
+    // setting: false,
+    // setting: {
+    //   // render: function ({ el, store, ctx }) {
+    //   //   el.innerHTML = 'sss'
+    //   // },
+    //   style: ''
+    // },
   //   // 自定义顶栏面板
   // header: false
     header: {

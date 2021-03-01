@@ -1,6 +1,7 @@
 <template lang="pug">
-.ep-editor
-  ep-header(
+.ep-editor.ep-layout
+  ep-header.ep-layout-header(
+    v-if='panels.header !== false'
     :header='panels.header'
     :store='store'
     :design-view='design'
@@ -10,48 +11,64 @@
     @show-schema='showSchemaPanel'
     @show-logic='showLogicPanel'
   )
+  .ep-layout-body
+    template(v-if='panels.tool')
+      .ep-layout-left(
+        v-if='panels.tool.render'
+        ref='tool'
+        :style='(panels.tool || {}).style || ""'
+      )
+      .ep-layout-left(v-else :style='(panels.tool || {}).style || ""')
+        .ep-layout-left-nav(v-if='false')
+          .ep-layout-left-nav-item(
+            v-for='item in nav.list'
+            :key='item.key'
+            :class='{"ep-layout-left-nav-active": nav.active === item.key}'
+            @click='nav.active = item.key'
+          )
+            span.ep-layout-left-nav-text {{item.value}}
 
-  .ep-side-left
+        .ep-layout-left-content
+          .ep-tool(v-show='nav.active === "widget"')
+            ep-tool(:widgets='widgets' @on-add='onAddWidget')
+          ep-store(v-show='nav.active === "store"' :store='store')
 
-    .ep-side-left-nav(v-if='false')
-      .ep-side-left-nav-item(
-        v-for='item in nav.list'
-        :key='item.key'
-        :class='{"ep-side-left-nav-active": nav.active === item.key}'
-        @click='nav.active = item.key'
-      ) {{item.value}}
+    //- store配置
+    .ep-side-right(v-show='nav.active === "store"')
+      ep-store-setting(v-show='nav.active === "store"' :store='store')
 
-    .ep-side-left-content
-      .ep-tool(v-show='nav.active === "widget"')
-        ep-tool(:widgets='widgets' @on-add='onAddWidget')
-      ep-store(v-show='nav.active === "store"' :store='store')
-
-  //- store配置
-  .ep-side-right(v-show='nav.active === "store"')
-    ep-store-setting(v-show='nav.active === "store"' :store='store')
-
-  //- 工作区
-  .ep-work(
-    v-show='nav.active === "widget"'
-    :class='{"ep-work-expand": settingState.fold}'
-  )
-    ep-panel.ep-work-design
-      div(v-show='design.view === "pc"')
-        div(class='design-pc' ref='design-pc')
-      div(v-show='design.view === "h5"')
-        ep-h5-emulator
-          div(class='design-h5' ref='design-h5')
-
-  .ep-setting(
-    v-show='nav.active === "widget"'
-    :class='{"ep-setting-fold": settingState.fold}'
-  )
-    ep-setting(
-      :store='store'
-      :settings='settings'
+    //- 工作区
+    .ep-layout-center.ep-work(
+      v-show='nav.active === "widget"'
     )
-    .ep-control-handle(@click='onUnfold') {{settingState.text}}
+      ep-panel.ep-work-design
+        div(v-show='design.view === "pc"')
+          div(class='design-pc' ref='design-pc')
+        div(v-show='design.view === "h5"')
+          ep-h5-emulator
+            div(class='design-h5' ref='design-h5')
 
+    template(v-if='panels.setting')
+      .ep-layout-right(
+        v-show='nav.active === "widget"'
+      )
+        .ep-setting(
+          v-if='panels.setting.render'
+          ref='setting'
+          :style='(panels.setting || {}).style || ""'
+        )
+        .ep-setting(v-else :style='(panels.setting || {}).style || ""')
+          ep-setting(
+            :store='store'
+            :settings='settings'
+          )
+          //- .ep-control-handle(@click='onUnfold') {{settingState.text}}
+  template(v-if='panels.footer')
+    .ep-layout-footer(
+      v-if='panels.footer.render'
+      ref='footer'
+      :style='(panels.footer || {}).style || ""'
+    )
   ep-fullscreen(:visible='!!preview.view' @on-close='closePreview')
     div(slot='header' style='font-size: 12px;font-weight: normal;text-align: center;')
       RadioGroup.ep-preview-header-view(
@@ -111,7 +128,10 @@ const defaultPanels = () => ({
   preview: true,
   logic: true,
   schema: true,
-  header: defaultHeader()
+  header: defaultHeader(),
+  tool: true,
+  setting: true,
+  footer: false
 })
 
 export default {
@@ -190,6 +210,11 @@ export default {
     },
     selectedSchema () {
       return this.store.getSelectedSchema()
+    },
+    panelExtClass () {
+      return {
+        'ep-panel-top0': this.panels.header === false
+      }
     }
   },
 
@@ -203,11 +228,35 @@ export default {
 
   mounted () {
     this.renderDesignView(this.design.view)
+    this.renderRef(this.panels, 'setting')
+    this.renderRef(this.panels, 'tool')
+    this.renderRef(this.panels, 'footer')
     // 切换到设计模式
     this.store.updateTab('design')
   },
 
   methods: {
+    // getPanelClass() {
+    //   const cls = []
+    //   if (this.panels.header === false ) {
+    //     cls.push('ep-panel-top0')
+    //   }
+    //   return cls
+    // },
+    // getWorkPanelClass () {
+    //   const cls = this.getPanelClass()
+    //   // if (this.settingState.fold) {
+    //   //   cls.push('ep-work-expand')
+    //   // }
+    //   return cls
+    // },
+    // getSettingPanelClass () {
+    //   const cls = this.getPanelClass()
+    //   if (this.settingState.fold) {
+    //     cls.push('ep-setting-fold')
+    //   }
+    //   return cls
+    // },
     setReady () {
       const ext = this.$root.$options.extension || {}
       const { pc, h5 } = ext
@@ -320,6 +369,14 @@ export default {
     },
     onAddWidget (widget) {
       this.store.addWidget(widget)
+    },
+    renderRef (obj, ref) {
+      if (!obj[ref] || typeof obj[ref].render !== 'function') return
+      const el = this.$refs[ref]
+      const ctx = { $emit: this.$emit.bind(this) }
+      const { store } = this
+
+      obj[ref].render({ el, store, ctx })
     }
   }
 }

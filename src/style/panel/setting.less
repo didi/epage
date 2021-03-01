@@ -1,18 +1,17 @@
 
 .@{eppre}-setting{
-  position: absolute;
-  top: @ep-header-height;
-  right: 0;
-  bottom: 0;
   width: @ep-setting-width;
+  height: 100%;
+  position: relative;
   background-color: @ep-panel-bg;
   box-shadow: -2px 4px 6px rgba(0, 0, 0, 0.1);;
   transition: .3s ease width;
   .ep-tabs{
     height: 100%;
-    padding-bottom: 30px;
+    // padding-bottom: 30px;
   }
   &-fold{
+    overflow: hidden;
     width: @ep-setting-min-width;
   }
   .@{eppre}-control-handle{
